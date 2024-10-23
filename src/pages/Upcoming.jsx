@@ -26,9 +26,7 @@ const Upcoming = () => {
     error: matchesError,
   } = useFetch(`/upcoming-matches/${leagueName}/${season}/2`);
 
-  console.log(matchesData);
   const matches = matchesData || [];
-  console.log(matches);
   const validSeason = season === "2024-2025";
 
   if (loading || matchesLoading) return <p>Loading...</p>;
