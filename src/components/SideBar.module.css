@@ -8,16 +8,8 @@
   padding: 20px;
 }
 
-.sidebar a {
-  color: #ecf0f1;
-  text-decoration: none;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
 
-.sidebar a:hover {
+.sidebar :hover {
   background-color: #34495e;
 }
 

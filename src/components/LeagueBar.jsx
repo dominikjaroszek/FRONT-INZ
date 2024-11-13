@@ -14,10 +14,15 @@ const LeagueBar = () => {
       <ul>
         <li>
           <button onClick={() => navigate(`/league/${leagueName}/${season}`)}>
-            Matches
+            General
           </button>
         </li>
         <li>
+          <button
+            onClick={() => navigate(`/league/${leagueName}/${season}/result`)}
+          >
+            Result
+          </button>
           <button
             onClick={() => navigate(`/league/${leagueName}/${season}/upcoming`)}
           >
@@ -25,9 +30,7 @@ const LeagueBar = () => {
           </button>
         </li>
         <li>
-          <button
-            onClick={() => navigate(`/league/${leagueName}/${season}/live`)}
-          >
+          <button onClick={() => navigate(`/live/${season}/${leagueName}`)}>
             Live
           </button>
         </li>

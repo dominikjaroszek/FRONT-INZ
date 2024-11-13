@@ -1,10 +1,7 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
 
-const TopScorerStanding = () => {
-  const { season, leagueName } = useParams(); // Wyciągnij leagueName i season jednocześnie
-
+const TopScorerStanding = ({ season, leagueName }) => {
   const {
     data: standingsDetail,
     loading,

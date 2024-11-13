@@ -1,46 +1,71 @@
-.mainBox {
+.cointaner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
   background-color: #282c34;
   color: white;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100vw;
+  max-width: 1200px;
+  justify-content: space-between;
+  min-width: 480px;
+  margin: 0;
 }
 
 .logo {
   cursor: pointer;
 }
 
+.firstBox {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  gap: 10px;
+}
+
 .logoImg {
-  height: 40px;
+  height: 6vh;
   width: auto;
 }
 
 .siteName {
-  font-size: 24px;
+  display: flex;
+  font-size: 40px;
   cursor: pointer;
 }
 
 .box {
-  margin-left: 20px;
+  display: flex;
   font-size: 18px;
   cursor: pointer;
 }
 
 .box:hover {
   text-decoration: underline;
+  margin-bottom: -5px;
 }
 
-.searchBar {
-  flex-grow: 1;
-  margin-left: 20px;
+.boxes {
   display: flex;
+  gap: 20px;
   justify-content: flex-end;
 }
+.drawerToggle {
+  display: none;
+  cursor: pointer;
+}
 
-.searchInput {
-  padding: 5px 10px;
-  font-size: 16px;
-  border-radius: 4px;
-  border: none;
+@media (max-width: 768px) {
+  .box,
+  .searchBar {
+    display: none;
+  }
+  .siteName {
+    font-size: 30px;
+  }
+
+  .drawerToggle {
+    display: flex;
+    justify-content: flex-end;
+  }
 }

@@ -1,10 +1,7 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
 
-const HomeStanding = () => {
-  const { season, leagueName } = useParams(); // Wyciągnij leagueName i season jednocześnie
-
+const HomeStanding = ({ season, leagueName }) => {
   const {
     data: standingsDetail,
     loading,
@@ -40,9 +37,9 @@ const HomeStanding = () => {
                   <td>{team.team_name}</td>
                   <td>{team.points}</td>
                   <td>{team.played}</td>
-                  <td>{team.won}</td>
-                  <td>{team.drawn}</td>
-                  <td>{team.lost}</td>
+                  <td>{team.win}</td>
+                  <td>{team.draw}</td>
+                  <td>{team.lose}</td>
                   <td>{team.goalsFor}</td>
                   <td>{team.goalsAgainst}</td>
                   <td>{team.goalDifference}</td>

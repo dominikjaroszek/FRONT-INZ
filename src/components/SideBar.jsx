@@ -12,18 +12,18 @@ const SideBar = () => {
 
   return (
     <div className={styles.sidebar}>
-      <h2 className={styles.title}>Leagues</h2>
-      <ul className={styles.leagueList}>
+      <div className={styles.title}>Leagues</div>
+      <div className={styles.leagueList}>
         {leagues.map((league) => (
-          <li
+          <div
             key={league.name}
             className={styles.leagueItem}
             onClick={() => navigate(`/league/${league.name}/2024-2025`)} // Zmiana ścieżki na dynamiczną
           >
             {league.name}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
