@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.container1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.Rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 300px;
+  padding: 20px;
+  margin-top: 100px;
+}
+
+.Rating div {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.Rating button:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+.title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+}
+.average {
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+}
+.info {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+}
+.comment {
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  color: #fff;
+}
+.commentContent {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}

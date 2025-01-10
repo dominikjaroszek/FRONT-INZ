@@ -29,10 +29,14 @@ const TeamUpcoming = () => {
       <TopBar />
       <div className={styles.content}>
         <SideBar />
-        <Team teamName={teamName} onDataSend={handleDataFromChild} />
-        <TeamBar teamName={teamName} leagueName={childData} />
-        <h2>Nadchodzące</h2>
-        <MatchList matches={matchesData} finished={0} />
+        <div className={styles.leagueDetails}>
+          <Team teamName={teamName} onDataSend={handleDataFromChild} />
+          <TeamBar teamName={teamName} leagueName={childData} />
+          <div className={styles.leagueHeader}>
+            <div className={styles.button}>Upcoming matches</div>
+          </div>
+          <MatchList matches={matchesData} finished={0} />
+        </div>
       </div>
     </div>
   );

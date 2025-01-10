@@ -28,11 +28,13 @@ const TeamStanding = () => {
       <TopBar />
       <div className={styles.content}>
         <SideBar />
-        <Team teamName={teamName} onDataSend={handleDataFromChild} />
-        <h2>{childData}</h2>
-        <TeamBar teamName={teamName} leagueName={childData} />
         <div className={styles.leagueDetails}>
-          <StandingBar leagueName={leagueName} season={season} />
+          <Team teamName={teamName} onDataSend={handleDataFromChild} />
+
+          <TeamBar teamName={teamName} leagueName={childData} />
+          <div className={styles.leagueDetails}>
+            <StandingBar leagueName={leagueName} season={season} />
+          </div>
         </div>
       </div>
     </div>

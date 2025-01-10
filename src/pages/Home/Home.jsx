@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../../components/TopBar";
 import SideBar from "../../components/SideBar";
@@ -23,6 +23,8 @@ const Home = () => {
     error: matchesLiveError,
   } = useFetch(`/live`);
   const navigate = useNavigate();
+
+  const [expandedLeagues, setExpandedLeagues] = useState({});
 
   if (matchesLoading || matchesFinishedLoading || matchesLiveLoading)
     return <p>Loading...</p>;
@@ -51,51 +53,144 @@ const Home = () => {
       leagues[league.league_name].live = league.matches;
   });
 
+  const toggleExpand = (leagueName, category) => {
+    setExpandedLeagues((prev) => ({
+      ...prev,
+      [leagueName]: {
+        ...prev[leagueName],
+        [category]: !prev[leagueName]?.[category],
+      },
+    }));
+  };
+
   return (
     <div className={styles.container}>
       <TopBar />
       <div className={styles.content}>
         <SideBar />
+        <div className={styles.mainContent}>
+          {Object.keys(leagues).map((leagueName) => (
+            <div key={leagueName} className={styles.league}>
+              <div className={styles.singleLeague}>
+                <div
+                  className={styles.leagueHeader}
+                  onClick={() =>
+                    navigate(`/league/${leagueName}/2024-2025/upcoming`)
+                  }
+                >
+                  <div className={styles.button}>Upcoming Matches</div>
+                  <div className={styles.singleLeagueHeader}>
+                    <div className={styles.button}>{leagueName}</div>
+                    <div
+                      className={styles.button}
+                      onClick={() =>
+                        navigate(`/league/${leagueName}/2024-2025/standing`)
+                      }
+                    >
+                      Table
+                    </div>
+                  </div>
+                </div>
 
-        {Object.keys(leagues).map((leagueName) => (
-          <div key={leagueName}>
-            <h3
-              onClick={() =>
-                navigate(`/league/${leagueName}/2024-2025/upcoming`)
-              }
-            >
-              {leagueName}
-            </h3>
-            <button
-              onClick={() =>
-                navigate(`/league/${leagueName}/2024-2025/standing`)
-              }
-            >
-              Tabela
-            </button>
+                {leagues[leagueName].upcoming.length ? (
+                  <>
+                    <MatchList
+                      matches={
+                        expandedLeagues[leagueName]?.upcoming
+                          ? leagues[leagueName].upcoming
+                          : leagues[leagueName].upcoming.slice(0, 2)
+                      }
+                      finished={0}
+                    />
+                    {leagues[leagueName].upcoming.length > 2 && (
+                      <button
+                        className={styles.showMore}
+                        onClick={() => toggleExpand(leagueName, "upcoming")}
+                      >
+                        {expandedLeagues[leagueName]?.upcoming
+                          ? "See less"
+                          : "See more"}
+                      </button>
+                    )}
+                  </>
+                ) : (
+                  <p>No upcoming matches</p>
+                )}
+              </div>
 
-            <h4>Nadchodzące mecze</h4>
-            {leagues[leagueName].upcoming.length ? (
-              <MatchList matches={leagues[leagueName].upcoming} finished={0} />
-            ) : (
-              <p>Brak nadchodzących meczów</p>
-            )}
+              <div className={styles.singleLeague}>
+                <div
+                  className={styles.leagueHeader}
+                  onClick={() =>
+                    navigate(`/league/${leagueName}/2024-2025/result`)
+                  }
+                >
+                  <div className={styles.button}>Finished Matches</div>
+                </div>
+                {leagues[leagueName].finished.length ? (
+                  <>
+                    <MatchList
+                      matches={
+                        expandedLeagues[leagueName]?.finished
+                          ? leagues[leagueName].finished
+                          : leagues[leagueName].finished.slice(0, 2)
+                      }
+                      finished={1}
+                    />
 
-            <h4>Zakończone mecze</h4>
-            {leagues[leagueName].finished.length ? (
-              <MatchList matches={leagues[leagueName].finished} finished={1} />
-            ) : (
-              <p>Brak zakończonych meczów</p>
-            )}
+                    {leagues[leagueName].finished.length > 2 && (
+                      <button
+                        className={styles.showMore}
+                        onClick={() => toggleExpand(leagueName, "finished")}
+                      >
+                        {expandedLeagues[leagueName]?.finished
+                          ? "See less"
+                          : "See more"}
+                      </button>
+                    )}
+                  </>
+                ) : (
+                  <p>No finished matches</p>
+                )}
+              </div>
+              <div className={styles.singleLeague}>
+                <div
+                  className={styles.leagueHeader}
+                  onClick={() =>
+                    navigate(`/league/${leagueName}/2024-2025/live`)
+                  }
+                >
+                  <div className={styles.button}>Live Matches</div>
+                </div>
+                {leagues[leagueName].live.length ? (
+                  <>
+                    <MatchList
+                      matches={
+                        expandedLeagues[leagueName]?.live
+                          ? leagues[leagueName].live
+                          : leagues[leagueName].live.slice(0, 2)
+                      }
+                      finished={0}
+                    />
 
-            <h4>Trwające mecze</h4>
-            {leagues[leagueName].live.length ? (
-              <MatchList matches={leagues[leagueName].live} finished={0} />
-            ) : (
-              <p>Brak trwających meczów</p>
-            )}
-          </div>
-        ))}
+                    {leagues[leagueName].live.length > 2 && (
+                      <button
+                        className={styles.showMore}
+                        onClick={() => toggleExpand(leagueName, "live")}
+                      >
+                        {expandedLeagues[leagueName]?.live
+                          ? "See less"
+                          : "See more"}
+                      </button>
+                    )}
+                  </>
+                ) : (
+                  <div className={styles.noMatches}>No live matches</div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -13,7 +13,9 @@ const Match = () => {
       <TopBar />
       <div className={styles.content}>
         <SideBar />
-        <MatchBar />
+        <div className={styles.leagueDetails}>
+          <MatchBar />
+        </div>
       </div>
     </div>
   );

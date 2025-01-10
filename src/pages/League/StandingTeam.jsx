@@ -19,7 +19,7 @@ const StandingTeam = () => {
       <TopBar />
       <div className={styles.content}>
         <SideBar />
-        <div className={styles.leagueDetails}>
+        <div className={styles.main}>
           <LeagueDetails leagueName={leagueName} season={season} />
           <LeagueBar leagueName={leagueName} />
           <StandingBar leagueName={leagueName} season={season} />

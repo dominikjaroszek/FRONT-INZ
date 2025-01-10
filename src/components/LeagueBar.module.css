@@ -1,0 +1,28 @@
+.nav {
+  display: flex;
+  flex-direction: row;
+}
+
+.navItem {
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  margin-top: 10px;
+  transition: color 0.3s ease;
+}
+
+.navItem.active {
+  color: #58a6ff; /* Kolor podświetlenia */
+  font-weight: bold;
+}
+
+.navItem.active button {
+  border-bottom: 2px solid #58a6ff; /* Linie na dole dla podkreślenia */
+}
+
+.navItem button {
+  border: none;
+  color: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}

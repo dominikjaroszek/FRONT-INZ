@@ -1,8 +1,5 @@
-// pages/LeagueDetails.jsx
-import React, { useState, useEffect } from "react";
-import { Button } from "antd";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import TopBar from "../../components/TopBar";
 import SideBar from "../../components/SideBar";
 import useFetch from "../../hooks/useFetch";
@@ -28,28 +25,48 @@ const ArchiveSeason = () => {
     console.log(newSeason);
     navigate(`/league/${leagueName}/${newSeason}`);
   };
+
   return (
     <div className={styles.container}>
       <TopBar />
       <div className={styles.content}>
         <SideBar />
-        <div className={styles.leagueDetails}>
+        <div className={styles.main}>
           <LeagueDetails leagueName={leagueName} season={season} />
           <LeagueBar leagueName={leagueName} />
-          <h2>Archiwum</h2>
-          <ul>
-            {seasonDetails?.map((season) => (
-              <li
-                key={season.season_id}
-                onClick={() =>
-                  handleChange(`${season.start_year}-${season.end_year}`)
-                }
-              >
-                {season.start_year} / {season.end_year}
-                {season.winner && ` - ${season.winner}`}
-              </li>
-            ))}
-          </ul>
+          <div className={styles.tableContainer}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Start Year</th>
+                  <th>End Year</th>
+                  <th>Winner</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {seasonDetails?.map((season) => (
+                  <tr key={season.season_id}>
+                    <td>{season.start_year}</td>
+                    <td>{season.end_year}</td>
+                    <td>{season.winner || "N/A"}</td>
+                    <td>
+                      <button
+                        className={styles.button}
+                        onClick={() =>
+                          handleChange(
+                            `${season.start_year}-${season.end_year}`
+                          )
+                        }
+                      >
+                        View Season
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

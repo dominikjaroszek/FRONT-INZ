@@ -16,16 +16,20 @@ const LeagueDetails = ({ leagueName, season }) => {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.leagueDetails}>
-          <h1>Szczegóły Ligi: {leagueDetails?.league_name}</h1>
           <img
             src={leagueDetails?.logo}
+            style={{ width: "100px" }}
             alt={`${leagueDetails?.league_name} logo`}
           />
-          <p>Kraj: {leagueDetails?.country}</p>
-          <p>
-            Sezon: {leagueDetails?.season_start_year} /{" "}
-            {leagueDetails?.season_end_year}
-          </p>
+
+          <div className={styles.data}>
+            <div>{leagueName}</div>
+            <div>Country: {leagueDetails?.country}</div>
+            <div>
+              Season: {leagueDetails?.season_start_year} /{" "}
+              {leagueDetails?.season_end_year}
+            </div>
+          </div>
         </div>
       </div>
     </div>

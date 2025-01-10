@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../../components/TopBar";
 import SideBar from "../../components/SideBar";
@@ -18,36 +18,55 @@ const HomeFinished = () => {
   if (matchesLoading) return <p>Loading...</p>;
   if (matchesError) return <p>Error: {matchesError.message}</p>;
 
+  // Struktura danych z ligami (podobna do `HomeUpcoming`)
+  const leagues = {};
+  matchesByLeague.forEach((league) => {
+    if (!leagues[league.league_name]) {
+      leagues[league.league_name] = { finished: [] };
+    }
+    leagues[league.league_name].finished = league.matches;
+  });
+
   return (
     <div className={styles.container}>
       <TopBar />
       <div className={styles.content}>
         <SideBar />
-
-        {matchesByLeague.length === 0 && <p>Brak nadchodzących meczów</p>}
-
-        {matchesByLeague.map((league) => {
-          return (
-            <div key={league.league_name}>
-              <h3
+        <div className={styles.mainContent}>
+          {Object.keys(leagues).map((leagueName) => (
+            <div key={leagueName} className={styles.singleLeague}>
+              <div
+                className={styles.leagueHeader}
                 onClick={() =>
-                  navigate(`/league/${league.league_name}/2024-2025/finished`)
+                  navigate(`/league/${leagueName}/2024-2025/finished`)
                 }
               >
-                {league.league_name}
-              </h3>
-              <button
-                onClick={() =>
-                  navigate(`/league/${league.league_name}/2024-2025/standing`)
-                }
-              >
-                Tabela
-              </button>
+                <div className={styles.button}>Finished matches</div>
+                <div className={styles.singleLeagueHeader}>
+                  <div className={styles.button}>{leagueName}</div>
+                  <div
+                    className={styles.button}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/league/${leagueName}/2024-2025/standing`);
+                    }}
+                  >
+                    Table
+                  </div>
+                </div>
+              </div>
 
-              <MatchList matches={league.matches} finished={1} />
+              {leagues[leagueName].finished.length ? (
+                <MatchList
+                  matches={leagues[leagueName].finished}
+                  finished={1}
+                />
+              ) : (
+                <p>No finished matches</p>
+              )}
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -47,31 +47,49 @@ const General = () => {
       <TopBar />
       <div className={styles.content}>
         <SideBar />
-        <div className={styles.leagueDetails}>
+        <div className={styles.main}>
           <LeagueDetails leagueName={leagueName} season={season} />
           <LeagueBar leagueName={leagueName} />
-          <h2>Ukończone mecze</h2>
+          <div className={styles.leagueHeader}>
+            <div className={styles.button}>Finished matches</div>
+          </div>
           <MatchList matches={matchesFinishedData} finished={1} />
-          <p onClick={() => navigate(`/league/${leagueName}/${season}/result`)}>
-            zobacz wiecej
-          </p>
-          <h2>Nadchodzące mecze</h2>
-          {matchesData.length === 0 && <p>Brak meczów nadchodzących</p>}
+          {matchesFinishedData.length > 0 ? (
+            <div
+              className={styles.ShowMore}
+              onClick={() => navigate(`/league/${leagueName}/${season}/result`)}
+            >
+              See more
+            </div>
+          ) : null}
+          <div className={styles.leagueHeader}>
+            <div className={styles.button}>Upcoming matches</div>
+          </div>
+          {matchesData?.length ? (
+            <MatchList matches={matchesData} finished={0} />
+          ) : (
+            <div className={styles.noMatches}>No upcoming matches</div>
+          )}
+
           {matchesData.length > 0 ? (
-            <p
+            <div
+              className={styles.ShowMore}
               onClick={() =>
                 navigate(`/league/${leagueName}/${season}/upcoming`)
               }
             >
-              Kliknij, aby zobaczyć więcej
-            </p>
+              See more
+            </div>
           ) : null}
-          <MatchList matches={matchesData} finished={0} />
-          <h2>Na żywo</h2>
-          {matchesLiveData.length === 0 && <p>Brak meczów na żywo</p>}
+          <div className={styles.leagueHeader}>
+            <div className={styles.button}>Live matches</div>
+          </div>
+          {matchesLiveData.length === 0 && (
+            <div className={styles.noMatches}>No live matches</div>
+          )}
           {matchesLiveData.length > 0 ? (
             <p onClick={() => navigate(`/live/${leagueName}/${season}`)}>
-              Kliknij, aby zobaczyć więcej
+              See more
             </p>
           ) : null}
           <MatchList matches={matchesLiveData} finished={1} />

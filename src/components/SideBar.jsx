@@ -18,9 +18,16 @@ const SideBar = () => {
           <div
             key={league.name}
             className={styles.leagueItem}
-            onClick={() => navigate(`/league/${league.name}/2024-2025`)} // Zmiana ścieżki na dynamiczną
+            onClick={() => navigate(`/league/${league.name}/2024-2025`)}
           >
-            {league.name}
+            {
+              <img
+                style={{ width: "20px", height: "20px" }}
+                src={league?.logo}
+                alt={`${league?.logo} logo`}
+              />
+            }
+            <div style={{ fontSize: "14px" }}>{league.name}</div>
           </div>
         ))}
       </div>

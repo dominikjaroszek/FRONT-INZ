@@ -1,10 +1,67 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
 }
+
 .content {
   display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.singleLeague {
+  display: flex;
+  flex-direction: column;
+}
+
+.leagueHeader {
+  display: flex;
+  width: 70%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.showMore {
+  background-color: #141619;
+  color: white;
+  cursor: pointer;
+  width: 70%;
+  border-bottom: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+}
+
+.showMore:hover {
+  background-color: #34495e;
+}
+.singleLeagueHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 40%;
+}
+.button {
+  background-color: #141619;
+  cursor: pointer;
+  padding: 0.6em 1.2em;
+  border-radius: 10px;
+}
+
+.button:hover {
+  background-color: #34495e;
+}
+.noMatches {
+  display: flex;
+  border-bottom: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  justify-content: center;
+  padding: 10px;
+  width: 68%;
 }

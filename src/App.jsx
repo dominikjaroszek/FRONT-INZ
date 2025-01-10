@@ -21,6 +21,10 @@ import TeamUpcoming from "./pages/Team/TeamUpcoming.jsx";
 import TeamFinished from "./pages/Team/TeamFinished.jsx";
 import TeamStanding from "./pages/Team/TeamStanding.jsx";
 import HomeTop from "./pages/Home/HomeTop.jsx";
+import Login from "./pages/Auth/Login.jsx";
+import Register from "./pages/Auth/Register.jsx";
+import Profile from "./pages/Auth/Profile.jsx";
+import RequireAuth from "./comp/RequireAuth.jsx";
 
 function App() {
   return (
@@ -62,6 +66,12 @@ function App() {
           path="/team/:leagueName/:season/:teamName/standing/"
           element={<TeamStanding />}
         />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<h1>Not Found</h1>} />
+        <Route element={<RequireAuth hasAllowedRole={["user"]} />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Routes>
     </Router>
   );

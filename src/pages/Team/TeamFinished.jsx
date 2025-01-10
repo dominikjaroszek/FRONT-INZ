@@ -29,11 +29,15 @@ const TeamFinished = () => {
       <TopBar />
       <div className={styles.content}>
         <SideBar />
-        <Team teamName={teamName} onDataSend={handleDataFromChild} />
-        <TeamBar teamName={teamName} leagueName={childData} />
+        <div className={styles.leagueDetails}>
+          <Team teamName={teamName} onDataSend={handleDataFromChild} />
+          <TeamBar teamName={teamName} leagueName={childData} />
 
-        <h2>Ukończone mecze</h2>
-        <MatchList matches={matchesData} finished={1} />
+          <div className={styles.leagueHeader}>
+            <div className={styles.button}>Finished matches</div>
+          </div>
+          <MatchList matches={matchesData} finished={1} />
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import GeneralStanding from "./GeneralStanding";
 import HomeStanding from "./HomeStanding";
 import AwayStanding from "./AwayStanding";
 import TopScorerStanding from "./TopScorerStanding";
+import styles from "./Standing.module.css";
 
 const StandingBar = ({ leagueName, season }) => {
   const [activeView, setActiveView] = useState("general"); // Stan do zarządzania aktywnym widokiem
@@ -25,31 +26,46 @@ const StandingBar = ({ leagueName, season }) => {
   };
 
   return (
-    <nav>
-      <h2>{leagueName}</h2>
-      <ul>
-        <li>
+    <div className={styles.Bar}>
+      <nav className={styles.nav}>
+        <div
+          className={`${styles.navItem} ${
+            activeView === "general" ? styles.active : ""
+          }`}
+        >
           <button onClick={() => setActiveView("general")}>General</button>
-        </li>
-        <li>
+        </div>
+        <div
+          className={`${styles.navItem} ${
+            activeView === "standingHome" ? styles.active : ""
+          }`}
+        >
           <button onClick={() => setActiveView("standingHome")}>
             Standing home
           </button>
-        </li>
-        <li>
+        </div>
+        <div
+          className={`${styles.navItem} ${
+            activeView === "standingAway" ? styles.active : ""
+          }`}
+        >
           <button onClick={() => setActiveView("standingAway")}>
             Standing away
           </button>
-        </li>
-        <li>
+        </div>
+        <div
+          className={`${styles.navItem} ${
+            activeView === "topScorers" ? styles.active : ""
+          }`}
+        >
           <button onClick={() => setActiveView("topScorers")}>
             Top scorers
           </button>
-        </li>
-      </ul>
-      {/* Renderuj aktualnie aktywny widok */}
-      {renderView()}
-    </nav>
+        </div>
+      </nav>
+
+      <div>{renderView()}</div>
+    </div>
   );
 };
 

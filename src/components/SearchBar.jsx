@@ -59,11 +59,10 @@ const SearchBar = ({ onSearch }) => {
       <AutoComplete
         style={{ width: 200 }}
         options={options}
-        placeholder="Wyszukaj..."
+        placeholder="Search..."
         filterOption={true}
         onSearch={handleSearch}
         onSelect={handleSelect} // Użycie funkcji handleSelect do przekazania 'type'
-
       />
     </div>
   );

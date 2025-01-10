@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../../components/TopBar";
 import SideBar from "../../components/SideBar";
@@ -13,43 +13,59 @@ const HomeUpcoming = () => {
     error: matchesError,
   } = useFetch(`/upcoming-matches/round`);
 
-  // Inicjujemy hook do nawigacji
   const navigate = useNavigate();
 
   if (matchesLoading) return <p>Loading...</p>;
   if (matchesError) return <p>Error: {matchesError.message}</p>;
+
+  const leagues = {};
+  matchesByLeague.forEach((league) => {
+    if (!leagues[league.league_name]) {
+      leagues[league.league_name] = { upcoming: [], finished: [], live: [] };
+    }
+    leagues[league.league_name].upcoming = league.matches;
+  });
 
   return (
     <div className={styles.container}>
       <TopBar />
       <div className={styles.content}>
         <SideBar />
-
-        <h2>Nadchodzące mecze</h2>
-        {matchesByLeague.length === 0 && <p>Brak nadchodzących meczów</p>}
-
-        {matchesByLeague.map((league) => {
-          return (
-            <div key={league.league_name}>
-              <h3
+        <div className={styles.mainContent}>
+          {Object.keys(leagues).map((leagueName) => (
+            <div key={leagueName} className={styles.singleLeague}>
+              <div
+                className={styles.leagueHeader}
                 onClick={() =>
-                  navigate(`/league/${league.league_name}/2024-2025/upcoming`)
+                  navigate(`/league/${leagueName}/2024-2025/upcoming`)
                 }
               >
-                {league.league_name}
-              </h3>
-              <button
-                onClick={() =>
-                  navigate(`/league/${league.league_name}/2024-2025/standing`)
-                }
-              >
-                Tabela
-              </button>
+                <div className={styles.button}>Upcoming matches</div>
+                <div className={styles.singleLeagueHeader}>
+                  <div className={styles.button}>{leagueName}</div>
+                  <div
+                    className={styles.button}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/league/${leagueName}/2024-2025/standing`);
+                    }}
+                  >
+                    Table
+                  </div>
+                </div>
+              </div>
 
-              <MatchList matches={league.matches} finished={0} />
+              {leagues[leagueName].upcoming.length ? (
+                <MatchList
+                  matches={leagues[leagueName].upcoming}
+                  finished={0}
+                />
+              ) : (
+                <p>No upcoming matches</p>
+              )}
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </div>
   );

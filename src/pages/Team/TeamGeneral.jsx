@@ -1,16 +1,17 @@
-import React from "react";
-import SideBar from "../../components/SideBar";
+import React, { useState } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import TopBar from "../../components/TopBar";
-import TeamBar from "./TeamBar";
-import Team from "./Team";
-import { useParams } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
+import SideBar from "../../components/SideBar";
 import MatchList from "../../components/MatchList";
-import { useState } from "react";
+import Team from "./Team";
+import TeamBar from "./TeamBar";
+import useFetch from "../../hooks/useFetch";
 import styles from "./Team.module.css";
 
 const TeamGeneral = () => {
   const { teamName } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [childData, setChildData] = useState(null);
 
@@ -34,27 +35,64 @@ const TeamGeneral = () => {
 
   if (matchesFinishedLoading || matchesLoading || matchesLiveLoading)
     return <p>Loading...</p>;
+
   if (matchesFinishedError || matchesError || matchesLiveError)
-    return <p>Error: {matchesFinishedError?.message}</p>;
+    return (
+      <p>Error: {matchesFinishedError?.message || matchesError?.message}</p>
+    );
 
   const handleDataFromChild = (data) => {
     setChildData(data);
   };
 
   return (
-    <div className={styles.container}>
+    <div key={location.pathname} className={styles.container}>
       <TopBar />
       <div className={styles.content}>
         <SideBar />
-        <Team teamName={teamName} onDataSend={handleDataFromChild} />
-        <h2>{childData}</h2>
-        <TeamBar teamName={teamName} leagueName={childData} />
-        <h2>Ukończone mecze</h2>
-        <MatchList matches={matchesFinishedData} finished={1} />
-        <h2>Nadchodzące mecze</h2>
-        <MatchList matches={matchesData} finished={0} />
-        <h2>Live mecz</h2>
-        <MatchList matches={matchesLiveData} finished={1} />
+        <div className={styles.leagueDetails}>
+          <Team teamName={teamName} onDataSend={handleDataFromChild} />
+          <TeamBar teamName={teamName} leagueName={childData} />
+
+          <div className={styles.section}>
+            <div className={styles.leagueHeader}>
+              <div className={styles.button}>Finished matches</div>
+            </div>
+            <MatchList matches={matchesFinishedData} finished={1} />
+            {matchesFinishedData.length > 0 && (
+              <div
+                className={styles.ShowMore}
+                onClick={() => navigate(`/team/${teamName}/result`)}
+              >
+                See more
+              </div>
+            )}
+          </div>
+
+          <div className={styles.section}>
+            <div className={styles.leagueHeader}>
+              <div className={styles.button}>Upcoming matches</div>
+            </div>
+            {matchesData.length === 0 && <p>Brak nadchodzących meczów</p>}
+            <MatchList matches={matchesData} finished={0} />
+            {matchesData.length > 0 && (
+              <div
+                className={styles.ShowMore}
+                onClick={() => navigate(`/team/${teamName}/upcoming`)}
+              >
+                See more
+              </div>
+            )}
+          </div>
+
+          <div className={styles.section}>
+            <div className={styles.leagueHeader}>
+              <div className={styles.button}>Live matches</div>
+            </div>
+            {matchesLiveData.length === 0 && <p>Brak trwających meczów</p>}
+            <MatchList matches={matchesLiveData} finished={1} />
+          </div>
+        </div>
       </div>
     </div>
   );

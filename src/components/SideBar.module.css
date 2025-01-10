@@ -1,16 +1,10 @@
 .sidebar {
   width: 250px;
   height: 100vh;
-  background-color: #2c3e50;
+  background-color: #141619; /* Czarny kolor tła #141619; */
   color: #ecf0f1;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-}
-
-
-.sidebar :hover {
-  background-color: #34495e;
 }
 
 .sidebar .logo {
@@ -27,4 +21,24 @@
   text-align: center;
   font-size: 0.9em;
   margin-top: auto;
+}
+.title {
+  font-size: 2em;
+  text-align: center;
+  width: 70%;
+  border-bottom: 1px solid #ffffff;
+}
+
+.leagueItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.5em 1em;
+  border-bottom: 1px solid #ffffff;
+  width: 70%;
+  gap: 1em;
+  cursor: pointer;
+}
+.leagueItem:hover {
+  background-color: #34495e;
 }

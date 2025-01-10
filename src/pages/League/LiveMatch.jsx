@@ -26,11 +26,13 @@ const LiveMatch = () => {
       <TopBar />
       <div className={styles.content}>
         <SideBar />
-        <div className={styles.leagueDetails}>
+        <div className={styles.main}>
           <LeagueDetails leagueName={leagueName} season={season} />
           <LeagueBar leagueName={leagueName} />
 
-          <h2>Nadchodzące mecze</h2>
+          <div className={styles.leagueHeader}>
+            <div className={styles.button}>Live matches</div>
+          </div>
           <MatchList matches={matchesData} finished={1} />
         </div>
       </div>

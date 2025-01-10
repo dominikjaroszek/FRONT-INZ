@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import useFetch from "../../hooks/useFetch"; // Upewnij się, że importujesz useFetch
+import useFetch from "../../hooks/useFetch"; // Udivewnij się, że imdivortujesz useFetch
+import styles from "./Team.module.css";
 
 const Team = ({ teamName, onDataSend }) => {
   const { data: teamDetails, loading, error } = useFetch(`/team/${teamName}`);
@@ -8,25 +9,25 @@ const Team = ({ teamName, onDataSend }) => {
     onDataSend(teamDetails?.league);
   }, [teamDetails]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div>
-      <p>Team Name: {teamDetails?.team_name}</p>
-      <p>Country: {teamDetails?.country}</p>
-      <p>Founded: {teamDetails?.founded}</p>
-      <p>League: {teamDetails?.league}</p>
-      <p>Venue: {teamDetails?.venue_name}</p>
-      <p>Address: {teamDetails?.city}</p>
-      <p>Capacity: {teamDetails?.capacity}</p>
-      <p>
-        <img
-          style={{ width: "20px", height: "20px" }}
-          src={teamDetails?.logo}
-          alt={`${teamDetails?.logo} logo`}
-        />
-      </p>
+    <div className={styles.team}>
+      <img
+        style={{ padding: "20px" }}
+        src={teamDetails?.logo}
+        alt={`${teamDetails?.logo} logo`}
+      />
+      <div className={styles.information}>
+        <div>Team Name: {teamDetails?.team_name}</div>
+        <div>Country: {teamDetails?.country}</div>
+        <div>Founded: {teamDetails?.founded}</div>
+        <div>League: {teamDetails?.league}</div>
+        <div>Venue: {teamDetails?.venue_name}</div>
+        <div>Address: {teamDetails?.city}</div>
+        <div>Capacity: {teamDetails?.capacity}</div>
+      </div>
     </div>
   );
 };
