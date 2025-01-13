@@ -87,11 +87,7 @@ const General = () => {
           {matchesLiveData.length === 0 && (
             <div className={styles.noMatches}>No live matches</div>
           )}
-          {matchesLiveData.length > 0 ? (
-            <p onClick={() => navigate(`/live/${leagueName}/${season}`)}>
-              See more
-            </p>
-          ) : null}
+
           <MatchList matches={matchesLiveData} finished={1} />
         </div>
       </div>

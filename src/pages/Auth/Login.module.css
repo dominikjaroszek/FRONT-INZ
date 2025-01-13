@@ -1,0 +1,91 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative; /* Dodane, aby umożliwić pozycjonowanie ikony */
+}
+
+.backIcon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #007bff;
+  transition: color 0.3s ease;
+  padding-top: 240px;
+}
+
+.backIcon:hover {
+  color: #0056b3;
+}
+
+.loginBox {
+  width: 400px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #777777;
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin: 10px 0;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.registerLink {
+  margin-top: 15px;
+  font-size: 14px;
+  color: black;
+  cursor: pointer;
+}
+
+.registerLink b {
+  font-weight: bold;
+}
+
+.registerLink:hover {
+  text-decoration: underline;
+}

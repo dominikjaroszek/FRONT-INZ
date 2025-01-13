@@ -25,6 +25,7 @@ import Login from "./pages/Auth/Login.jsx";
 import Register from "./pages/Auth/Register.jsx";
 import Profile from "./pages/Auth/Profile.jsx";
 import RequireAuth from "./comp/RequireAuth.jsx";
+import Password from "./pages/Auth/Password.jsx";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
         <Route path="*" element={<h1>Not Found</h1>} />
         <Route element={<RequireAuth hasAllowedRole={["user"]} />}>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/password" element={<Password />} />
         </Route>
       </Routes>
     </Router>

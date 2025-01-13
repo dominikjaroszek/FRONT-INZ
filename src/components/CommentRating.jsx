@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { message, Spin } from "antd";
+import { message, Spin, Modal, Button } from "antd";
 import { axiosPrivate } from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 import StarRating from "./StarRating";
-import { Button } from "antd";
 import styles from "./Rating.module.css";
 
 const CommentRating = ({ match_id }) => {
   const { auth } = useAuth();
-  const [comment, setComment] = useState(); // Przechowywanie obecnej oceny
+  const [comment, setComment] = useState(null); // Przechowywanie obecnej oceny
   const [loading, setLoading] = useState(true); // Stan ładowania
 
   // Pobranie oceny użytkownika dla meczu
@@ -18,7 +17,6 @@ const CommentRating = ({ match_id }) => {
         const response = await axiosPrivate.get(
           `/matchRating/user/${match_id}`
         );
-        console.log(response.data);
         setComment(response.data);
       } catch (err) {
         console.error(err);
@@ -32,30 +30,45 @@ const CommentRating = ({ match_id }) => {
   }, [match_id]);
 
   const handleRatingSubmit = async (rating) => {
+    setLoading(true);
     try {
       const response = comment?.rating
         ? await axiosPrivate.patch(`/matchRating`, { match_id, rating }) // Aktualizacja oceny
         : await axiosPrivate.post("/matchRating", { match_id, rating }); // Nowa ocena
 
       setComment(response.data); // Zaktualizuj stan z odpowiedzi API
+      window.location.reload();
       message.success("Twoja ocena została zapisana!");
+      windows;
     } catch (err) {
       console.error(err);
+      window.location.reload();
       message.error("Wystąpił błąd podczas zapisywania oceny.");
+    } finally {
+      setLoading(false);
     }
-    window.location.reload();
   };
 
-  const handleRatingDelete = async () => {
-    try {
-      await axiosPrivate.delete(`/matchRating/user/${match_id}`);
-      setComment(null);
-      message.success("Ocena została usunięta.");
-    } catch (err) {
-      console.error(err);
-      message.error("Wystąpił błąd podczas usuwania oceny.");
-    }
-    window.location.reload();
+  const handleRatingDelete = () => {
+    Modal.confirm({
+      title: "Czy na pewno chcesz usunąć swoją ocenę?",
+      content: "Tej akcji nie można cofnąć.",
+      okText: "Tak, usuń",
+      cancelText: "Anuluj",
+      onOk: async () => {
+        setLoading(true);
+        try {
+          await axiosPrivate.delete(`/matchRating/user/${match_id}`);
+          setComment(null);
+          message.success("Ocena została usunięta.");
+        } catch (err) {
+          console.error(err);
+          message.error("Wystąpił błąd podczas usuwania oceny.");
+        } finally {
+          setLoading(false);
+        }
+      },
+    });
   };
 
   if (loading) {
@@ -68,15 +81,13 @@ const CommentRating = ({ match_id }) => {
 
   return (
     <div className={styles.container1}>
-      {comment.rating ? (
+      {comment?.rating ? (
         <div className={styles.Rating}>
-          <div>Twoja ocena: </div>
-          {!loading && (
-            <StarRating
-              onSubmit={handleRatingSubmit}
-              initialValue={comment?.rating || 0}
-            />
-          )}
+          <div>Twoja ocena:</div>
+          <StarRating
+            onSubmit={handleRatingSubmit}
+            initialValue={comment?.rating || 0}
+          />
           <Button type="primary" danger onClick={handleRatingDelete}>
             Usuń ocenę
           </Button>

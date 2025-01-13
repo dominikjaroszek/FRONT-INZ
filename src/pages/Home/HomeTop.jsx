@@ -14,7 +14,7 @@ const HomeTop = () => {
     data: matchesByLeague,
     loading: matchesLoading,
     error: matchesError,
-  } = useFetch(`/upcoming-matches/round`);
+  } = useFetch(`/upcoming-matches/round/fans`);
 
   const navigate = useNavigate();
 

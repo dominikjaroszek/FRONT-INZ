@@ -38,7 +38,7 @@ const MatchList = ({ matches = [], finished, sortBy }) => {
         const hasSortByData = match[sortBy] !== undefined;
 
         // Obliczamy procenty i zaokrąglamy do jednego miejsca po przecinku
-        const percentage = hasSortByData && (match[sortBy] * 100).toFixed(1);
+        const percentage = hasSortByData && match[sortBy].toFixed(1);
 
         // Czy ten mecz ma być wyróżniony
         const isMaxIndicator =

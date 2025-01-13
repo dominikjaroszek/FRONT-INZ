@@ -5,6 +5,8 @@ import axiosInstance from "../../axiosInstance";
 import useAuth from "../../hooks/useAuth";
 import PropTypes from "prop-types";
 import { message as messageApi } from "antd";
+import styles from "./Login.module.css";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const Login = ({ setLogin }) => {
   const navigate = useNavigate();
@@ -78,6 +80,8 @@ const Login = ({ setLogin }) => {
         localStorage.setItem("authData", JSON.stringify(authData));
         if (token_decoded.role.includes("admin")) {
           navigate("/admin");
+        } else {
+          navigate("/");
         }
       })
       .catch(() => {
@@ -89,36 +93,39 @@ const Login = ({ setLogin }) => {
   };
 
   return (
-    <div className="modal-content">
-      <h2>Login</h2>
-      <p>Hey, sign in to your account</p>
-      <input
-        type="text"
-        placeholder="Email"
-        className="data-field"
-        value={emailInput}
-        onChange={(e) => setEmailInput(e.target.value)}
-        onKeyUp={handleKeyUp}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        className="data-field"
-        value={passwordInput}
-        onChange={(e) => setPasswordInput(e.target.value)}
-        onKeyUp={handleKeyUp}
-      />
-      <input
-        type="button"
-        value="Sign in"
-        className="confirm-button"
-        onClick={handleLogin}
-      />
-      {loginOutput ? <p>{loginOutput}</p> : <p></p>}
-      {/* <p>- or log in with-</p>
-      <p className="register-reference" onClick={() => setLogin(false)}>
-        Don`t have an account? <b>Register now</b> */}
-      {/* </p> */}
+    <div className={styles.container}>
+      <div className={styles.backIcon} onClick={() => navigate("/")}>
+        <ArrowLeftOutlined />
+      </div>
+      <div className={styles.loginBox}>
+        <h2 className={styles.title}>Sign In</h2>
+        <p className={styles.subtitle}>Hey, sign in to your account</p>
+        <input
+          type="text"
+          placeholder="Email"
+          className={styles.input}
+          value={emailInput}
+          onChange={(e) => setEmailInput(e.target.value)}
+          onKeyUp={handleKeyUp}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className={styles.input}
+          value={passwordInput}
+          onChange={(e) => setPasswordInput(e.target.value)}
+          onKeyUp={handleKeyUp}
+        />
+        <button className={styles.button} onClick={handleLogin}>
+          Sign In
+        </button>
+        <div
+          className={styles.registerLink}
+          onClick={() => navigate("/register")}
+        >
+          Don’t have an account? <b>Register now</b>
+        </div>
+      </div>
     </div>
   );
 };

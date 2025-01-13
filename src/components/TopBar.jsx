@@ -8,6 +8,7 @@ import { useState } from "react";
 import { DownOutlined, SmileOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import useLogout from "../pages/Auth/useLogout";
+import { Modal } from "antd";
 
 import useAuth from "../hooks/useAuth";
 
@@ -18,6 +19,7 @@ function TopBar() {
   const { auth } = useAuth();
   const showDrawer = () => setDrawerVisible(true);
   const closeDrawer = () => setDrawerVisible(false);
+  const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
 
   const handleSearch = (query) => {
     if (query.type === "team") {
@@ -29,15 +31,15 @@ function TopBar() {
   };
 
   const changePassword = () => {
-    navigate("/profile/change-password");
+    navigate("/profile/password");
   };
 
-  const deleteAccount = () => {
-    navigate("/profile/delete-account");
+  const confirmLogout = () => {
+    logout();
   };
 
   const logoutAccount = () => {
-    logout();
+    setIsLogoutModalVisible(true);
   };
 
   const items = [
@@ -46,8 +48,8 @@ function TopBar() {
       label: (
         <a
           onClick={(e) => {
-            e.preventDefault(); // Zapobiega domyślnemu działaniu linku
-            navigate("/profile"); // Nawiguje do /profile
+            e.preventDefault();
+            navigate("/profile");
           }}
         >
           <div style={{ color: "#0d0b26" }}>Information</div>
@@ -73,31 +75,32 @@ function TopBar() {
         <a
           onClick={(e) => {
             e.preventDefault();
-            deleteAccount();
-          }}
-        >
-          Delete Account
-        </a>
-      ),
-      danger: true,
-    },
-    {
-      key: "4",
-      label: (
-        <a
-          onClick={(e) => {
-            e.preventDefault();
             logoutAccount();
           }}
         >
           Logout
         </a>
       ),
+      danger: true,
     },
   ];
 
   return (
     <div className={styles.containerColor}>
+      <Modal
+        title="Confirm Logout"
+        visible={isLogoutModalVisible}
+        onOk={() => {
+          confirmLogout();
+          setIsLogoutModalVisible(false);
+        }}
+        onCancel={() => setIsLogoutModalVisible(false)}
+        okText="Yes, Logout"
+        cancelText="Cancel"
+      >
+        <p>Are you sure you want to logout?</p>
+      </Modal>
+
       <div className={styles.cointaner}>
         <div className={styles.firstBox}>
           <div className={styles.logo} onClick={() => navigate("/")}>

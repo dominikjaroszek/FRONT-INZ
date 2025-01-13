@@ -62,7 +62,6 @@ const Home = () => {
       },
     }));
   };
-
   return (
     <div className={styles.container}>
       <TopBar />
@@ -162,7 +161,8 @@ const Home = () => {
                 >
                   <div className={styles.button}>Live Matches</div>
                 </div>
-                {leagues[leagueName].live.length ? (
+
+                {leagues[leagueName]?.live?.length ? (
                   <>
                     <MatchList
                       matches={
@@ -173,7 +173,7 @@ const Home = () => {
                       finished={0}
                     />
 
-                    {leagues[leagueName].live.length > 2 && (
+                    {leagues[leagueName].live?.length > 2 && (
                       <button
                         className={styles.showMore}
                         onClick={() => toggleExpand(leagueName, "live")}
