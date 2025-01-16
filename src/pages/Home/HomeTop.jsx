@@ -7,8 +7,8 @@ import useFetch from "../../hooks/useFetch";
 import MatchList from "../../components/MatchList";
 
 const HomeTop = () => {
-  const [sortBy, setSortBy] = useState("fans_rank_generally"); // Domyślne sortowanie
-  const [viewMode, setViewMode] = useState("league"); // Domyślny widok: podział na ligi
+  const [sortBy, setSortBy] = useState("fans_rank_generally"); 
+  const [viewMode, setViewMode] = useState("league"); 
 
   const {
     data: matchesByLeague,
@@ -87,7 +87,7 @@ const HomeTop = () => {
               ))
             )
           ) : (
-            // Widok: wszystkie mecze razem
+            
             <MatchList
               matches={sortMatches(
                 matchesByLeague.flatMap((league) => league.matches || [])

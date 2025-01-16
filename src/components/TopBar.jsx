@@ -159,7 +159,7 @@ function TopBar() {
         >
           <p onClick={() => navigate("/home/upcoming")}>Upcoming</p>
           <p onClick={() => navigate("/home/finished")}>Finished</p>
-          <p onClick={() => navigate("/home/top")}>Top</p>
+          <p onClick={() => navigate("/home/top")}>Recommended</p>
         </Drawer>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "../../axiosInstance";
 import { message } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons"; // Ikona powrotu
+import { ArrowLeftOutlined } from "@ant-design/icons"; 
 import styles from "./Register.module.css";
 
 const Register = () => {
@@ -118,7 +118,7 @@ const Register = () => {
         setRepeatPasswordRegister("");
       })
       .catch((error) => {
-        //console.error("Registration error:", error);
+        
         if (error.response) {
           messageApi.error(error.response.data.message);
         } else {

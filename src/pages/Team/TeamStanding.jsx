@@ -1,10 +1,9 @@
-// pages/LeagueDetails.jsx
 import React from "react";
 import { Button } from "antd";
 import { useParams } from "react-router-dom";
 import TopBar from "../../components/TopBar";
 import SideBar from "../../components/SideBar";
-import useFetch from "../../hooks/useFetch"; // Upewnij się, że importujesz useFetch
+import useFetch from "../../hooks/useFetch";
 import LeagueBar from "../../components/LeagueBar";
 import StandingBar from "../../components/Standing/StandingBar";
 import styles from "./Team.module.css";
@@ -14,7 +13,7 @@ import { useState } from "react";
 import TeamBar from "./TeamBar";
 
 const TeamStanding = () => {
-  const { leagueName } = useParams(); // Odbieranie nazwy ligi z URL
+  const { leagueName } = useParams();
   const { season } = useParams();
   const { teamName } = useParams();
   const [childData, setChildData] = useState(null);

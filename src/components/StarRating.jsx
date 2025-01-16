@@ -3,16 +3,14 @@ import { Rate, Button, message } from "antd";
 import styles from "./Rating.module.css";
 
 const StarRating = ({ initialValue = 0, onSubmit }) => {
-  const [rating, setRating] = useState(initialValue); // Current rating value
-  const [loading, setLoading] = useState(false); // Loading state
+  const [rating, setRating] = useState(initialValue);
+  const [loading, setLoading] = useState(false);
 
-  // Set the initial rating value if provided
   useEffect(() => {
     setRating(initialValue);
     console.log(initialValue);
   }, [initialValue]);
 
-  // Handle rating submission
   const handleSubmit = async () => {
     if (rating === 0) {
       message.warning("Please select a number of stars before submitting!");
@@ -22,7 +20,7 @@ const StarRating = ({ initialValue = 0, onSubmit }) => {
     setLoading(true);
 
     try {
-      await onSubmit(rating); // Call the onSubmit function passed as props
+      await onSubmit(rating);
     } catch (error) {
       message.error("An error occurred while submitting your rating.");
     }

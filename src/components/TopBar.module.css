@@ -85,11 +85,11 @@
 }
 
 .customDropdown {
-  background-color: #4caf50; /* Zielone tło */
-  color: #fff; /* Biały tekst */
+  background-color: #4caf50; 
+  color: #fff; 
 }
 
 .customDropdown .ant-dropdown-menu-item:hover {
-  background-color: #388e3c; /* Ciemniejsze tło po najechaniu */
-  color: #fff; /* Biały tekst */
+  background-color: #388e3c; 
+  color: #fff; 
 }

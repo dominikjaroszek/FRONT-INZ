@@ -39,7 +39,7 @@ const Home = () => {
     );
   }
 
-  // Grupowanie wszystkich meczów według ligi
+  
   const leagues = {};
   [...matchesByLeague, ...matchesFinished, ...matchesLive].forEach((league) => {
     if (!leagues[league.league_name]) {

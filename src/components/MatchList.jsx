@@ -20,12 +20,12 @@ const MatchList = ({ matches = [], finished, sortBy }) => {
     return <div className={styles.noMatches}>No live matches</div>;
   }
 
-  // Sprawdzenie, czy istnieje przynajmniej jeden zdefiniowany wskaźnik
+  
   const hasDefinedIndicators = matches.some(
     (match) => match[sortBy] !== undefined
   );
 
-  // Znajdź mecz z najwyższym wskaźnikiem, tylko jeśli wskaźniki są zdefiniowane
+ 
   const maxIndicatorMatch =
     hasDefinedIndicators &&
     matches.reduce((max, match) => (match[sortBy] > max[sortBy] ? match : max));
@@ -37,10 +37,10 @@ const MatchList = ({ matches = [], finished, sortBy }) => {
         const formattedDate = formatDate(matchDate);
         const hasSortByData = match[sortBy] !== undefined;
 
-        // Obliczamy procenty i zaokrąglamy do jednego miejsca po przecinku
+       
         const percentage = hasSortByData && match[sortBy].toFixed(1);
 
-        // Czy ten mecz ma być wyróżniony
+       
         const isMaxIndicator =
           hasDefinedIndicators && match === maxIndicatorMatch;
 

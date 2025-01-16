@@ -1,7 +1,7 @@
 import React from "react";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import styles from "./Standing.module.css"; // Import stylów
+import styles from "./Standing.module.css"; 
 
 const HomeStanding = ({ season, leagueName }) => {
   const {

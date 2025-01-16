@@ -17,7 +17,7 @@ const SearchBar = ({ onSearch }) => {
       const suggestions = response.data.map((item) => ({
         value: item?.name,
         key: `${item?.name}-${item?.type}`,
-        type: item?.type, // Dodatkowe dane
+        type: item?.type,
         label: (
           <div
             style={{
@@ -62,23 +62,10 @@ const SearchBar = ({ onSearch }) => {
         placeholder="Search..."
         filterOption={true}
         onSearch={handleSearch}
-        onSelect={handleSelect} // Użycie funkcji handleSelect do przekazania 'type'
+        onSelect={handleSelect}
       />
     </div>
   );
 };
 
 export default SearchBar;
-// .searchBar {
-//   flex-grow: 1;
-//   margin-left: 20px;
-//   display: flex;
-//   justify-content: flex-end;
-// }
-
-// .searchInput {
-//   padding: 5px 10px;
-//   font-size: 32px;
-//   border-radius: 4px;
-//   border: none;
-// }

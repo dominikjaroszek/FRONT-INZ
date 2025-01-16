@@ -18,7 +18,7 @@ const HomeFinished = () => {
   if (matchesLoading) return <p>Loading...</p>;
   if (matchesError) return <p>Error: {matchesError.message}</p>;
 
-  // Struktura danych z ligami (podobna do `HomeUpcoming`)
+  
   const leagues = {};
   matchesByLeague.forEach((league) => {
     if (!leagues[league.league_name]) {

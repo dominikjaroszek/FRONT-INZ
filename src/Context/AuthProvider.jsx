@@ -14,10 +14,6 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  useEffect(() => {
-    // console.log("Auth state changed:", auth);
-  }, [auth]);
-
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}

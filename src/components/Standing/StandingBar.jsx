@@ -8,20 +8,20 @@ import TopScorerStanding from "./TopScorerStanding";
 import styles from "./Standing.module.css";
 
 const StandingBar = ({ leagueName, season }) => {
-  const [activeView, setActiveView] = useState("general"); // Stan do zarządzania aktywnym widokiem
+  const [activeView, setActiveView] = useState("general");
 
   const renderView = () => {
     switch (activeView) {
       case "general":
         return <GeneralStanding season={season} leagueName={leagueName} />;
       case "standingHome":
-        return <HomeStanding season={season} leagueName={leagueName} />; // Możesz zamienić to na faktyczny komponent
+        return <HomeStanding season={season} leagueName={leagueName} />;
       case "standingAway":
-        return <AwayStanding season={season} leagueName={leagueName} />; // Możesz zamienić to na faktyczny komponent
+        return <AwayStanding season={season} leagueName={leagueName} />;
       case "topScorers":
-        return <TopScorerStanding season={season} leagueName={leagueName} />; // Możesz zamienić to na faktyczny komponent
+        return <TopScorerStanding season={season} leagueName={leagueName} />;
       default:
-        return <GeneralStanding season={season} leagueName={leagueName} />; // Domyślnie wyświetl General
+        return <GeneralStanding season={season} leagueName={leagueName} />;
     }
   };
 

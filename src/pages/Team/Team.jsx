@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useFetch from "../../hooks/useFetch"; // Udivewnij się, że imdivortujesz useFetch
+import useFetch from "../../hooks/useFetch";
 import styles from "./Team.module.css";
 
 const Team = ({ teamName, onDataSend }) => {

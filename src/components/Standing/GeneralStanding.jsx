@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import styles from "./Standing.module.css"; // Import stylów
+import styles from "./Standing.module.css"; 
 
 const GeneralStanding = ({ season, leagueName }) => {
   const {

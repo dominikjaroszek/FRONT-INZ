@@ -7,10 +7,9 @@ import styles from "./Rating.module.css";
 
 const CommentRating = ({ match_id }) => {
   const { auth } = useAuth();
-  const [comment, setComment] = useState(null); // Store the current rating
-  const [loading, setLoading] = useState(true); // Loading state
+  const [comment, setComment] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch the user's rating for the match
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -33,10 +32,10 @@ const CommentRating = ({ match_id }) => {
     setLoading(true);
     try {
       const response = comment?.rating
-        ? await axiosPrivate.patch(`/matchRating`, { match_id, rating }) // Update the rating
-        : await axiosPrivate.post("/matchRating", { match_id, rating }); // New rating
+        ? await axiosPrivate.patch(`/matchRating`, { match_id, rating }) 
+        : await axiosPrivate.post("/matchRating", { match_id, rating }); 
 
-      setComment(response.data); // Update state with API response
+      setComment(response.data); 
       window.location.reload();
       message.success("Your rating has been saved!");
     } catch (err) {

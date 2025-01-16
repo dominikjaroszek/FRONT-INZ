@@ -101,12 +101,12 @@
 }
 
 .navItem.active {
-  color: #58a6ff; /* Kolor podświetlenia */
+  color: #58a6ff; 
   font-weight: bold;
 }
 
 .navItem.active button {
-  border-bottom: 2px solid #58a6ff; /* Linie na dole dla podkreślenia */
+  border-bottom: 2px solid #58a6ff;
 }
 
 .navItem button {

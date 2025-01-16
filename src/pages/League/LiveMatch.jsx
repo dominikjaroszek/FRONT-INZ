@@ -1,10 +1,10 @@
-// pages/LeagueDetails.jsx
+
 import React from "react";
 import { Button } from "antd";
 import { useParams } from "react-router-dom";
 import TopBar from "../../components/TopBar";
 import SideBar from "../../components/SideBar";
-import useFetch from "../../hooks/useFetch"; // Upewnij się, że importujesz useFetch
+import useFetch from "../../hooks/useFetch"; 
 import LeagueBar from "../../components/LeagueBar";
 import styles from "./LeagueHome.module.css";
 import LeagueDetails from "../../components/LeagueDetails";

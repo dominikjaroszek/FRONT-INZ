@@ -25,9 +25,9 @@ a:hover {
 
 body {
   display: flex;
-  justify-content: center; /* wyrównanie w poziomie */
-  align-items: center; /* wyrównanie w pionie */
-  margin: 0; /* usuń margines */
+  justify-content: center; 
+  align-items: center; 
+  margin: 0; 
   margin-left: auto;
   margin-right: auto;
   width: 100vw;

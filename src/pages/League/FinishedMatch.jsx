@@ -1,4 +1,4 @@
-// pages/LeagueDetails.jsx
+
 import React, { useState } from "react";
 import { Button } from "antd";
 import { useParams } from "react-router-dom";

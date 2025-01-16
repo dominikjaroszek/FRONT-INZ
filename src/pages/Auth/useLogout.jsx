@@ -20,7 +20,7 @@ const useLogout = () => {
         },
       });
     } catch (error) {
-      //console.error(error);
+      
     }
     localStorage.removeItem("authData");
     setAuth(null);

@@ -123,13 +123,13 @@
 }
 
 .win {
-  background-color: #2ecc71; /* Zielony */
+  background-color: #2ecc71; 
 }
 
 .draw {
-  background-color: #f1c40f; /* Żółty */
+  background-color: #f1c40f; 
 }
 
 .lose {
-  background-color: #e74c3c; /* Czerwony */
+  background-color: #e74c3c; 
 }
