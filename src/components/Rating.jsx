@@ -30,19 +30,19 @@ const Rating = ({ match_id }) => {
   return (
     <div className={styles.container}>
       {!comments.length ? (
-        <div className={styles.title}>Brak komentarzy do wyświetlenia</div>
+        <div className={styles.title}>No comments</div>
       ) : (
-        <div className={styles.container}>
+        <div className={styles.container}>  
           <div className={styles.info}>
-            <div className={styles.title}>Komentarze do meczu</div>
-            <div className={styles.average}>Średnia {average}</div>
+            <div className={styles.title}>Match comments:</div>
+            <div className={styles.average}>Average : {average}</div>
           </div>
           <div>
             {comments.map((item, index) => (
               <div key={index} className={styles.comment}>
                 <img style={{ width: "80px", height: "80px" }} src={noawatar} />
                 <div className={styles.commentContent}>
-                  {item.user} ocenił mecz na
+                  {item.user} rated the match
                   <Rate value={item.rating} disabled />
                 </div>
               </div>
@@ -53,7 +53,7 @@ const Rating = ({ match_id }) => {
       {auth?.accessToken ? (
         <CommentRating match_id={match_id} />
       ) : (
-        <div className={styles.title}>Zaloguj się, aby dodać komentarz</div>
+        <div className={styles.title}>Sign in to add a comment</div>
       )}
     </div>
   );

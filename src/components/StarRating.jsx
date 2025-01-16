@@ -3,28 +3,28 @@ import { Rate, Button, message } from "antd";
 import styles from "./Rating.module.css";
 
 const StarRating = ({ initialValue = 0, onSubmit }) => {
-  const [rating, setRating] = useState(initialValue); // Aktualna wartość oceny
-  const [loading, setLoading] = useState(false); // Stan ładowania
+  const [rating, setRating] = useState(initialValue); // Current rating value
+  const [loading, setLoading] = useState(false); // Loading state
 
-  // Ustawienie początkowej wartości oceny, jeśli jest przekazana
+  // Set the initial rating value if provided
   useEffect(() => {
     setRating(initialValue);
     console.log(initialValue);
   }, [initialValue]);
 
-  // Funkcja obsługi wysyłania oceny
+  // Handle rating submission
   const handleSubmit = async () => {
     if (rating === 0) {
-      message.warning("Wybierz liczbę gwiazdek przed wysłaniem!");
+      message.warning("Please select a number of stars before submitting!");
       return;
     }
 
     setLoading(true);
 
     try {
-      await onSubmit(rating); // Wywołanie funkcji onSubmit przekazanej z propsów
+      await onSubmit(rating); // Call the onSubmit function passed as props
     } catch (error) {
-      message.error("Wystąpił błąd podczas wysyłania oceny.");
+      message.error("An error occurred while submitting your rating.");
     }
 
     setLoading(false);
@@ -45,7 +45,7 @@ const StarRating = ({ initialValue = 0, onSubmit }) => {
           disabled={loading}
           loading={loading}
         >
-          {initialValue > 0 ? "Zaktualizuj ocenę" : "Wyślij ocenę"}
+          {initialValue > 0 ? "Update Rating" : "Submit Rating"}
         </Button>
       </div>
     </div>
