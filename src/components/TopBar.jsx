@@ -103,10 +103,18 @@ function TopBar() {
 
       <div className={styles.cointaner}>
         <div className={styles.firstBox}>
-          <div className={styles.logo} onClick={() => navigate("/")}>
+          <div
+            className={styles.logo}
+            onClick={() => navigate("/")}
+            data-testid="logo"
+          >
             <img src={logo} alt="Logo" className={styles.logoImg} />
           </div>
-          <div className={styles.siteName} onClick={() => navigate("/")}>
+          <div
+            className={styles.siteName}
+            onClick={() => navigate("/")}
+            data-testid="site-name"
+          >
             SoccerFans
           </div>
         </div>
@@ -115,16 +123,22 @@ function TopBar() {
           <div
             className={styles.box}
             onClick={() => navigate("/home/upcoming")}
+            data-testid="upcoming"
           >
             Upcoming
           </div>
           <div
             className={styles.box}
             onClick={() => navigate("/home/finished")}
+            data-testid="finished"
           >
             Finished
           </div>
-          <div className={styles.box} onClick={() => navigate("/home/top")}>
+          <div
+            className={styles.box}
+            onClick={() => navigate("/home/top")}
+            data-testid="top"
+          >
             Top
           </div>
 
@@ -134,12 +148,16 @@ function TopBar() {
                 items,
               }}
             >
-              <a onClick={(e) => e.preventDefault()}>
+              <a onClick={(e) => e.preventDefault()} data-testid="profile">
                 <div className={styles.profile}>Profile</div>
               </a>
             </Dropdown>
           ) : (
-            <div className={styles.box} onClick={() => navigate("/login")}>
+            <div
+              className={styles.box}
+              onClick={() => navigate("/login")}
+              data-testid="login"
+            >
               Login
             </div>
           )}

@@ -51,6 +51,7 @@ const MatchList = ({ matches = [], finished, sortBy }) => {
             className={`${styles.content} ${
               isMaxIndicator ? styles.highlighted : ""
             }`}
+            data-testid="match"
           >
             <div className={styles.teams}>
               <div className={styles.team}>

@@ -8,7 +8,7 @@ import { message as messageApi } from "antd";
 import styles from "./Login.module.css";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 
-const Login = ({ setLogin }) => {
+const Login = () => {
   const navigate = useNavigate();
   const { setAuth } = useAuth();
 
@@ -107,6 +107,7 @@ const Login = ({ setLogin }) => {
           value={emailInput}
           onChange={(e) => setEmailInput(e.target.value)}
           onKeyUp={handleKeyUp}
+          data-testid="email-input"
         />
         <input
           type="password"
@@ -115,8 +116,9 @@ const Login = ({ setLogin }) => {
           value={passwordInput}
           onChange={(e) => setPasswordInput(e.target.value)}
           onKeyUp={handleKeyUp}
+          data-testid="password-input"
         />
-        <button className={styles.button} onClick={handleLogin}>
+        <button className={styles.button} onClick={handleLogin} data-testid="sign-in-button">
           Sign In
         </button>
         <div
@@ -128,9 +130,6 @@ const Login = ({ setLogin }) => {
       </div>
     </div>
   );
-};
-Login.propTypes = {
-  setLogin: PropTypes.func.isRequired,
 };
 
 export default Login;

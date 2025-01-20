@@ -18,8 +18,8 @@ const HomeTop = () => {
 
   const navigate = useNavigate();
 
-  if (matchesLoading) return <p>Loading...</p>;
-  if (matchesError) return <p>Error: {matchesError.message}</p>;
+  if (matchesLoading) return <p data-testid="loading">Loading...</p>;
+  if (matchesError) return <p data-testid="error">Error: {matchesError.message}</p>;
 
   const sortMatches = (matches) => {
     return [...matches].sort((a, b) => b[sortBy] - a[sortBy]);
@@ -38,7 +38,7 @@ const HomeTop = () => {
                   viewMode === "league" ? styles.active : ""
                 }`}
               >
-                <button onClick={() => setViewMode("league")}>
+                <button onClick={() => setViewMode("league")} data-testid="view-league">
                   Division into leagues
                 </button>
               </div>
@@ -47,7 +47,9 @@ const HomeTop = () => {
                   viewMode === "all" ? styles.active : ""
                 }`}
               >
-                <button onClick={() => setViewMode("all")}>All matches</button>
+                <button onClick={() => setViewMode("all")} data-testid="view-all">
+                  All matches
+                </button>
               </div>
             </div>
 
@@ -57,6 +59,7 @@ const HomeTop = () => {
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 style={{ marginLeft: "10px", backgroundColor: "#58a6ff" }}
+                data-testid="sort-by"
               >
                 <option value="fans_rank_generally">Generally</option>
                 <option value="fans_rank_attak">Attack</option>
@@ -66,10 +69,10 @@ const HomeTop = () => {
           </div>
           {viewMode === "league" ? (
             matchesByLeague.length === 0 ? (
-              <p>Brak nadchodzących meczów</p>
+              <p data-testid="no-matches">Brak nadchodzących meczów</p>
             ) : (
               matchesByLeague.map((league) => (
-                <div key={league.league_name}>
+                <div key={league.league_name} data-testid="league">
                   <div
                     className={styles.leagueHeader}
                     onClick={() =>
