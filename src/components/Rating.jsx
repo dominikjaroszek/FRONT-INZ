@@ -50,11 +50,11 @@ const Rating = ({ match_id }) => {
           </div>
         </div>
       )}
-      {auth?.accessToken ? (
-        <CommentRating match_id={match_id} />
-      ) : (
-        <div className={styles.title}>Sign in to add a comment</div>
-      )}
+{auth?.accessToken ? (
+  <CommentRating match_id={match_id} />
+) : (
+  <div className={styles.title}>Sign in to add a comment</div>
+)}
     </div>
   );
 };

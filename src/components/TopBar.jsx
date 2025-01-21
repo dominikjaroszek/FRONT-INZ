@@ -139,7 +139,7 @@ function TopBar() {
             onClick={() => navigate("/home/top")}
             data-testid="top"
           >
-            Top
+            Recommended
           </div>
 
           {auth?.accessToken ? (

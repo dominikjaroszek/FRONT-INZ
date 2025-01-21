@@ -7,8 +7,8 @@ import useFetch from "../../hooks/useFetch";
 import MatchList from "../../components/MatchList";
 
 const HomeTop = () => {
-  const [sortBy, setSortBy] = useState("fans_rank_generally"); 
-  const [viewMode, setViewMode] = useState("league"); 
+  const [sortBy, setSortBy] = useState("fans_rank_generally");
+  const [viewMode, setViewMode] = useState("league");
 
   const {
     data: matchesByLeague,
@@ -19,7 +19,8 @@ const HomeTop = () => {
   const navigate = useNavigate();
 
   if (matchesLoading) return <p data-testid="loading">Loading...</p>;
-  if (matchesError) return <p data-testid="error">Error: {matchesError.message}</p>;
+  if (matchesError)
+    return <p data-testid="error">Error: {matchesError.message}</p>;
 
   const sortMatches = (matches) => {
     return [...matches].sort((a, b) => b[sortBy] - a[sortBy]);
@@ -38,7 +39,10 @@ const HomeTop = () => {
                   viewMode === "league" ? styles.active : ""
                 }`}
               >
-                <button onClick={() => setViewMode("league")} data-testid="view-league">
+                <button
+                  onClick={() => setViewMode("league")}
+                  data-testid="view-league"
+                >
                   Division into leagues
                 </button>
               </div>
@@ -47,7 +51,10 @@ const HomeTop = () => {
                   viewMode === "all" ? styles.active : ""
                 }`}
               >
-                <button onClick={() => setViewMode("all")} data-testid="view-all">
+                <button
+                  onClick={() => setViewMode("all")}
+                  data-testid="view-all"
+                >
                   All matches
                 </button>
               </div>
@@ -63,7 +70,7 @@ const HomeTop = () => {
               >
                 <option value="fans_rank_generally">Generally</option>
                 <option value="fans_rank_attak">Attack</option>
-                <option value="fans_rank_defence">Aggression</option>
+                <option value="fans_rank_aggresion">Aggression</option>
               </select>
             </div>
           </div>
@@ -73,14 +80,9 @@ const HomeTop = () => {
             ) : (
               matchesByLeague.map((league) => (
                 <div key={league.league_name} data-testid="league">
-                  <div
-                    className={styles.leagueHeader}
-                    onClick={() =>
-                      navigate(
-                        `/league/${league.league_name}/2024-2025/upcoming`
-                      )
-                    }
-                  ></div>
+                  <div className={styles.singleLeagueHeader}>
+                    <div className={styles.button}>{league.league_name}</div>
+                  </div>
                   <MatchList
                     matches={sortMatches(league.matches)}
                     finished={2}
@@ -90,13 +92,12 @@ const HomeTop = () => {
               ))
             )
           ) : (
-            
-            <MatchList
-              matches={sortMatches(
-                matchesByLeague.flatMap((league) => league.matches || [])
-              )}
-              finished={2}
-              sortBy={sortBy}
+<MatchList
+  matches={sortMatches(
+    matchesByLeague.flatMap((league) => league.matches || [])
+  )}
+  finished={2}
+  sortBy={sortBy}
             />
           )}
         </div>

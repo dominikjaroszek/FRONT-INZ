@@ -146,14 +146,14 @@ describe("HomeTop", () => {
     expect(matches[1]).toHaveTextContent("3");
   });
 
-  it("sorts matches by fans_rank_defence", () => {
+  it("sorts matches by fans_rank_aggresion", () => {
     useFetch.mockReturnValue({
       data: [
         {
           league_name: "Premier League",
           matches: [
-            { id: 1, fans_rank_defence: 7 },
-            { id: 2, fans_rank_defence: 2 },
+            { id: 1, fans_rank_aggresion: 7 },
+            { id: 2, fans_rank_aggresion: 2 },
           ],
         },
       ],
@@ -168,7 +168,7 @@ describe("HomeTop", () => {
     );
 
     fireEvent.change(screen.getByTestId("sort-by"), {
-      target: { value: "fans_rank_defence" },
+      target: { value: "fans_rank_aggresion" },
     });
 
     const matches = screen.getAllByTestId("match");
