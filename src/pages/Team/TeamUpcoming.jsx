@@ -18,7 +18,7 @@ const TeamUpcoming = () => {
     data: matchesData,
     loading: matchesLoading,
     error: matchesError,
-  } = useFetch(`/team/${teamName}/upcoming/2`);
+  } = useFetch(`/teams/${teamName}/upcoming/2/`);
 
   const handleDataFromChild = (data) => {
     setChildData(data);

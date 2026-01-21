@@ -18,7 +18,7 @@ const SideBar = () => {
           <div
             key={league.name}
             className={styles.leagueItem}
-            onClick={() => navigate(`/league/${league.name}/2024-2025`)}
+            onClick={() => navigate(`/league/${league.name}/2025`)}
           >
             {
               <img

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://127.0.0.1:5000/";
+const BASE_URL = "http://127.0.0.1:8000/api/";
 
 export const axiosPrivate = axios.create({
   baseURL: BASE_URL,
@@ -14,7 +14,7 @@ axiosPrivate.interceptors.request.use(
 
     const token = tmpAuth?.accessToken;
     if (token) {
-      config.headers["x-access-tokens"] = tmpAuth.accessToken;
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
@@ -67,24 +67,19 @@ axiosPrivate.interceptors.response.use(
         const tmpAuth = authDataStr ? JSON.parse(authDataStr) : null;
         const refreshToken = tmpAuth.refreshToken;
         axiosPrivate
-          .post(
-            "/refresh",
-            {},
-            {
-              headers: {
-                "x-refresh-tokens": refreshToken,
-              },
-            }
-          )
+          .post(`${BASE_URL}token/refresh/`, { 
+            refresh: refreshToken 
+          })
           .then(({ data }) => {
+            // POPRAWKA: Django zwraca klucz 'access', a nie 'access_token'
+            const newAccessToken = data.access;
             const authData = {
               ...tmpAuth,
-              accessToken: data.access_token,
+              accessToken: newAccessToken,
             };
             localStorage.setItem("authData", JSON.stringify(authData));
-            axiosPrivate.defaults.headers.common[
-              "x-access-tokens"
-            ] = `${data.access_token}`;
+           axiosPrivate.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
+           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
             processQueue(null, data.access_token);
             resolve(axiosPrivate(originalRequest));
           })

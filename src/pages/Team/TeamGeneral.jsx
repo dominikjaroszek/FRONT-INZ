@@ -19,24 +19,17 @@ const TeamGeneral = () => {
     data: matchesFinishedData,
     loading: matchesFinishedLoading,
     error: matchesFinishedError,
-  } = useFetch(`/team/${teamName}/finished/2`);
+  } = useFetch(`/teams/${teamName}/finished/2/`);
 
   const {
     data: matchesData,
     loading: matchesLoading,
     error: matchesError,
-  } = useFetch(`/team/${teamName}/upcoming/2`);
+  } = useFetch(`/teams/${teamName}/upcoming/2/`);
 
-  const {
-    data: matchesLiveData,
-    loading: matchesLiveLoading,
-    error: matchesLiveError,
-  } = useFetch(`/team/${teamName}/live`);
+  if (matchesFinishedLoading || matchesLoading) return <p>Loading...</p>;
 
-  if (matchesFinishedLoading || matchesLoading || matchesLiveLoading)
-    return <p>Loading...</p>;
-
-  if (matchesFinishedError || matchesError || matchesLiveError)
+  if (matchesFinishedError || matchesError)
     return (
       <p>Error: {matchesFinishedError?.message || matchesError?.message}</p>
     );
@@ -83,14 +76,6 @@ const TeamGeneral = () => {
                 See more
               </div>
             )}
-          </div>
-
-          <div className={styles.section}>
-            <div className={styles.leagueHeader}>
-              <div className={styles.button}>Live matches</div>
-            </div>
-            {matchesLiveData.length === 0 && <p>Brak trwających meczów</p>}
-            <MatchList matches={matchesLiveData} finished={1} />
           </div>
         </div>
       </div>

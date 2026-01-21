@@ -51,15 +51,6 @@ const LeagueBar = () => {
       </div>
       <div
         className={`${styles.navItem} ${
-          isActive(`/live/${season}/${leagueName}`) ? styles.active : ""
-        }`}
-      >
-        <button onClick={() => navigate(`/live/${season}/${leagueName}`)}>
-          Live
-        </button>
-      </div>
-      <div
-        className={`${styles.navItem} ${
           isActive(`/league/${leagueName}/${season}/standing`)
             ? styles.active
             : ""

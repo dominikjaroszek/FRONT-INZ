@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import axiosInstance from "../../axiosInstance";
 import useAuth from "../../hooks/useAuth";
-import PropTypes from "prop-types";
 import { message as messageApi } from "antd";
 import styles from "./Login.module.css";
 import { ArrowLeftOutlined } from "@ant-design/icons";
@@ -14,17 +13,16 @@ const Login = () => {
 
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+  // loginOutput was unused in the UI, but keeping state as requested
   const [loginOutput, setLoginOutput] = useState("");
-
-  const handleKeyUp = (event) => {
-    if (event.key === "Enter" || event.keyCode === 13) {
-      handleLogin();
-    }
-  };
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const handleLogin = async () => {
+  // 1. Modified to accept the event
+  const handleLogin = async (event) => {
+    // 2. Prevent the default form reload behavior
+    if (event) event.preventDefault();
+
     if (!emailInput && !passwordInput) {
       messageApi.open({
         type: "error",
@@ -58,13 +56,13 @@ const Login = () => {
     }
 
     axiosInstance
-      .post("/login", {
+      .post("/auth/login/", {
         email: emailInput,
         password: passwordInput,
       })
       .then((response) => {
-        const access_token = response?.data?.access_token;
-        const refresh_token = response?.data?.refresh_token;
+        const access_token = response?.data?.access;
+        const refresh_token = response?.data?.refresh;
         const token_decoded = jwtDecode(access_token);
         const authData = {
           accessToken: access_token,
@@ -100,27 +98,39 @@ const Login = () => {
       <div className={styles.loginBox}>
         <h2 className={styles.title}>Sign In</h2>
         <p className={styles.subtitle}>Hey, sign in to your account</p>
-        <input
-          type="text"
-          placeholder="Email"
-          className={styles.input}
-          value={emailInput}
-          onChange={(e) => setEmailInput(e.target.value)}
-          onKeyUp={handleKeyUp}
-          data-testid="email-input"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className={styles.input}
-          value={passwordInput}
-          onChange={(e) => setPasswordInput(e.target.value)}
-          onKeyUp={handleKeyUp}
-          data-testid="password-input"
-        />
-        <button className={styles.button} onClick={handleLogin} data-testid="sign-in-button">
-          Sign In
-        </button>
+        
+        {/* 3. Wrapped inputs in a form tag */}
+        <form onSubmit={handleLogin}>
+          <input
+            type="text"
+            placeholder="Email"
+            className={styles.input}
+            value={emailInput}
+            onChange={(e) => setEmailInput(e.target.value)}
+            // 4. Removed onKeyUp (Form handles 'Enter' automatically)
+            data-testid="email-input"
+            autoComplete="username" 
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className={styles.input}
+            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
+            // 4. Removed onKeyUp
+            data-testid="password-input"
+            autoComplete="current-password"
+          />
+          {/* 5. Changed type to submit */}
+          <button 
+            type="submit" 
+            className={styles.button} 
+            data-testid="sign-in-button"
+          >
+            Sign In
+          </button>
+        </form>
+
         <div
           className={styles.registerLink}
           onClick={() => navigate("/register")}

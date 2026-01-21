@@ -6,6 +6,8 @@ const TeamBar = ({ teamName, leagueName }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  
+
   const isActive = (path) => {
     const encodedPath = encodeURI(path);
     return location.pathname === encodedPath;
@@ -40,14 +42,14 @@ const TeamBar = ({ teamName, leagueName }) => {
       </div>
       <div
         className={`${styles.navItem} ${
-          isActive(`/team/${leagueName}/2024 - 2025/${teamName}/standing`)
+          isActive(`/team/${leagueName}/2025/${teamName}/standing`)
             ? styles.active
             : ""
         }`}
       >
         <button
           onClick={() =>
-            navigate(`/team/${leagueName}/2024 - 2025/${teamName}/standing`)
+            navigate(`/team/${leagueName}/2025/${teamName}/standing`)
           }
         >
           Standings

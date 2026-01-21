@@ -7,14 +7,16 @@ import useFetch from "../../hooks/useFetch";
 import MatchList from "../../components/MatchList";
 
 const HomeTop = () => {
-  const [sortBy, setSortBy] = useState("fans_rank_generally");
+  // ZMIANA 1: Domyślne sortowanie ustawione na nazwę pola z backendu (hype_score)
+  const [sortBy, setSortBy] = useState("hype_score");
   const [viewMode, setViewMode] = useState("league");
 
+  // ZMIANA 2: Używamy standardowego endpointu, który zwraca pogrupowane dane
   const {
     data: matchesByLeague,
     loading: matchesLoading,
     error: matchesError,
-  } = useFetch(`/upcoming-matches/round/fans`);
+  } = useFetch(`/upcoming-matches/scores`);
 
   const navigate = useNavigate();
 
@@ -22,8 +24,10 @@ const HomeTop = () => {
   if (matchesError)
     return <p data-testid="error">Error: {matchesError.message}</p>;
 
+  // Funkcja sortująca - zabezpieczona przed wartościami null (|| 0)
   const sortMatches = (matches) => {
-    return [...matches].sort((a, b) => b[sortBy] - a[sortBy]);
+    if (!matches) return [];
+    return [...matches].sort((a, b) => (b[sortBy] || 0) - (a[sortBy] || 0));
   };
 
   return (
@@ -68,14 +72,17 @@ const HomeTop = () => {
                 style={{ marginLeft: "10px", backgroundColor: "#58a6ff" }}
                 data-testid="sort-by"
               >
-                <option value="fans_rank_generally">Generally</option>
-                <option value="fans_rank_attak">Attack</option>
-                <option value="fans_rank_aggresion">Aggression</option>
+                {/* ZMIANA 3: Wartości value muszą odpowiadać polom z MatchListSerializer */}
+                <option value="hype_score">Generally (Hype)</option>
+                <option value="tactical_score">Tactical</option>
+                <option value="aggression_score">Aggression</option>
+                <option value="defense_score">Defense</option>
               </select>
             </div>
           </div>
+
           {viewMode === "league" ? (
-            matchesByLeague.length === 0 ? (
+            !matchesByLeague || matchesByLeague.length === 0 ? (
               <p data-testid="no-matches">Brak nadchodzących meczów</p>
             ) : (
               matchesByLeague.map((league) => (
@@ -85,19 +92,22 @@ const HomeTop = () => {
                   </div>
                   <MatchList
                     matches={sortMatches(league.matches)}
-                    finished={2}
+                    finished={2} // Zakładam, że finished={2} oznacza tryb "Rankingu" w Twoim MatchList
                     sortBy={sortBy}
                   />
                 </div>
               ))
             )
           ) : (
-<MatchList
-  matches={sortMatches(
-    matchesByLeague.flatMap((league) => league.matches || [])
-  )}
-  finished={2}
-  sortBy={sortBy}
+            <MatchList
+              matches={sortMatches(
+                // flatMap zadziała poprawnie, bo backend zwraca [{league_name, matches: []}]
+                matchesByLeague 
+                  ? matchesByLeague.flatMap((league) => league.matches || [])
+                  : []
+              )}
+              finished={2}
+              sortBy={sortBy}
             />
           )}
         </div>

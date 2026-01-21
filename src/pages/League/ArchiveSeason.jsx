@@ -16,7 +16,7 @@ const ArchiveSeason = () => {
     data: seasonDetails,
     loading: seasonLoading,
     error: seasonError,
-  } = useFetch(`/leagues/${leagueName}/seasons`);
+  } = useFetch(`/leagues/${leagueName}/seasons/`);
 
   if (seasonLoading) return <p>Loading...</p>;
   if (seasonError) return <p>Error: {seasonError.message}</p>;

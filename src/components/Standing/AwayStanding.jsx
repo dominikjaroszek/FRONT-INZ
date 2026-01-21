@@ -8,7 +8,8 @@ const AwayStanding = ({ season, leagueName }) => {
     data: standingsDetail,
     loading,
     error,
-  } = useFetch(`/leagues/standings/away/${leagueName}/${season}`);
+  } = useFetch(`/standings/away/?league=${encodeURIComponent(leagueName)}&season=${encodeURIComponent(season)}`);
+
 
   const navigate = useNavigate();
 
@@ -34,7 +35,7 @@ const AwayStanding = ({ season, leagueName }) => {
         <tbody>
           {standingsDetail.map((team, index) => (
             <tr key={index}>
-              <td>{team.position}</td>
+              <td>{index + 1}</td>
               <td
                 className={styles.teamName}
                 onClick={() => navigate(`/team/${team.team_name}`)}
@@ -47,9 +48,9 @@ const AwayStanding = ({ season, leagueName }) => {
               <td>{team.draw}</td>
               <td>{team.lose}</td>
               <td>
-                {team.goalsFor}:{team.goalsAgainst}
+                {team.goals_for}:{team.goals_against}
               </td>
-              <td>{team.goalDifference}</td>
+              <td>{team.goals_diff}</td>
             </tr>
           ))}
         </tbody>

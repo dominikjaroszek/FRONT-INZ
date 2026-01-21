@@ -11,10 +11,12 @@ import MatchGeneral from "./MatchGeneral";
 
 const MatchBar = () => {
   const { matchid } = useParams();
-  const { data: match, loading, error } = useFetch(`/match/${matchid}`);
+  console.log("Pobierane ID meczu:", matchid);
+  const { data: match, loading, error } = useFetch(`/matches/${matchid}/`);
 
+  console.log("Pobrane dane meczu:", match);
   const [activeView, setActiveView] = useState(
-    () => localStorage.getItem("activeView") || match?.type
+    () => localStorage.getItem("activeView") || match?.status
   );
 
   useEffect(() => {
@@ -27,7 +29,7 @@ const MatchBar = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const renderView = () => {
-    if (match?.type === "Finished") {
+    if (match?.status === "Finished") {
       return (
         <>
           <MatchFinished match={match} />

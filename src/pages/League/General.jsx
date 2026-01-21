@@ -19,28 +19,21 @@ const General = () => {
     data: matchesFinishedData,
     loading: matchesFinishedLoading,
     error: matchesFinishedError,
-  } = useFetch(`/finished-matches/${leagueName}/${season}/2`);
+  } = useFetch(`/finished-matches/${leagueName}/${season}/2/`);
 
   const {
     data: matchesData,
     loading: matchesLoading,
     error: matchesError,
-  } = useFetch(`/upcoming-matches/${leagueName}/${season}/2`);
+  } = useFetch(`/upcoming-matches/${leagueName}/${season}/2/`);
 
-  const {
-    data: matchesLiveData,
-    loading: matchesLiveLoading,
-    error: matchesLiveError,
-  } = useFetch(`/live/${leagueName}`);
+  // Usunięto useFetch dla /live
 
-  if (matchesLoading) return <p>Loading...</p>;
-  if (matchesError) return <p>Error: {matchesError.message}</p>;
-
-  if (matchesFinishedLoading) return <p>Loading...</p>;
-  if (matchesFinishedError) return <p>Error: {matchesFinishedError.message}</p>;
-
-  if (matchesLiveLoading) return <p>Loading...</p>;
-  if (matchesLiveError) return <p>Error: {matchesLiveError.message}</p>;
+  if (matchesLoading || matchesFinishedLoading) return <p>Loading...</p>;
+  
+  if (matchesError || matchesFinishedError) {
+      return <p>Error: {matchesError?.message || matchesFinishedError?.message}</p>;
+  }
 
   return (
     <div key={location.pathname} className={styles.container}>
@@ -50,6 +43,8 @@ const General = () => {
         <div className={styles.main}>
           <LeagueDetails leagueName={leagueName} season={season} />
           <LeagueBar leagueName={leagueName} />
+          
+          {/* Sekcja Finished Matches */}
           <div className={styles.leagueHeader}>
             <div className={styles.button}>Finished matches</div>
           </div>
@@ -62,6 +57,8 @@ const General = () => {
               See more
             </div>
           ) : null}
+
+          {/* Sekcja Upcoming Matches */}
           <div className={styles.leagueHeader}>
             <div className={styles.button}>Upcoming matches</div>
           </div>
@@ -81,14 +78,8 @@ const General = () => {
               See more
             </div>
           ) : null}
-          <div className={styles.leagueHeader}>
-            <div className={styles.button}>Live matches</div>
-          </div>
-          {matchesLiveData.length === 0 && (
-            <div className={styles.noMatches}>No live matches</div>
-          )}
 
-          <MatchList matches={matchesLiveData} finished={1} />
+          {/* Usunięto sekcję Live matches */}
         </div>
       </div>
     </div>

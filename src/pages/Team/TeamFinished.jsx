@@ -18,7 +18,7 @@ const TeamFinished = () => {
     data: matchesData,
     loading: matchesLoading,
     error: matchesError,
-  } = useFetch(`/team/${teamName}/finished/2`);
+  } = useFetch(`/teams/${teamName}/finished/2/`);
 
   const handleDataFromChild = (data) => {
     setChildData(data);

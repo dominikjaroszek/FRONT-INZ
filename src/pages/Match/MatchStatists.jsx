@@ -61,8 +61,8 @@ const MatchStatists = ({ match }) => {
             </tr>
             <tr>
               <td>Ball Possession</td>
-              <td>{match.home_team_ball_possession}%</td>
-              <td>{match.away_team_ball_possession}%</td>
+              <td>{match.home_team_ball_possession}</td>
+              <td>{match.away_team_ball_possession}</td>
             </tr>
             <tr>
               <td>Yellow Cards</td>
@@ -85,14 +85,14 @@ const MatchStatists = ({ match }) => {
               <td>{match.away_team_total_passes}</td>
             </tr>
             <tr>
-              <td>Passes Accuracy</td>
-              <td>{match.home_team_passes_accuracy}%</td>
-              <td>{match.away_team_passes_accuracy}%</td>
+              <td>Passes Accurate</td>
+              <td>{match.home_team_passes_accuracy}</td>
+              <td>{match.away_team_passes_accuracy}</td>
             </tr>
             <tr>
-              <td>Passes Percent</td>
-              <td>{match.home_team_passes_percent}%</td>
-              <td>{match.away_team_passes_percent}%</td>
+              <td>Passes Accurate Percent</td>
+              <td>{Math.round((match.home_team_passes_accuracy / match.home_team_total_passes) * 100)}%</td>
+              <td>{Math.round((match.away_team_passes_accuracy / match.away_team_total_passes) * 100)}%</td>
             </tr>
           </tbody>
         </table>

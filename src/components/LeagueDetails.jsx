@@ -7,7 +7,7 @@ const LeagueDetails = ({ leagueName, season }) => {
     data: leagueDetails,
     loading,
     error,
-  } = useFetch(`/leagues/${leagueName}/${season}`);
+  } = useFetch(`/leagues/${leagueName}/${season}/`);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;

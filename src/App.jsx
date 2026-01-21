@@ -3,8 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Link,
-  useParams,
 } from "react-router-dom";
 import Home from "./pages/Home/Home.jsx";
 import HomeFinished from "./pages/Home/HomeFinished.jsx";
@@ -15,7 +13,6 @@ import UpcomingMatch from "./pages/League/UpcomingMatch.jsx";
 import FinishedMatch from "./pages/League/FinishedMatch.jsx";
 import StandingTeam from "./pages/League/StandingTeam.jsx";
 import ArchiveSeason from "./pages/League/ArchiveSeason.jsx";
-import LiveMatch from "./pages/League/LiveMatch.jsx";
 import Match from "./pages/Match/Match.jsx";
 import TeamUpcoming from "./pages/Team/TeamUpcoming.jsx";
 import TeamFinished from "./pages/Team/TeamFinished.jsx";
@@ -26,6 +23,7 @@ import Register from "./pages/Auth/Register.jsx";
 import Profile from "./pages/Auth/Profile.jsx";
 import RequireAuth from "./comp/RequireAuth.jsx";
 import Password from "./pages/Auth/Password.jsx";
+import AdminPanel from "./pages/admin/AdminPanel.jsx";
 
 function App() {
   return (
@@ -49,7 +47,6 @@ function App() {
           path="/league/:leagueName/:season/archive"
           element={<ArchiveSeason />}
         />
-        <Route path="/live/:season/:leagueName" element={<LiveMatch />} />
         <Route
           path="/league/:leagueName/:season/result"
           element={<FinishedMatch />}
@@ -70,10 +67,17 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<h1>Not Found</h1>} />
-        <Route element={<RequireAuth hasAllowedRole={["user"]} />}>
+
+        <Route element={<RequireAuth allowedRoles={["user"]} />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/password" element={<Password />} />
         </Route>
+
+
+        <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+          <Route path="/admin" element={<AdminPanel />} />
+        </Route>
+        
       </Routes>
     </Router>
   );

@@ -12,7 +12,7 @@ const SearchBar = ({ onSearch }) => {
   const fetchSuggestions = async (value) => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:5000/search?q=${value}`
+        `http://127.0.0.1:8000/api/search?value=${value}`
       );
       const suggestions = response.data.map((item) => ({
         value: item?.name,

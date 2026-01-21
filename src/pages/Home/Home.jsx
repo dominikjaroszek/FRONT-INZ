@@ -12,45 +12,37 @@ const Home = () => {
     loading: matchesLoading,
     error: matchesError,
   } = useFetch(`/upcoming-matches/round`);
+
   const {
     data: matchesFinished,
     loading: matchesFinishedLoading,
     error: matchesFinishedError,
   } = useFetch(`/finished-matches/round`);
-  const {
-    data: matchesLive,
-    loading: matchesLiveLoading,
-    error: matchesLiveError,
-  } = useFetch(`/live`);
+
   const navigate = useNavigate();
 
   const [expandedLeagues, setExpandedLeagues] = useState({});
 
-  if (matchesLoading || matchesFinishedLoading || matchesLiveLoading)
-    return <p>Loading...</p>;
-  if (matchesError || matchesFinishedError || matchesLiveError) {
+  if (matchesLoading || matchesFinishedLoading) return <p>Loading...</p>;
+
+  if (matchesError || matchesFinishedError) {
     return (
       <p>
-        Error:{" "}
-        {matchesError?.message ||
-          matchesFinishedError?.message ||
-          matchesLiveError?.message}
+        Error: {matchesError?.message || matchesFinishedError?.message}
       </p>
     );
   }
 
-  
   const leagues = {};
-  [...matchesByLeague, ...matchesFinished, ...matchesLive].forEach((league) => {
+  // Usunięto matchesLive z tablicy i logiki poniżej
+  [...matchesByLeague, ...matchesFinished].forEach((league) => {
     if (!leagues[league.league_name]) {
-      leagues[league.league_name] = { upcoming: [], finished: [], live: [] };
+      leagues[league.league_name] = { upcoming: [], finished: [] };
     }
     if (matchesByLeague.includes(league))
       leagues[league.league_name].upcoming = league.matches;
     if (matchesFinished.includes(league))
       leagues[league.league_name].finished = league.matches;
-    if (matchesLive.includes(league))
-      leagues[league.league_name].live = league.matches;
   });
 
   const toggleExpand = (leagueName, category) => {
@@ -62,6 +54,7 @@ const Home = () => {
       },
     }));
   };
+
   return (
     <div className={styles.container}>
       <TopBar />
@@ -70,6 +63,7 @@ const Home = () => {
         <div className={styles.mainContent}>
           {Object.keys(leagues).map((leagueName) => (
             <div key={leagueName} className={styles.league}>
+              {/* Sekcja Upcoming */}
               <div className={styles.singleLeague}>
                 <div
                   className={styles.leagueHeader}
@@ -117,6 +111,7 @@ const Home = () => {
                 )}
               </div>
 
+              {/* Sekcja Finished */}
               <div className={styles.singleLeague}>
                 <div
                   className={styles.leagueHeader}
@@ -150,42 +145,6 @@ const Home = () => {
                   </>
                 ) : (
                   <p>No finished matches</p>
-                )}
-              </div>
-              <div className={styles.singleLeague}>
-                <div
-                  className={styles.leagueHeader}
-                  onClick={() =>
-                    navigate(`/league/${leagueName}/2024-2025/live`)
-                  }
-                >
-                  <div className={styles.button}>Live Matches</div>
-                </div>
-
-                {leagues[leagueName]?.live?.length ? (
-                  <>
-                    <MatchList
-                      matches={
-                        expandedLeagues[leagueName]?.live
-                          ? leagues[leagueName].live
-                          : leagues[leagueName].live.slice(0, 2)
-                      }
-                      finished={0}
-                    />
-
-                    {leagues[leagueName].live?.length > 2 && (
-                      <button
-                        className={styles.showMore}
-                        onClick={() => toggleExpand(leagueName, "live")}
-                      >
-                        {expandedLeagues[leagueName]?.live
-                          ? "See less"
-                          : "See more"}
-                      </button>
-                    )}
-                  </>
-                ) : (
-                  <div className={styles.noMatches}>No live matches</div>
                 )}
               </div>
             </div>

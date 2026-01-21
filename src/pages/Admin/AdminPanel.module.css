@@ -1,0 +1,43 @@
+/* src/pages/admin/AdminPanel.module.css */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.consoleCard {
+  margin-top: 20px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+}
+
+.consolePre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #00ff00; /* Zielony tekst jak w terminalu */
+}
+
+.checkboxGroup {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+.section {
+  padding: 20px;
+}
+
+.sectionBottom {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+  margin-top: 20px;
+}

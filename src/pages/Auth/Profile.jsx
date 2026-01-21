@@ -15,7 +15,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosPrivate.get("/contact");
+        const response = await axiosPrivate.get("/auth/me/");
         if (response) {
           setAccountData(response.data);
         }
@@ -36,11 +36,11 @@ const Profile = () => {
           <div className={styles.details}>
             <div className={styles.detailItem}>
               <span className={styles.label}>First Name:</span>
-              <span className={styles.value}>{accountData.firstName}</span>
+              <span className={styles.value}>{accountData.first_name}</span>
             </div>
             <div className={styles.detailItem}>
               <span className={styles.label}>Last Name:</span>
-              <span className={styles.value}>{accountData.lastName}</span>
+              <span className={styles.value}>{accountData.last_name}</span>
             </div>
             <div className={styles.detailItem}>
               <span className={styles.label}>Email:</span>

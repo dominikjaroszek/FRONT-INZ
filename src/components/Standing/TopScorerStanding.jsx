@@ -8,7 +8,9 @@ const TopScorerStanding = ({ season, leagueName }) => {
     data: standingsDetail,
     loading,
     error,
-  } = useFetch(`/leagues/top_scorers/${leagueName}/${season}`);
+  } = useFetch(`/top_scorers/general/?league=${encodeURIComponent(leagueName)}&season=${encodeURIComponent(season)}`);
+
+  
 
   const navigate = useNavigate();
 
@@ -30,7 +32,7 @@ const TopScorerStanding = ({ season, leagueName }) => {
         <tbody>
           {standingsDetail.map((player, index) => (
             <tr key={index}>
-              <td>{player.position}</td>
+              <td>{index + 1}</td>
               <td className={styles.playerName}>{player.player_name}</td>
               <td>{player.goals}</td>
               <td>{player.assists}</td>

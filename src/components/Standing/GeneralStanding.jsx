@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Standing.module.css"; 
 
 const GeneralStanding = ({ season, leagueName }) => {
-  const {
+const {
     data: standingsDetail,
     loading,
     error,
-  } = useFetch(`/leagues/standings/${leagueName}/${season}`);
+  } = useFetch(`/standings/general/?league=${encodeURIComponent(leagueName)}&season=${encodeURIComponent(season)}`);
 
   const navigate = useNavigate();
 
@@ -60,9 +60,9 @@ const GeneralStanding = ({ season, leagueName }) => {
               <td>{team.draw}</td>
               <td>{team.lose}</td>
               <td>
-                {team.goalsFor}:{team.goalsAgainst}
+                {team.goals_for}:{team.goals_against}
               </td>
-              <td>{team.goalDifference}</td>
+              <td>{team.goals_diff}</td>
               <td>
                 <div className={styles.formIcons}>
                   {renderFormIcons(team.form)}
