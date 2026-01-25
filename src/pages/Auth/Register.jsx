@@ -1,33 +1,48 @@
+// src/pages/Auth/Register.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axiosInstance";
-import { message, Select, Button, Tooltip } from "antd"; // Dodano Select, Button, Tooltip
+import { message, Select, Button } from "antd"; 
 import { ArrowLeftOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import styles from "./Register.module.css";
-import PersonalityQuiz from "./PersonalityQuiz"; // Import nowego komponentu
+import PersonalityQuiz from "./PersonalityQuiz"; 
+
+// IMPORT KONFIGURACJI
+import { 
+    PERSONALITY_PRESETS, 
+    FOOTBALL_PROFILE_MAP 
+} from "../../utils/personalityConfig";
 
 const { Option } = Select;
 
 const Register = () => {
   const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
 
+  // --- Stany formularza ---
   const [nameRegister, setNameRegister] = useState("");
   const [lastNameRegister, setLastNameRegister] = useState("");
   const [emailRegister, setEmailRegister] = useState("");
   const [passwordRegister, setPasswordRegister] = useState("");
   const [repeatPasswordRegister, setRepeatPasswordRegister] = useState("");
   
-  // NOWY STAN: Typ osobowości
-  const [personalityType, setPersonalityType] = useState(null);
-  // NOWY STAN: Widoczność modala z quizem
+  // --- Stany Osobowości ---
+  const [personalityType, setPersonalityType] = useState(null); // np. "Konfrontator"
+  const [footballProfile, setFootballProfile] = useState(null); // np. "Agresor"
+  
+  // Przechowujemy statystyki (Hype, Tactical, Aggression, Defense)
+  // Domyślnie 50, nadpisane przez Ankietę lub Wybór z listy
+  const [finalStats, setFinalStats] = useState({
+    base_hype: 50,
+    base_tactical: 50,
+    base_aggression: 50,
+    base_defense: 50
+  });
+
   const [quizVisible, setQuizVisible] = useState(false);
 
-  const [messageApi, contextHolder] = message.useMessage();
-
-  // --- Funkcje walidacyjne bez zmian ---
-  const validateName = (name) => {
-    return /^[A-Za-z]+$/.test(name);
-  };
+  // --- WALIDACJE ---
+  const validateName = (name) => /^[A-Za-z]+$/.test(name);
 
   const validatePassword = (password) => {
     if (!/[A-Z]/.test(password)) return "Password must contain at least one uppercase letter.";
@@ -36,17 +51,36 @@ const Register = () => {
     return null;
   };
 
-  // --- Logika Quizu ---
+  // --- SCENARIUSZ 1: Użytkownik kończy QUIZ ---
   const handleQuizComplete = (result) => {
-    setPersonalityType(result);
+    // result to obiekt: { type, footballProfile, stats }
+    setPersonalityType(result.type);
+    setFootballProfile(result.footballProfile);
+    setFinalStats(result.stats);
+    
     setQuizVisible(false);
-    messageApi.success(`Twój wynik to: ${result}. Pole zostało uzupełnione.`);
+    messageApi.success(`Ankieta zakończona! Wynik: ${result.type} (${result.footballProfile}).`);
+  };
+
+  // --- SCENARIUSZ 2: Użytkownik wybiera z LISTY (bez ankiety) ---
+  const handleManualSelection = (value) => {
+    setPersonalityType(value);
+    
+    // 1. Pobierz gotowe dane ("mające sens") z konfiguracji
+    const presetStats = PERSONALITY_PRESETS[value];
+    
+    // 2. Pobierz nazwę piłkarską
+    const fProfile = FOOTBALL_PROFILE_MAP[value];
+
+    if (presetStats) {
+        setFinalStats(presetStats);
+        setFootballProfile(fProfile);
+    }
   };
 
   const registerAccount = (event) => {
     if (event) event.preventDefault();
 
-    // ... (Twoje istniejące walidacje imienia, nazwiska, emaila, hasła - bez zmian) ...
     if (!nameRegister) return messageApi.error("Please enter your name.");
     if (!validateName(nameRegister)) return messageApi.error("First name can only contain letters.");
     if (!lastNameRegister) return messageApi.error("Please enter your last name.");
@@ -59,26 +93,34 @@ const Register = () => {
     if (passwordError) return messageApi.error(passwordError);
     if (passwordRegister !== repeatPasswordRegister) return messageApi.error("Passwords do not match.");
 
-    // NOWA WALIDACJA (Opcjonalna - jeśli pole jest wymagane)
     if (!personalityType) {
         return messageApi.error("Proszę wybrać typ osobowości lub rozwiązać ankietę.");
     }
 
-    axios
-      .post("/auth/register/", {
+    // --- PRZYGOTOWANIE PAYLOADU ---
+    const payload = {
         email: emailRegister,
         first_name: nameRegister,
         last_name: lastNameRegister,
         password: passwordRegister,
         confirm_password: repeatPasswordRegister,
-        // PRZEKAZANIE NOWEGO POLA
-        personality_type: personalityType, 
-      })
+        
+        // Przekazujemy NAZWY
+        personality_type: personalityType,     // np. "Konfrontator"
+        football_profile: footballProfile,     // np. "Agresor"
+        
+        // Przekazujemy LICZBY (rozpakowujemy obiekt finalStats)
+        // czyli pola: base_hype, base_tactical, base_aggression, base_defense
+        ...finalStats 
+    };
+
+    axios
+      .post("/auth/register/", payload)
       .then(() => {
         messageApi.success("Rejestracja udana! Możesz się teraz zalogować.");
-        // Resetowanie stanów
         setNameRegister(""); setLastNameRegister(""); setEmailRegister("");
-        setPasswordRegister(""); setRepeatPasswordRegister(""); setPersonalityType(null);
+        setPasswordRegister(""); setRepeatPasswordRegister(""); 
+        setPersonalityType(null); setFootballProfile(null);
         navigate("/login");
       })
       .catch((error) => {
@@ -94,7 +136,6 @@ const Register = () => {
     <div className={styles.container}>
       {contextHolder}
       
-      {/* Modal z Quizem */}
       <PersonalityQuiz 
         visible={quizVisible} 
         onClose={() => setQuizVisible(false)} 
@@ -153,14 +194,21 @@ const Register = () => {
                 placeholder="Wybierz swój typ"
                 style={{ width: '100%', height: '45px' }}
                 value={personalityType}
-                onChange={(value) => setPersonalityType(value)}
-                className="custom-select" // Możesz dodać style jeśli potrzeba
+                onChange={handleManualSelection} // TU ZMIANA: używamy naszej funkcji
+                className="custom-select"
             >
-                <Option value="Konfrontator">Konfrontator</Option>
-                <Option value="Stabilizator">Stabilizator</Option>
-                <Option value="Analityk">Analityk</Option>
-                <Option value="Poszukiwacz Doznań">Poszukiwacz Doznań</Option>
+                {/* Generujemy opcje dynamicznie z konfiguracji */}
+                {Object.keys(PERSONALITY_PRESETS).map(type => (
+                    <Option key={type} value={type}>{type}</Option>
+                ))}
             </Select>
+
+            {/* Informacja o profilu piłkarskim (jeśli wybrany) */}
+            {footballProfile && (
+                <div style={{ color: '#aaa', fontSize: '13px', marginTop: '8px', textAlign: 'center' }}>
+                    Twój profil piłkarski: <strong style={{color: '#1890ff'}}>{footballProfile}</strong>
+                </div>
+            )}
           </div>
 
           <button type="submit" className={styles.button}>

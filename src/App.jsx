@@ -24,6 +24,7 @@ import Profile from "./pages/Auth/Profile.jsx";
 import RequireAuth from "./comp/RequireAuth.jsx";
 import Password from "./pages/Auth/Password.jsx";
 import AdminPanel from "./pages/admin/AdminPanel.jsx";
+import UserStat from "./pages/Auth/UserStat.jsx";
 
 function App() {
   return (
@@ -76,6 +77,9 @@ function App() {
 
         <Route element={<RequireAuth allowedRoles={["admin"]} />}>
           <Route path="/admin" element={<AdminPanel />} />
+        </Route>
+        <Route element={<RequireAuth allowedRoles={["user"]} />}>
+          <Route path="/user/stat" element={<UserStat />} />
         </Route>
         
       </Routes>

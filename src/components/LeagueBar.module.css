@@ -1,28 +1,75 @@
+/* Kontener paska nawigacji */
 .nav {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  gap: 30px; /* Odstęp między zakładkami */
+  border-bottom: 1px solid #2a2e35; /* Subtelna linia oddzielająca od reszty strony */
+  padding: 0 10px;
+  margin-bottom: 25px;
+  width: 100%;
+  overflow-x: auto; /* Zabezpieczenie na mobile - przewijanie palcem */
+  white-space: nowrap; /* Zapobiega łamaniu linii */
+  scrollbar-width: none; /* Ukrywa pasek przewijania (Firefox) */
 }
 
+/* Ukrywanie paska przewijania (Chrome/Safari) */
+.nav::-webkit-scrollbar {
+  display: none;
+}
+
+/* Pojedynczy element nawigacji */
 .navItem {
-  cursor: pointer;
-  color: white;
-  text-decoration: none;
-  margin-top: 10px;
-  transition: color 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
-.navItem.active {
-  color: #58a6ff;
-  font-weight: bold;
+/* Styl przycisku (reset domyślnych stylów) */
+.navItem button {
+  background: transparent;
+  border: none;
+  color: #8b949e; /* Szary kolor dla nieaktywnych (GitHub Dark style) */
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 12px 4px; /* Padding pionowy definiuje wysokość paska */
+  transition: color 0.2s ease, box-shadow 0.2s ease;
+  font-family: 'Inter', system-ui, sans-serif;
+  position: relative;
 }
+
+/* Hover - po najechaniu tekst jaśnieje */
+.navItem button:hover {
+  color: #c9d1d9; /* Jaśniejszy szary */
+}
+
+/* --- STAN AKTYWNY --- */
 
 .navItem.active button {
-  border-bottom: 2px solid #58a6ff; 
+  color: #58a6ff; /* Twój główny niebieski kolor */
+  font-weight: 600;
+  
+  /* Zamiast border-bottom, używamy box-shadow inset. 
+     Dzięki temu tekst nie skacze (border zmienia wysokość, shadow nie). */
+  box-shadow: 0 2px 0 0 #58a6ff; 
 }
 
-.navItem button {
-  border: none;
-  color: inherit;
-  font-size: 12px;
-  cursor: pointer;
+/* Opcjonalnie: Delikatna poświata dla aktywnego elementu */
+.navItem.active button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(to top, rgba(88, 166, 255, 0.1), transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.navItem.active:hover button::after {
+  opacity: 1;
 }

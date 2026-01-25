@@ -1,34 +1,73 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../../components/TopBar";
 import SideBar from "../../components/SideBar";
 import styles from "./HomeTop.module.css";
 import useFetch from "../../hooks/useFetch";
+import { axiosPrivate } from "../../hooks/useAxiosPrivate";
 import MatchList from "../../components/MatchList";
 
+// Ikona ognia lub gwiazdki (opcjonalnie, można użyć biblioteki ikon)
+const FireIcon = () => <span role="img" aria-label="fire">🔥</span>;
+
 const HomeTop = () => {
-  // ZMIANA 1: Domyślne sortowanie ustawione na nazwę pola z backendu (hype_score)
   const [sortBy, setSortBy] = useState("hype_score");
   const [viewMode, setViewMode] = useState("league");
+  
+  // Stan dla rekomendacji
+  const [recMatches, setRecMatches] = useState([]);
+  const [recLoading, setRecLoading] = useState(true);
+  
+  const navigate = useNavigate();
 
-  // ZMIANA 2: Używamy standardowego endpointu, który zwraca pogrupowane dane
+  // 1. Pobieranie głównej listy (tak jak miałeś)
   const {
     data: matchesByLeague,
     loading: matchesLoading,
     error: matchesError,
   } = useFetch(`/upcoming-matches/scores`);
 
-  const navigate = useNavigate();
+  // 2. Pobieranie rekomendacji (NOWE)
+  useEffect(() => {
+    let isMounted = true;
+    const fetchRecommendations = async () => {
+      try {
+        const response = await axiosPrivate.get('/matches/recommended/');
+        if (isMounted) {
+            setRecMatches(response.data);
+            setRecLoading(false);
+        }
+      } catch (err) {
+        console.error("Failed to fetch recommendations", err);
+        if (isMounted) setRecLoading(false);
+      }
+    };
 
-  if (matchesLoading) return <p data-testid="loading">Loading...</p>;
-  if (matchesError)
-    return <p data-testid="error">Error: {matchesError.message}</p>;
+    fetchRecommendations();
 
-  // Funkcja sortująca - zabezpieczona przed wartościami null (|| 0)
+    return () => {
+      isMounted = false;
+    };
+  }, [axiosPrivate]);
+
   const sortMatches = (matches) => {
     if (!matches) return [];
     return [...matches].sort((a, b) => (b[sortBy] || 0) - (a[sortBy] || 0));
   };
+
+  // Helper do nawigacji do szczegółów meczu
+  const handleMatchClick = (matchId) => {
+    navigate(`/match/${matchId}`);
+  };
+
+  // Formatowanie daty
+  const formatDate = (dateString) => {
+    const options = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return new Date(dateString).toLocaleDateString('pl-PL', options);
+  };
+
+  if (matchesLoading) return <p data-testid="loading" className={styles.loadingText}>Loading...</p>;
+  if (matchesError) return <p data-testid="error" className={styles.errorText}>Error: {matchesError.message}</p>;
 
   return (
     <div className={styles.container}>
@@ -36,6 +75,68 @@ const HomeTop = () => {
       <div className={styles.content}>
         <SideBar />
         <div className={styles.mainContent}>
+            
+          {/* --- NOWY PANEL REKOMENDACJI --- */}
+          {!recLoading && recMatches.length > 0 && (
+            <div className={styles.recommendationSection}>
+                <div className={styles.recTitle}>
+                    <FireIcon /> Recommended for You based on your profile
+                </div>
+                <div className={styles.recGrid}>
+                    {recMatches.map((match) => (
+                        <div 
+                            key={match.id} 
+                            className={styles.recCard}
+                            onClick={() => handleMatchClick(match.id)}
+                        >
+                            {/* Pasek wyniku dopasowania */}
+                            <div className={styles.matchScoreBadge}>
+                                {match.match_score}% Match
+                            </div>
+
+                            <div className={styles.recLeague}>
+                                <img src={match.league_logo} alt="league" className={styles.miniLogo} />
+                                {match.league_name}
+                            </div>
+
+                            <div className={styles.recTeams}>
+                                <div className={styles.recTeam}>
+                                    <img src={match.home_team.logo} alt={match.home_team.name} />
+                                    <span>{match.home_team.name}</span>
+                                </div>
+                                <div className={styles.recVs}>VS</div>
+                                <div className={styles.recTeam}>
+                                    <img src={match.away_team.logo} alt={match.away_team.name} />
+                                    <span>{match.away_team.name}</span>
+                                </div>
+                            </div>
+
+                            <div className={styles.recDate}>
+                                {formatDate(match.date)}
+                            </div>
+                            
+                            {/* Paski statystyk (małe) */}
+                            <div className={styles.recStats}>
+                                <div className={styles.statBar}>
+                                    <span>Hype</span>
+                                    <div className={styles.barBg}>
+                                        <div className={styles.barFill} style={{width: `${match.analytics.hype_score}%`, background: '#e74c3c'}}></div>
+                                    </div>
+                                </div>
+                                <div className={styles.statBar}>
+                                    <span>Aggression</span>
+                                    <div className={styles.barBg}>
+                                        <div className={styles.barFill} style={{width: `${match.analytics.aggression_score}%`, background: '#f1c40f'}}></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+          )}
+          {/* --- KONIEC PANELU REKOMENDACJI --- */}
+
           <div className={styles.header}>
             <div className={styles.nav}>
               <div
@@ -72,7 +173,6 @@ const HomeTop = () => {
                 style={{ marginLeft: "10px", backgroundColor: "#58a6ff" }}
                 data-testid="sort-by"
               >
-                {/* ZMIANA 3: Wartości value muszą odpowiadać polom z MatchListSerializer */}
                 <option value="hype_score">Generally (Hype)</option>
                 <option value="tactical_score">Tactical</option>
                 <option value="aggression_score">Aggression</option>
@@ -83,16 +183,16 @@ const HomeTop = () => {
 
           {viewMode === "league" ? (
             !matchesByLeague || matchesByLeague.length === 0 ? (
-              <p data-testid="no-matches">Brak nadchodzących meczów</p>
+              <p className={styles.noMatches} data-testid="no-matches">No upcoming matches</p>
             ) : (
               matchesByLeague.map((league) => (
-                <div key={league.league_name} data-testid="league">
+                <div key={league.league_name} className={styles.singleLeague} data-testid="league">
                   <div className={styles.singleLeagueHeader}>
                     <div className={styles.button}>{league.league_name}</div>
                   </div>
                   <MatchList
                     matches={sortMatches(league.matches)}
-                    finished={2} // Zakładam, że finished={2} oznacza tryb "Rankingu" w Twoim MatchList
+                    finished={2}
                     sortBy={sortBy}
                   />
                 </div>
@@ -101,8 +201,7 @@ const HomeTop = () => {
           ) : (
             <MatchList
               matches={sortMatches(
-                // flatMap zadziała poprawnie, bo backend zwraca [{league_name, matches: []}]
-                matchesByLeague 
+                matchesByLeague
                   ? matchesByLeague.flatMap((league) => league.matches || [])
                   : []
               )}

@@ -1,0 +1,116 @@
+/* src/pages/User/Profile.module.css */
+
+.container {
+  display: flex;
+  min-height: 100vh; /* Zmiana na min-height, żeby na mobilu się nie ucinało */
+  background-color: #f0f2f5; /* Szare tło dla kontrastu z białą kartą */
+}
+
+/* Opcjonalny sidebar, żeby .container display:flex miało sens */
+.sidebarPlaceholder {
+  width: 250px;
+  background-color: #001529;
+  display: none; /* Ukryty na mobile */
+}
+
+@media (min-width: 768px) {
+  .sidebarPlaceholder {
+    display: block;
+  }
+}
+
+.mainContent {
+  flex: 1; /* Ważne: zajmuje resztę miejsca obok sidebara */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 600px; /* Nieco szersza karta dla wykresu */
+  padding: 30px;
+  text-align: center;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 30px;
+}
+
+/* Kontener dla samego wykresu Recharts */
+.chartContainer {
+  width: 100%;
+  height: 350px;
+  margin-bottom: 30px;
+}
+
+.details {
+  text-align: left;
+  border-top: 1px solid #eee; /* Oddzielenie wykresu od danych */
+  padding-top: 20px;
+}
+
+.detailItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: transform 0.2s;
+}
+
+.detailItem:hover {
+    transform: translateX(5px);
+    background-color: #f0f7ff; /* Lekki niebieski przy najechaniu */
+}
+
+.label {
+  font-weight: bold;
+  color: #666666;
+  font-size: 16px;
+}
+
+.value {
+  color: #333333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Kolorowanie wartości dla lepszego efektu */
+.valueBase {
+    color: #8884d8; /* Kolor z wykresu (Początek) */
+}
+
+.valueCurrent {
+    color: #82ca9d; /* Kolor z wykresu (Teraz) */
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+  
+  .chartContainer {
+    height: 250px; /* Mniejszy wykres na telefonie */
+  }
+
+  .detailItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .value {
+    margin-top: 5px;
+  }
+}

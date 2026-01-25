@@ -24,6 +24,12 @@ const SideBarAccount = () => {
         >
           Change Password
         </div>
+        <div
+          onClick={() => navigate("/user/stat")}
+          className={styles.menuItem}
+        >
+          Fan Profile
+        </div>
       </div>
     </div>
   );

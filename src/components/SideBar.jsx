@@ -7,8 +7,8 @@ const SideBar = () => {
   const { data: leagues, loading, error } = useFetch("/leagues/names");
   const navigate = useNavigate();
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <div className={styles.loading}>Loading...</div>;
+  if (error) return <div className={styles.error}>Error</div>;
 
   return (
     <div className={styles.sidebar}>
@@ -20,14 +20,13 @@ const SideBar = () => {
             className={styles.leagueItem}
             onClick={() => navigate(`/league/${league.name}/2025`)}
           >
-            {
-              <img
-                style={{ width: "20px", height: "20px" }}
-                src={league?.logo}
-                alt={`${league?.logo} logo`}
-              />
-            }
-            <div style={{ fontSize: "14px" }}>{league.name}</div>
+            {/* WAŻNE: Tu nie ma już style={{width...}}, używamy className={styles.logo} */}
+            <img
+              className={styles.logo}
+              src={league?.logo}
+              alt={`${league.name} logo`}
+            />
+            <span>{league.name}</span>
           </div>
         ))}
       </div>

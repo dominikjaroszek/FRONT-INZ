@@ -1,44 +1,71 @@
+/* SideBar.module.css */
 .sidebar {
-  width: 250px;
-  height: 100vh;
-  background-color: #141619;
-  color: #ecf0f1;
+  width: 260px;
+  min-height: 100vh;
+  background-color: #0e0e0e; /* Ciemne tło */
+  border-right: 1px solid #2a2e35; /* Linia z prawej */
+  padding: 20px 15px;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 
-.sidebar .logo {
-  font-size: 1.5em;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.sidebar .menu {
-  flex-grow: 1;
-}
-
-.sidebar .footer {
-  text-align: center;
-  font-size: 0.9em;
-  margin-top: auto;
-}
+/* Nagłówek "LEAGUES" */
 .title {
-  font-size: 2em;
-  text-align: center;
-  width: 70%;
-  border-bottom: 1px solid #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  padding-left: 10px;
 }
 
+.leagueList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Pojedynczy wiersz ligi */
 .leagueItem {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0.5em 1em;
-  border-bottom: 1px solid #ffffff;
-  width: 70%;
-  gap: 1em;
+  gap: 15px;
+  padding: 12px 15px;
+  border-radius: 8px;
   cursor: pointer;
+  color: #b0b8c4;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: none; /* USUWAMY STARE BIAŁE LINIE */
 }
+
+/* --- LOGO (To naprawi wielki obrazek) --- */
+.logo {
+  width: 24px;       /* Sztywna szerokość */
+  height: 24px;      /* Sztywna wysokość */
+  object-fit: contain; /* Skalowanie bez zniekształceń */
+  filter: grayscale(100%) opacity(0.7); /* Szare logo domyślnie */
+  transition: all 0.2s ease;
+}
+
+/* --- HOVER --- */
 .leagueItem:hover {
-  background-color: #34495e;
+  background-color: #1e2126; /* Ciemnoszare tło po najechaniu */
+  color: #fff;
+}
+
+.leagueItem:hover .logo {
+  filter: grayscale(0%) opacity(1); /* Kolorowe logo po najechaniu */
+  transform: scale(1.1);
+}
+
+.loading, .error {
+  padding: 20px;
+  color: #666;
+  text-align: center;
+  font-size: 13px;
 }

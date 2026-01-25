@@ -4,7 +4,9 @@ import {
   PlayCircleOutlined, 
   CloudDownloadOutlined, 
   CalculatorOutlined,
-  LogoutOutlined // 1. Import Icon
+  LogoutOutlined,
+  BarChartOutlined,
+  HistoryOutlined // <--- 1. NOWA IKONA
 } from "@ant-design/icons";
 import { axiosPrivate } from "../../hooks/useAxiosPrivate";
 import useLogout from "../Auth/useLogout.jsx"; 
@@ -24,8 +26,6 @@ const AdminPanel = () => {
   });
 
   const [messageApi, contextHolder] = message.useMessage();
-  
-  // 3. Initialize the Logout hook
   const logout = useLogout();
 
   // Helper to call the API
@@ -57,6 +57,15 @@ const AdminPanel = () => {
     runCommand("calculate_analytics");
   };
 
+  const handleBenchmarks = () => {
+    runCommand("calculate_benchmarks");
+  };
+
+  // --- 2. NOWY HANDLER DLA HISTORII ---
+  const handleHistoryAnalytics = () => {
+    runCommand("calculate_history_analytics");
+  };
+
   const handleFetchStats = () => {
     runCommand("fetch_match_statistics");
   };
@@ -74,19 +83,60 @@ const AdminPanel = () => {
 
   const AnalystTab = () => (
     <div style={{ padding: "20px" }}>
-      <Title level={4}>Match Analytics</Title>
-      <p>
-        Calculate Hype, Aggression, and other metrics for upcoming matches (next 7 days).
-      </p>
-      <Button 
-        type="primary" 
-        icon={<CalculatorOutlined />} 
-        onClick={handleAnalytics}
-        loading={loading}
-        size="large"
-      >
-        Run Analytics Calculation
-      </Button>
+      
+      {/* SEKCJA: BENCHMARKS */}
+      <div style={{ marginBottom: "30px", borderBottom: "1px solid #eee", paddingBottom: "20px" }}>
+        <Title level={4}>League Benchmarks (Caps)</Title>
+        <p>
+            Analyze last 1000 matches to determine statistical limits (95th percentile). 
+            <br />
+            <strong>Run this periodically</strong> to calibrate the 100% scale for charts.
+        </p>
+        <Button 
+            onClick={handleBenchmarks} 
+            loading={loading}
+            icon={<BarChartOutlined />}
+            type="default"
+            style={{ borderColor: '#faad14', color: '#faad14' }}
+        >
+            Calculate Benchmarks
+        </Button>
+      </div>
+
+      {/* SEKCJA: UPCOMING ANALYTICS */}
+      <div style={{ paddingBottom: "20px" }}>
+        <Title level={4}>Upcoming Match Analytics</Title>
+        <p>
+          Calculate Hype, Aggression, and other metrics for upcoming matches (next 7 days).
+        </p>
+        <Button 
+          type="primary" 
+          icon={<CalculatorOutlined />} 
+          onClick={handleAnalytics}
+          loading={loading}
+          size="large"
+        >
+          Run Upcoming Calculation
+        </Button>
+      </div>
+
+      {/* --- 3. NOWA SEKCJA: HISTORICAL BACKFILL --- */}
+      <div style={{ marginTop: "15px", borderTop: "1px solid #eee", paddingTop: "20px" }}>
+        <Title level={4}>Historical Backfill</Title>
+        <p>
+            Calculate scores for all <strong>past finished matches</strong>.
+            <br />
+            (Ignores matches without statistics or insufficient history).
+        </p>
+        <Button 
+            onClick={handleHistoryAnalytics} 
+            loading={loading}
+            icon={<HistoryOutlined />}
+            style={{ borderColor: '#52c41a', color: '#52c41a' }}
+        >
+            Run Historical Analytics
+        </Button>
+      </div>
     </div>
   );
 
@@ -153,7 +203,6 @@ const AdminPanel = () => {
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
       {contextHolder}
       
-      {/* 4. Update the Card to include the extra prop with the Logout button */}
       <Card 
         title="Admin Dashboard"
         extra={

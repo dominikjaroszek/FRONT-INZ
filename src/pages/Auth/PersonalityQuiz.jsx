@@ -1,6 +1,8 @@
+// src/pages/Auth/PersonalityQuiz.jsx
 import React, { useState } from "react";
 import { Modal, Typography, Row, Col, Card, Progress, Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import { calculateQuizStats, FOOTBALL_PROFILE_MAP } from "../../utils/personalityConfig";
 
 const { Title, Text } = Typography;
 
@@ -109,8 +111,6 @@ const questions = [
 
 const PersonalityQuiz = ({ visible, onClose, onComplete }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  
-  // Przechowujemy historię wyborów, żeby móc cofać punkty przy powrocie
   const [history, setHistory] = useState([]); 
   
   const [scores, setScores] = useState({
@@ -120,13 +120,9 @@ const PersonalityQuiz = ({ visible, onClose, onComplete }) => {
     "Poszukiwacz Doznań": 0,
   });
 
-  // --- Funkcja Idź Dalej ---
   const handleAnswer = (type) => {
-    // 1. Dodaj punkt
     const newScores = { ...scores, [type]: scores[type] + 1 };
     setScores(newScores);
-
-    // 2. Dodaj do historii (żeby wiedzieć co odjąć jak klikniesz 'Wróć')
     setHistory([...history, type]);
 
     if (currentQuestion < questions.length - 1) {
@@ -136,47 +132,50 @@ const PersonalityQuiz = ({ visible, onClose, onComplete }) => {
     }
   };
 
-  // --- Funkcja Wróć ---
   const handleBack = () => {
     if (currentQuestion > 0) {
-        // 1. Pobierz ostatni wybór
         const lastChoice = history[history.length - 1];
-        
-        // 2. Odejmij punkt za ten wybór
         if (lastChoice) {
             setScores(prev => ({
                 ...prev,
                 [lastChoice]: prev[lastChoice] - 1
             }));
         }
-
-        // 3. Usuń ostatni wpis z historii
         setHistory(prev => prev.slice(0, -1));
-
-        // 4. Cofnij pytanie
         setCurrentQuestion(currentQuestion - 1);
     }
   };
 
   const finishQuiz = (finalScores) => {
-    const winner = Object.keys(finalScores).reduce((a, b) => 
+    // 1. Znajdź zwycięzcę (Typ dominujący)
+    const winnerType = Object.keys(finalScores).reduce((a, b) => 
       finalScores[a] > finalScores[b] ? a : b
     );
     
-    // Reset po zakończeniu
+    // 2. Oblicz dokładne statystyki procentowe (liczby 10-100)
+    const calculatedStats = calculateQuizStats(finalScores, questions.length);
+    
+    // 3. Pobierz nazwę piłkarską
+    const footballName = FOOTBALL_PROFILE_MAP[winnerType];
+
+    // Reset stanów
     setTimeout(() => {
         setCurrentQuestion(0);
         setScores({ "Konfrontator": 0, "Stabilizator": 0, "Analityk": 0, "Poszukiwacz Doznań": 0 });
         setHistory([]);
     }, 500);
 
-    onComplete(winner);
+    // 4. Zwróć kompletny obiekt
+    onComplete({
+        type: winnerType,
+        footballProfile: footballName,
+        stats: calculatedStats
+    });
   };
 
   const question = questions[currentQuestion];
   const progressPercent = Math.round(((currentQuestion + 1) / questions.length) * 100);
 
-  // Style
   const styles = {
     answerCard: {
         cursor: 'pointer',
@@ -197,7 +196,7 @@ const PersonalityQuiz = ({ visible, onClose, onComplete }) => {
     questionTitle: {
         textAlign: 'center', 
         marginBottom: '30px', 
-        fontSize: '1.8rem', // ZWIĘKSZONA CZCIONKA
+        fontSize: '1.8rem',
         fontWeight: 'bold',
         lineHeight: '1.3'
     },
@@ -220,9 +219,7 @@ const PersonalityQuiz = ({ visible, onClose, onComplete }) => {
     >
       <div style={{ padding: '20px 10px' }}>
         
-        {/* Pasek nawigacji i postępu */}
         <div style={styles.navigationBar}>
-            {/* Przycisk Wróć (widoczny tylko od 2. pytania) */}
             <div style={{ width: '80px' }}>
                 {currentQuestion > 0 && (
                     <Button 
@@ -234,29 +231,22 @@ const PersonalityQuiz = ({ visible, onClose, onComplete }) => {
                     </Button>
                 )}
             </div>
-
-            {/* Informacja o numerze pytania */}
             <div style={{ flex: 1, textAlign: 'center' }}>
                  <Text type="secondary">
                     Pytanie {currentQuestion + 1} z {questions.length}
                 </Text>
             </div>
-
-            {/* Pusty div dla równowagi (flex layout) */}
             <div style={{ width: '80px' }}></div>
         </div>
 
-        {/* Pasek postępu */}
         <div style={{ marginBottom: '30px', padding: '0 10px' }}>
             <Progress percent={progressPercent} showInfo={false} strokeColor="#1890ff" />
         </div>
 
-        {/* Treść pytania (zwiększona czcionka) */}
         <Title level={3} style={styles.questionTitle}>
             {question.question}
         </Title>
 
-        {/* Siatka odpowiedzi */}
         <Row gutter={[16, 16]}>
           {question.answers.map((answer, index) => (
             <Col xs={24} sm={12} key={index}>

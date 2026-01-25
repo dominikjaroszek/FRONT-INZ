@@ -1,7 +1,11 @@
+/* --- GŁÓWNY UKŁAD STRONY --- */
 .container {
   display: flex;
   flex-direction: column;
   text-align: center;
+  background-color: #0e0e0e; /* Głębokie czarne tło */
+  min-height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .content {
@@ -13,105 +17,327 @@
 .mainContent {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  /* width: 100%;  <--- USUŃ TO. To powoduje wypychanie poza ekran przy paddingu */
+  flex: 1;         /* <--- DODAJ TO. To wypełni przestrzeń obok Sidebara idealnie */
+  padding: 20px;   
+  align-items: center;
+  box-sizing: border-box; /* <--- Dla pewności, żeby padding zawierał się w wymiarach */
+  min-width: 0;    /* <--- Zapobiega rozpychaniu flexboxa przez bardzo szerokie dzieci */
 }
 
-.singleLeague {
+/* --- SEKCJA REKOMENDACJI (RECOMMENDED PANEL) --- */
+
+.recommendationSection {
+  width: 85%; /* Szerokość panelu */
+  max-width: 1000px;
+  margin-top: 10px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
-.header {
+
+.recTitle {
+  color: #ffd700; /* Złoty kolor nagłówka */
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.recGrid {
   display: flex;
   flex-direction: row;
+  gap: 20px;
   width: 100%;
-  padding-left: 10px;
-  padding-bottom: 20px;
   justify-content: space-between;
-  width: 70%;
 }
 
-.sortBy {
-  padding-top: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.title1 {
-  color: white;
-  font-size: 16px;
-  ;
-  font-weight: bold;
-}
-.leagueHeader {
-  display: flex;
-  width: 70%;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.showMore {
-  background-color: #141619;
-  color: white;
+.recCard {
+  background: linear-gradient(145deg, #1e2126, #141619);
+  border: 1px solid #2a2e35;
+  border-radius: 16px;
+  padding: 20px;
+  width: 48%;
   cursor: pointer;
-  width: 70%;
-  border-bottom: 1px solid #ffffff;
-  border-top: 1px solid #ffffff;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s, border-color 0.3s;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.showMore:hover {
-  background-color: #34495e;
+.recCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border-color: #58a6ff;
 }
-.singleLeagueHeader {
+
+/* Badge z wynikiem dopasowania (np. 95% Match) */
+.matchScoreBadge {
+  background-color: #2ecc71; /* Nowoczesna zieleń */
+  color: #000;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  box-shadow: 0 4px 10px rgba(46, 204, 113, 0.2);
+  z-index: 2;
+}
+
+.recLeague {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  color: #7a8c99;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  align-self: flex-start;
+  text-transform: uppercase;
+}
+
+.miniLogo {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.recTeams {
+  display: flex;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 5px 0 15px 0;
+}
+
+.recTeam {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   width: 40%;
 }
-.button {
-  background-color: #141619;
-  cursor: pointer;
-  padding: 0.6em 1.2em;
-  border-radius: 10px;
+
+.recTeam img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
 }
 
-.button:hover {
-  background-color: #34495e;
+.recTeam span {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
 }
-.noMatches {
+
+.recVs {
+  color: #444;
+  font-weight: 900;
+  font-style: italic;
+  font-size: 14px;
+}
+
+.recDate {
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.recStats {
+  width: 100%;
   display: flex;
-  border-bottom: 1px solid #ffffff;
-  border-top: 1px solid #ffffff;
-  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+  background: rgba(0, 0, 0, 0.2);
   padding: 10px;
-  width: 68%;
+  border-radius: 8px;
+}
+
+.statBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #ccc;
+  font-weight: 500;
+}
+
+.barBg {
+  width: 65%;
+  height: 6px;
+  background-color: #2c3036;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s ease-in-out;
+}
+
+/* --- NAWIGACJA I FILTRY (HEADER) --- */
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%; /* Dopasowanie szerokości do rekomendacji */
+  max-width: 1000px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #2a2e35;
+  margin-bottom: 30px;
 }
 
 .nav {
   display: flex;
   flex-direction: row;
-}
-
-.navItem {
-  cursor: pointer;
-  color: white;
-  text-decoration: none;
-  margin-top: 10px;
-  transition: color 0.3s ease;
-}
-
-.navItem.active {
-  color: #58a6ff; 
-  font-weight: bold;
-}
-
-.navItem.active button {
-  border-bottom: 2px solid #58a6ff;
+  gap: 15px;
+  background: #16191d;
+  padding: 5px;
+  border-radius: 12px;
+  border: 1px solid #2a2e35;
 }
 
 .navItem button {
   border: none;
-  color: inherit;
-  font-size: 12px;
+  background: transparent;
+  color: #888;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
+  padding: 8px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.navItem button:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.navItem.active button {
+  background-color: #58a6ff; /* Niebieski akcent */
+  color: #0e0e0e; /* Ciemny tekst dla kontrastu */
+  box-shadow: 0 4px 12px rgba(88, 166, 255, 0.25);
+}
+
+/* --- DROPDOWN SORTOWANIA --- */
+
+.sortBy {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.title1 {
+  color: #666;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sortBy select {
+  background-color: #1e2126;
+  color: #fff;
+  border: 1px solid #333;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.sortBy select:hover {
+  border-color: #58a6ff;
+}
+
+.sortBy select:focus {
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+}
+
+/* --- LISTA MECZÓW (KONTENERY) --- */
+
+.singleLeague {
+  display: flex;
+  flex-direction: column;
+  width: 85%;          /* TA SAMA SZEROKOŚĆ CO HEADER I REKOMENDACJE */
+  max-width: 1000px;   /* TA SAMA SZEROKOŚĆ MAKSYMALNA */
+  margin-bottom: 40px;
+}
+
+/* Nagłówek z nazwą ligi wewnątrz tego kontenera */
+.singleLeagueHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-left: 5px;   /* Lekkie wcięcie, żeby zrównać z kartami */
+  width: 100%;
+}
+
+/* Stylowanie nagłówka ligi (np. "Premier League") */
+.button {
+  background: transparent;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 0;
+  border: none;
+  cursor: default;
+  display: flex;
+  align-items: center;
+}
+
+/* Niebieski pasek obok nazwy ligi */
+.button::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 24px;
+  background-color: #58a6ff;
+  border-radius: 4px;
+  margin-right: 12px;
+}
+
+/* Pusty stan */
+.noMatches {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  color: #555;
+  width: 85%;
+  font-style: italic;
+  border: 1px dashed #333;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+/* Loading / Error */
+.loadingText, .errorText {
+  color: #888;
+  margin-top: 50px;
+  font-size: 16px;
 }
