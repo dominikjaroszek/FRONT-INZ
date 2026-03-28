@@ -1,60 +1,129 @@
-.container {
+/* --- GŁÓWNY KONTENER (Z odstępem od zakładek) --- */
+.wrapper {
   display: flex;
   flex-direction: column;
-}
-.container1 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.Rating {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #1a1a1a;
-  border: 1px solid #1a1a1a;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 300px;
-  padding: 20px;
-  margin-top: 100px;
+  max-width: 1000px;
+  margin-top: 25px; /* Odsuwa sekcję od górnej nawigacji */
+  margin-bottom: 40px;
+  gap: 20px; /* Odstęp między listą komentarzy a formularzem */
+  box-sizing: border-box;
 }
 
-.Rating div {
-  margin-bottom: 10px;
-  font-size: 16px;
+/* --- KARTY (WIDŻETY) --- */
+.card, .actionCard {
+  background-color: #16191d;
+  border: 1px solid #2a2e35;
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.Rating button:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
-}
-.title {
-  font-size: 30px;
-  font-weight: 700;
-  color: #fff;
-}
-.average {
-  font-size: 30px;
-  font-weight: 700;
-  color: #fff;
-}
-.info {
+/* --- NAGŁÓWEK --- */
+.header {
   display: flex;
   justify-content: space-between;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 20px;
+  align-items: center;
+  border-bottom: 1px solid #2a2e35;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
 }
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.average {
+  font-size: 16px;
+  font-weight: 600;
+  color: #8b949e; /* Wyciszony szary */
+}
+
+.average span {
+  color: #58a6ff; /* Niebieski akcent na samą ocenę */
+  font-size: 18px;
+  font-weight: 800;
+  margin-left: 5px;
+}
+
+/* --- LISTA KOMENTARZY --- */
+.commentList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .comment {
   display: flex;
   flex-direction: row;
-  font-size: 16px;
-  color: #fff;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 1px solid rgba(42, 46, 53, 0.5); /* Subtelna linia między komentarzami */
+  padding-bottom: 20px;
 }
+
+/* Usuwa linię pod ostatnim komentarzem */
+.comment:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.avatar {
+  width: 50px; /* Nieco zgrabniejszy, okrągły awatar */
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #2a2e35;
+}
+
 .commentContent {
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  align-items: flex-start;
+  gap: 4px;
+  color: #e0e6ed;
+  width: 100%;
+}
+
+.userName {
+  font-weight: 700;
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.ratedText {
+  font-size: 12px;
+  color: #8b949e;
+}
+
+.stars {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* Treść samego komentarza w szklanym, zaokrąglonym dymku */
+.commentText {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(42, 46, 53, 0.4);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #c9d1d9;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 4px;
+}
+
+/* --- BRAK DANYCH / NIEZALOGOWANY --- */
+.noComments, .noAuth {
+  color: #8b949e;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+  font-size: 15px;
 }

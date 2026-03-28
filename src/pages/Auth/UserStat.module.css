@@ -1,116 +1,121 @@
-/* src/pages/User/Profile.module.css */
-
+/* --- GŁÓWNY KONTENER --- */
 .container {
   display: flex;
-  min-height: 100vh; /* Zmiana na min-height, żeby na mobilu się nie ucinało */
-  background-color: #f0f2f5; /* Szare tło dla kontrastu z białą kartą */
-}
-
-/* Opcjonalny sidebar, żeby .container display:flex miało sens */
-.sidebarPlaceholder {
-  width: 250px;
-  background-color: #001529;
-  display: none; /* Ukryty na mobile */
-}
-
-@media (min-width: 768px) {
-  .sidebarPlaceholder {
-    display: block;
-  }
-}
-
-.mainContent {
-  flex: 1; /* Ważne: zajmuje resztę miejsca obok sidebara */
-  display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 20px;
+  align-items: flex-start;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  background-color: #0e0e0e; 
+  color: #e0e6ed;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 80px 20px;
+  gap: 30px;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
+/* --- GŁÓWNA ZAWARTOŚĆ --- */
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 550px; /* Minimalnie szersza karta, by wykres miał miejsce */
+  margin: 0;
+  padding: 0;
+}
+
+/* --- KARTA PROFILU KIBICA --- */
 .card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 600px; /* Nieco szersza karta dla wykresu */
-  padding: 30px;
+  width: 100%;
+  background-color: #16191d;
+  border: 1px solid #2a2e35;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 40px;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .title {
-  font-size: 32px;
-  font-weight: bold;
-  color: #333333;
-  margin-bottom: 30px;
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
 }
 
-/* Kontener dla samego wykresu Recharts */
+/* --- WYKRES KONTENER --- */
 .chartContainer {
   width: 100%;
   height: 350px;
   margin-bottom: 30px;
 }
 
+/* --- SZCZEGÓŁY KONTA --- */
 .details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; 
   text-align: left;
-  border-top: 1px solid #eee; /* Oddzielenie wykresu od danych */
-  padding-top: 20px;
+  border-top: 1px solid #2a2e35; /* Ciemna linia oddzielająca */
+  padding-top: 25px;
 }
 
 .detailItem {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
-  padding: 15px;
+  align-items: center;
+  padding: 14px 16px;
+  background-color: #0e0e0e; 
+  border: 1px solid #3a414a;
   border-radius: 8px;
-  background-color: #f9f9f9;
-  transition: transform 0.2s;
+  transition: all 0.2s ease;
 }
 
 .detailItem:hover {
-    transform: translateX(5px);
-    background-color: #f0f7ff; /* Lekki niebieski przy najechaniu */
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.1);
+  transform: translateX(4px); /* Płynne wjechanie jak w menu */
 }
 
 .label {
-  font-weight: bold;
-  color: #666666;
-  font-size: 16px;
+  font-weight: 600;
+  color: #8b949e;
+  font-size: 14px;
 }
 
 .value {
-  color: #333333;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 800;
 }
 
-/* Kolorowanie wartości dla lepszego efektu */
+/* Kolorowanie wartości pasujące do wykresu */
 .valueBase {
-    color: #8884d8; /* Kolor z wykresu (Początek) */
+  color: #8884d8; 
 }
 
 .valueCurrent {
-    color: #82ca9d; /* Kolor z wykresu (Teraz) */
+  color: #82ca9d; 
 }
 
+/* --- RESPONSYWNOŚĆ --- */
 @media (max-width: 600px) {
-  .card {
-    width: 100%;
+  .container {
+    padding: 40px 15px;
   }
 
-  .title {
-    font-size: 24px;
+  .card {
+    padding: 30px 20px;
   }
   
   .chartContainer {
-    height: 250px; /* Mniejszy wykres na telefonie */
+    height: 250px;
   }
 
   .detailItem {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .value {
-    margin-top: 5px;
+    gap: 6px;
   }
 }

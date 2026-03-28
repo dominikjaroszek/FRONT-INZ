@@ -1,70 +1,82 @@
+/* --- GŁÓWNY KONTENER --- */
 .container {
   display: flex;
-  height: 100vh;
+  justify-content: center;
+  align-items: flex-start; /* Wyrównuje obie karty idealnie do góry */
+  min-height: 100vh;
+  width: 100vw; /* Wymusza pełną szerokość, pozbywamy się "odciętego" tła */
+  margin: 0;
+  background-color: #0e0e0e; /* Jednolite, gładkie tło */
+  color: #e0e6ed;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 80px 20px; /* Równy odstęp od góry ekranu dla całego panelu */
+  gap: 30px; /* Odstęp między lewym menu a prawą kartą */
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
+/* --- GŁÓWNA ZAWARTOŚĆ --- */
 .mainContent {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  margin: 0; /* Upewniamy się, że nie ma ukrytych marginesów */
+  padding: 0;
 }
 
+/* --- KARTA (Account Information / Password) --- */
 .card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 500px;
-  padding: 20px;
+  width: 100%;
+  background-color: #16191d;
+  border: 1px solid #2a2e35;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 40px;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #333333;
-  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 30px;
+  letter-spacing: 0.5px;
 }
 
+/* --- SZCZEGÓŁY KONTA --- */
 .details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; 
   text-align: left;
 }
 
 .detailItem {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  align-items: center;
+  padding: 14px 16px;
+  background-color: #0e0e0e; 
+  border: 1px solid #3a414a;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.detailItem:hover {
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.1);
 }
 
 .label {
-  font-weight: bold;
-  color: #666666;
-  font-size: 16px;
+  font-weight: 600;
+  color: #8b949e;
+  font-size: 14px;
 }
 
 .value {
-  color: #333333;
-  font-size: 16px;
-}
-
-@media (max-width: 600px) {
-  .card {
-    width: 90%;
-  }
-
-  .title {
-    font-size: 20px;
-  }
-
-  .detailItem {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .value {
-    margin-top: 5px;
-  }
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
 }

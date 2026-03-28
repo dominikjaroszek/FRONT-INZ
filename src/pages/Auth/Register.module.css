@@ -1,75 +1,223 @@
+/* --- GŁÓWNY KONTENER --- */
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 20px 0; /* Zabezpieczenie paddingu przy mniejszych ekranach */
+  background-color: #0e0e0e; 
+  color: #e0e6ed;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
 }
 
+/* --- KARTA REJESTRACJI --- */
+.registerBox {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background-color: #16191d;
+  border: 1px solid #2a2e35;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 50px 40px 40px 40px; 
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* --- IKONA POWROTU --- */
 .backIcon {
   position: absolute;
   top: 20px;
   left: 20px;
-  font-size: 24px;
+  font-size: 16px; 
   cursor: pointer;
-  color: #007bff;
-  transition: color 0.3s ease;
-  padding-top: 180px;
+  color: #8b949e;
+  transition: all 0.2s ease;
+  background-color: #262b33;
+  border: 1px solid #3a414a;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .backIcon:hover {
-  color: #0056b3;
+  color: #ffffff;
+  background-color: #343b45;
+  border-color: #58a6ff;
+  transform: translateX(-2px);
+  box-shadow: 0 4px 10px rgba(88, 166, 255, 0.15);
 }
 
-.registerBox {
-  width: 400px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  text-align: center;
-}
-
+/* --- TEKSTY --- */
 .title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333333;
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
 }
 
 .subtitle {
   font-size: 14px;
-  color: #888;
-  margin-bottom: 20px;
+  color: #8b949e;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+/* --- POLA FORMULARZA --- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .input {
   width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 14px;
+  padding: 14px 16px;
+  background-color: #0e0e0e; 
+  border: 1px solid #3a414a;
+  color: #e0e6ed;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: #6e7681;
 }
 
 .input:focus {
-  border-color: #007bff;
+  border-color: #58a6ff;
   outline: none;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
 }
 
+/* --- SEKCJA OSOBOWOŚCI --- */
+.personalitySection {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.personalityHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.personalityLabel {
+  color: #e0e6ed;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.footballProfileText {
+  color: #8b949e;
+  font-size: 13px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.footballProfileHighlight {
+  color: #58a6ff;
+  font-weight: 700;
+}
+
+/* --- PRZYCISK REJESTRACJI --- */
 .button {
   width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
+  padding: 14px;
   margin-top: 10px;
+  background-color: #58a6ff; 
+  color: #0e0e0e; 
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background-color: #79b8ff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(88, 166, 255, 0.3);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+/* --- OVERRIDES DLA ANT DESIGN SELECT (Dropdown) --- */
+
+/* Główny przycisk/pole wyboru */
+.personalitySection :global(.ant-select-selector) {
+  background-color: #0e0e0e !important;
+  border: 1px solid #3a414a !important;
+  color: #e0e6ed !important;
+  border-radius: 8px !important;
+  height: 45px !important;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease !important;
+}
+
+/* Wygląd podczas kliknięcia (Focus) */
+.personalitySection :global(.ant-select-focused .ant-select-selector),
+.personalitySection :global(.ant-select-open .ant-select-selector) {
+  border-color: #58a6ff !important;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15) !important;
+}
+
+/* Kolor placeholdera i wybranego tekstu */
+.personalitySection :global(.ant-select-selection-placeholder) {
+  color: #6e7681 !important;
+  line-height: 43px !important;
+}
+
+.personalitySection :global(.ant-select-selection-item) {
+  color: #e0e6ed !important;
+  line-height: 43px !important;
+}
+
+/* Ikona strzałki */
+.personalitySection :global(.ant-select-arrow) {
+  color: #8b949e !important;
+}
+
+/* --- ROZWIJANA LISTA OPCJI ANT DESIGN --- */
+:global(.ant-select-dropdown) {
+  background-color: #16191d !important;
+  border: 1px solid #2a2e35 !important;
+  padding: 5px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+:global(.ant-select-item-option) {
+  color: #e0e6ed !important;
+  border-radius: 5px !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Efekt po najechaniu na opcję */
+:global(.ant-select-item-option:hover),
+:global(.ant-select-item-option-active) {
+  background-color: #262b33 !important;
+}
+
+/* Efekt dla wybranej opcji */
+:global(.ant-select-item-option-selected) {
+  background-color: rgba(88, 166, 255, 0.1) !important;
+  color: #58a6ff !important;
+  font-weight: 700 !important;
 }

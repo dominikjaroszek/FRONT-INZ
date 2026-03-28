@@ -32,10 +32,12 @@ const TeamUpcoming = () => {
         <div className={styles.leagueDetails}>
           <Team teamName={teamName} onDataSend={handleDataFromChild} />
           <TeamBar teamName={teamName} leagueName={childData} />
-          <div className={styles.leagueHeader}>
-            <div className={styles.button}>Upcoming matches</div>
+          <div className={styles.section}>
+            <div className={styles.leagueHeader}>
+              <div className={styles.button}>Upcoming matches</div>
+            </div>
+            <MatchList matches={matchesData} finished={0} />
           </div>
-          <MatchList matches={matchesData} finished={0} />
         </div>
       </div>
     </div>

@@ -1,93 +1,195 @@
+/* --- GŁÓWNY UKŁAD --- */
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  color: #e0e0e0;
 }
+
 .content {
   display: flex;
+  flex-direction: row;
   width: 100%;
+  justify-content: center;
 }
+
+/* W tym komponencie używasz leagueDetails jako głównego wrappera zawartości obok SideBar-u */
 .leagueDetails {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Wyśrodkowuje zawartość */
   width: 100%;
-}
-.leagueHeader {
-  display: flex;
-  width: 70%;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ffffff;
-}
-.button {
-  background-color: #141619;
-  cursor: default;
-  padding: 0.6em 1.2em;
-  border-radius: 10px;
-}
-.logo {
-  width: 50px;
-  height: 50px;
+  flex: 1; /* Pozwala zająć całe miejsce obok SideBar */
+  padding: 30px 40px;
+  box-sizing: border-box;
 }
 
-.ShowMore {
-  background-color: #141619;
-  cursor: pointer;
-  padding: 0.6em 1.2em;
-  border-radius: 10px;
-  width: 67%;
-}
-.ShowMore:hover {
-  background-color: #34495e;
-}
-.noMatches {
-  display: flex;
-  border-bottom: 1px solid #ffffff;
-  border-top: 1px solid #ffffff;
-  justify-content: center;
-  padding: 10px;
-  width: 68%;
-}
-.nav {
-  display: flex;
-  flex-direction: row;
-}
-
-.navItem {
-  cursor: pointer;
-  color: white;
-  text-decoration: none;
-  margin-top: 10px;
-  transition: color 0.3s ease;
-}
-
-.navItem.active {
-  color: #58a6ff;
-  font-weight: bold;
-}
-
-.navItem.active button {
-  border-bottom: 2px solid #58a6ff;
-}
-
-.navItem button {
-  border: none;
-  color: inherit;
-  font-size: 12px;
-  cursor: pointer;
-}
-
+/* --- KARTA DRUŻYNY --- */
 .team {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 1000px;
+  background-color: #16191d;
+  border: 1px solid #2a2e35;
+  border-radius: 10px; /* Nieco mniejsze zaokrąglenie */
+  padding: 16px 20px; /* Zmniejszony padding = bardziej kompaktowa karta */
+  margin-bottom: 20px;
+  gap: 20px;
+  box-sizing: border-box;
 }
+
 .information {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  gap: 4px; /* Nieco mniejszy odstęp między liniami tekstu */
   font-size: 13px;
+  text-align: left;
+  color: #e0e6ed;
+}
+
+.logo {
+  width: 80px; /* Zwiększ lekko logo, lub ustaw na 60px, zależnie od preferencji */
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+}
+
+/* --- ZAKŁADKI NAWIGACJI (TABS) - zakładam że korzystasz z .Bar / .nav --- */
+.Bar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 20px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 15px;
+  border-bottom: 1px solid #2a2e35;
+}
+
+.navItem {
+  display: flex;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navItem button {
+  background-color: transparent;
+  border: none;
+  color: #8b949e;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  border-radius: 6px 6px 0 0;
+  transition: all 0.2s ease;
+}
+
+.navItem button:hover {
+  color: #e0e6ed;
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.navItem.active button {
+  color: #58a6ff;
+  border-bottom: 2px solid #58a6ff;
+}
+
+/* --- SEKCJE Z MECZAMI (Nowa klasa!) --- */
+.section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1000px; 
+  margin-top: 25px; /* <--- ZMIANA: Dodany odstęp od góry (od zakładek) */
+  margin-bottom: 10px;
+}
+
+/* --- NAGŁÓWEK SEKCJI --- */
+.leagueHeader {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #16191d;
+  border: 1px solid #2a2e35;
+  padding: 14px 24px;
+  border-radius: 12px;
+  border-left: 4px solid #58a6ff;
+  margin-bottom: 12px; /* Zmniejszyłem margines przed meczami */
+  box-sizing: border-box;
+}
+
+/* Główny tytuł sekcji */
+.leagueHeader > .button:first-child {
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 0;
+  border: none;
+  margin-left: 0;
+  cursor: default;
+}
+
+.leagueHeader > .button:first-child:hover {
+  background-color: transparent;
+  border-color: transparent;
+  transform: none;
+  box-shadow: none;
+}
+
+/* --- POKAŻ WIĘCEJ --- */
+.ShowMore {
+  background-color: #16191d;
+  color: #58a6ff;
+  cursor: pointer;
+  width: 100%;
+  padding: 16px 0;
+  border: 1px solid #2a2e35;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-top: 12px;
+  margin-bottom: 30px; /* Odstęp między sekcjami */
+  box-sizing: border-box;
+}
+
+.ShowMore:hover {
+  background-color: #1e2126;
+  border-color: #58a6ff;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* --- BRAK WYNIKÓW --- */
+.noMatches {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #8b949e;
+  font-style: italic;
+  background-color: #16191d;
+  border: 1px dashed #2a2e35;
+  border-radius: 12px;
+  margin-top: 12px;
+  margin-bottom: 30px;
 }

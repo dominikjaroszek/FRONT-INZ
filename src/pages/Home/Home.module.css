@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  color: #e0e0e0;
 }
 
 .content {
@@ -13,55 +14,230 @@
 .mainContent {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Wyśrodkowuje kontener główny */
   width: 100%;
+  flex: 1; /* Zajmuje resztę miejsca obok SideBara */
+  padding: 30px 40px; /* Więcej oddechu po bokach */
+  box-sizing: border-box;
+}
+
+.league {
+  width: 100%;
+  max-width: 1000px; /* Kontrola rzeczywistej szerokości listy */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .singleLeague {
   display: flex;
   flex-direction: column;
+  margin-bottom: 40px;
+  width: 100%; /* Zajmie 100% z 1000px klasy .league */
+  gap: 12px;
 }
 
+/* --- NAGŁÓWEK LIGI --- */
 .leagueHeader {
   display: flex;
-  width: 70%;
+  width: 100%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
-.showMore {
-  background-color: #141619;
-  color: white;
+  background-color: #16191d; /* Tło jak w kartach meczów */
+  border: 1px solid #2a2e35; /* Subtelna ramka */
+  padding: 14px 24px; /* Padding pasujący do kart */
+  border-radius: 12px; /* Zaokrąglenia jak karty */
+  border-left: 4px solid #58a6ff; /* Akcent z lewej */
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
-  width: 70%;
-  border-bottom: 1px solid #ffffff;
-  border-top: 1px solid #ffffff;
+  box-sizing: border-box;
 }
 
-.showMore:hover {
-  background-color: #34495e;
-}
+
+
 .singleLeagueHeader {
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+
+/* --- NOWOCZESNE PRZYCISKI / TAGI W NAGŁÓWKU --- */
+.button {
+  background-color: #262b33; /* Znacznie jaśniejsze tło, wyraźnie odcinające się od nagłówka */
+  color: #e0e6ed; /* Prawie biały, bardzo czytelny tekst */
+  cursor: pointer;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: 600; /* Pogrubiona czcionka dla lepszej widoczności */
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+  border: 1px solid #3a414a; /* Wyraźniejsza, jaśniejsza ramka */
+}
+
+/* Wyjątek: Główny tytuł sekcji (Upcoming/Finished) */
+.leagueHeader > .button:first-child {
+  background-color: transparent;
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: 700;
+  padding: 0;
+  border: none;
+  letter-spacing: normal;
+}
+
+
+
+/* Efekt najechania na tagi (np. Table, Premier League) */
+.button:hover {
+  color: #ffffff;
+  background-color: #343b45; /* Jeszcze jaśniejsze tło przy najechaniu */
+  border-color: #58a6ff; /* Niebieski akcent nawiązujący do kart meczów */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* --- PRZYCISK SEE MORE --- */
+.showMore {
+  background-color: #16191d; /* Tło zgodne z kartą meczu */
+  color: #58a6ff; /* Wyróżniony tekst */
+  cursor: pointer;
+  width: 100%;
+  padding: 16px 0;
+  border: 1px solid #2a2e35;
+  border-radius: 12px;
+  font-size: 1.1em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.showMore:hover {
+  background-color: #1e2126;
+  border-color: #58a6ff;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Pusty stan, jeśli nie ma meczów */
+.noMatches {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #666;
+  font-style: italic;
+  background-color: #16191d;
+  border: 1px dashed #2a2e35;
+  border-radius: 12px;
+}
+
+/* ========================================= */
+/* --- MINI PANEL: SPECIAL FOR YOU --- */
+/* ========================================= */
+
+.specialPanel {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.specialTitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffd700; /* Złoty akcent */
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: left; /* Tytuł od lewej */
+}
+
+.specialGrid {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+}
+
+.specialCard {
+  flex: 1; /* Dwie karty zajmą po 50% szerokości */
+  background: linear-gradient(145deg, #1e2126, #141619); /* Subtelny gradient Premium */
+  border: 1px solid #2a2e35;
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.specialCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  border-color: #58a6ff;
+}
+
+.specialTeams {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.specialTeam {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   width: 40%;
 }
-.button {
-  background-color: #141619;
-  cursor: pointer;
-  padding: 0.6em 1.2em;
-  border-radius: 10px;
+
+.specialTeam img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); /* Lekki cień pod herbami */
 }
 
-.button:hover {
-  background-color: #34495e;
+.specialTeam span {
+  font-size: 15px;
+  font-weight: 700;
+  color: #e0e6ed;
+  text-align: center;
+  line-height: 1.2;
 }
-.noMatches {
-  display: flex;
-  border-bottom: 1px solid #ffffff;
-  border-top: 1px solid #ffffff;
-  justify-content: center;
-  padding: 10px;
-  width: 68%;
+
+.specialVs {
+  font-size: 14px;
+  font-weight: 900;
+  color: #555;
+  font-style: italic;
+}
+
+.specialDate {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #8b949e;
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* Responsywność dla małych ekranów */
+@media (max-width: 768px) {
+  .specialGrid {
+    flex-direction: column;
+  }
 }

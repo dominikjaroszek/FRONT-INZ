@@ -1,112 +1,86 @@
+/* --- GŁÓWNY UKŁAD --- */
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  color: #e0e0e0;
 }
+
 .content {
   display: flex;
+  flex-direction: row;
   width: 100%;
+  justify-content: center;
 }
-.leagueDetails {
+
+.main, .leagueDetails {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
-}
-.nav {
-  display: flex;
-  flex-direction: row;
-}
-
-.nav {
-  display: flex;
-  flex-direction: row;
+  flex: 1;
+  padding: 30px 40px;
+  box-sizing: border-box;
 }
 
-.navItem {
-  cursor: pointer;
-  color: white;
-  text-decoration: none;
-  margin: 5px 0;
-  transition: color 0.3s ease;
-}
-
-.navItem button {
-  background: none;
-  border: none;
-  color: inherit;
-  font-size: 12px;
-  cursor: pointer;
-  padding: 5px 10px;
-  transition: color 0.3s ease;
-}
-
-.navItem button:hover {
-  color: #58a6ff;
-}
-
-.navItem .active {
-  color: #58a6ff; 
-  font-weight: bold;
-  border-bottom: 2px solid #58a6ff;
-}
-
+/* --- ZAKŁADKI NAWIGACJI (TABS) --- */
 .Bar {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 1000px; /* Zrównanie szerokości */
+  margin-bottom: 20px;
 }
 
 .nav {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  gap: 15px;
+  border-bottom: 1px solid #2a2e35; /* Nowoczesna linia oddzielająca */
 }
 
 .navItem {
-  cursor: pointer;
-  color: white;
-  text-decoration: none;
-  margin: 5px 0;
-  transition: color 0.3s ease;
-}
-.main {
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 100%;
-}
-.navItem button {
-  background-color: #1a1a1a;
-  border: none;
-  color: inherit;
-  font-size: 12px;
   cursor: pointer;
-  padding: 5px 10px;
-  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.navItem button {
+  background-color: transparent;
+  border: none;
+  color: #8b949e;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  border-radius: 6px 6px 0 0;
+  transition: all 0.2s ease;
 }
 
 .navItem button:hover {
-  color: #58a6ff;
+  color: #e0e6ed;
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
-.navItem .active {
-  color: #58a6ff; /* Kolor podświetlenia */
-  font-weight: bold;
-  border-bottom: 2px solid #58a6ff; /* Linie na dole dla podkreślenia */
+.navItem .active, .navItem button.active {
+  color: #58a6ff;
+  border-bottom: 2px solid #58a6ff;
 }
-.tableContainer {
-  width: 100%;
+
+/* --- TABELE --- */
+.tableContainer, .tableContainer1 {
+ 
+  background-color: #16191d;
+  border: 1px solid #2a2e35;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  box-sizing: border-box;
   overflow-x: auto;
-  color: white;
-  border-radius: 8px;
-  padding-top: 20px;
-}
-.tableContainer1 {
-  width: 62%;
-  overflow-x: auto;
-  color: white;
-  border-radius: 8px;
-  padding-top: 20px;
 }
 
 .table {
@@ -116,95 +90,133 @@
 }
 
 .table th {
-  background-color: #161b22;
-  color: #ffffff;
-  padding: 10px;
+  background-color: #1e2126; 
+  color: #c9d1d9;
+  padding: 16px 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #2a2e35;
 }
 
 .table td {
-  background-color: #1e252e;
-  padding: 10px;
-  border-bottom: 1px solid #2d333b;
+  background-color: transparent; 
+  padding: 14px 12px;
+  border-bottom: 1px solid #2a2e35;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #e0e6ed;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr {
+  transition: background-color 0.15s ease;
 }
 
 .table tr:hover {
-  background-color: #2c333d;
+  background-color: rgba(255, 255, 255, 0.03); 
 }
 
 .teamName {
-  color: #58a6ff;
+  color: #e0e6ed;
+  font-weight: 600;
   cursor: pointer;
   text-align: left;
   padding-left: 15px;
+  transition: color 0.2s ease;
 }
 
 .teamName:hover {
-  text-decoration: underline;
+  color: #58a6ff;
 }
 
+/* --- IKONY FORMY --- */
 .formIcons {
   display: flex;
   justify-content: center;
-  gap: 5px;
+  gap: 6px;
 }
 
 .formIcon {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   display: inline-block;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
 }
 
-.win {
-  background-color: #2ecc71; /* Zielony */
-}
+.win { background-color: #238636; }
+.draw { background-color: #d29922; }
+.lose { background-color: #da3633; }
 
-.draw {
-  background-color: #f1c40f; /* Żółty */
-}
-
-.lose {
-  background-color: #e74c3c; /* Czerwony */
-}
+/* --- SZCZEGÓŁY MECZU (Match Banner) --- */
 .container2 {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #ffffff;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  background-color: #16191d; /* Zmieniono z samej dolnej linii na pełną "Kartę Widgetu" */
+  border: 1px solid #2a2e35;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-sizing: border-box;
 }
+
 .matchHeader {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
-  padding: 0.5em 1em;
-  width: 60%;
+  padding: 10px;
+  width: 100%;
 }
+
 .team {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
+  padding: 20px;
 }
 
 .matchTeam {
   padding-top: 10px;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 700;
   cursor: pointer;
+  color: #e0e6ed;
+  transition: color 0.2s ease;
 }
+
+.matchTeam:hover {
+  color: #58a6ff;
+}
+
 .matchInformation {
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
+  gap: 8px; /* Lekki odstęp dla czytelności */
 }
+
 .information {
   display: flex;
-  font-size: 12px;
+  font-size: 13px;
+  color: #8b949e; /* Wyciszony kolor daty/czasu */
 }
+
 .score {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 26px; /* Powiększony, wyraźny wynik */
+  font-weight: 800;
+  color: #58a6ff; /* Akcentujący kolor dla głównego wyniku meczu */
 }

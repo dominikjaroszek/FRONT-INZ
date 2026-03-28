@@ -13,14 +13,11 @@ const Login = () => {
 
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-  // loginOutput was unused in the UI, but keeping state as requested
   const [loginOutput, setLoginOutput] = useState("");
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // 1. Modified to accept the event
   const handleLogin = async (event) => {
-    // 2. Prevent the default form reload behavior
     if (event) event.preventDefault();
 
     if (!emailInput && !passwordInput) {
@@ -92,14 +89,15 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.backIcon} onClick={() => navigate("/")}>
-        <ArrowLeftOutlined />
-      </div>
       <div className={styles.loginBox}>
+        {/* Przycisk powrotu wewnątrz karty logowania */}
+        <div className={styles.backIcon} onClick={() => navigate("/")}>
+          <ArrowLeftOutlined />
+        </div>
+        
         <h2 className={styles.title}>Sign In</h2>
         <p className={styles.subtitle}>Hey, sign in to your account</p>
         
-        {/* 3. Wrapped inputs in a form tag */}
         <form onSubmit={handleLogin}>
           <input
             type="text"
@@ -107,7 +105,6 @@ const Login = () => {
             className={styles.input}
             value={emailInput}
             onChange={(e) => setEmailInput(e.target.value)}
-            // 4. Removed onKeyUp (Form handles 'Enter' automatically)
             data-testid="email-input"
             autoComplete="username" 
           />
@@ -117,11 +114,9 @@ const Login = () => {
             className={styles.input}
             value={passwordInput}
             onChange={(e) => setPasswordInput(e.target.value)}
-            // 4. Removed onKeyUp
             data-testid="password-input"
             autoComplete="current-password"
           />
-          {/* 5. Changed type to submit */}
           <button 
             type="submit" 
             className={styles.button} 

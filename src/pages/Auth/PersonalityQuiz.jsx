@@ -1,8 +1,8 @@
-// src/pages/Auth/PersonalityQuiz.jsx
 import React, { useState } from "react";
-import { Modal, Typography, Row, Col, Card, Progress, Button } from "antd";
+import { Modal, Typography, Row, Col, Progress, Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { calculateQuizStats, FOOTBALL_PROFILE_MAP } from "../../utils/personalityConfig";
+import styles from "./PersonalityQuiz.module.css"; // Dodajemy import stylów
 
 const { Title, Text } = Typography;
 
@@ -147,25 +147,19 @@ const PersonalityQuiz = ({ visible, onClose, onComplete }) => {
   };
 
   const finishQuiz = (finalScores) => {
-    // 1. Znajdź zwycięzcę (Typ dominujący)
     const winnerType = Object.keys(finalScores).reduce((a, b) => 
       finalScores[a] > finalScores[b] ? a : b
     );
     
-    // 2. Oblicz dokładne statystyki procentowe (liczby 10-100)
     const calculatedStats = calculateQuizStats(finalScores, questions.length);
-    
-    // 3. Pobierz nazwę piłkarską
     const footballName = FOOTBALL_PROFILE_MAP[winnerType];
 
-    // Reset stanów
     setTimeout(() => {
         setCurrentQuestion(0);
         setScores({ "Konfrontator": 0, "Stabilizator": 0, "Analityk": 0, "Poszukiwacz Doznań": 0 });
         setHistory([]);
     }, 500);
 
-    // 4. Zwróć kompletny obiekt
     onComplete({
         type: winnerType,
         footballProfile: footballName,
@@ -176,38 +170,6 @@ const PersonalityQuiz = ({ visible, onClose, onComplete }) => {
   const question = questions[currentQuestion];
   const progressPercent = Math.round(((currentQuestion + 1) / questions.length) * 100);
 
-  const styles = {
-    answerCard: {
-        cursor: 'pointer',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        border: '1px solid #d9d9d9',
-        borderRadius: '8px',
-        transition: 'all 0.3s',
-        padding: '15px'
-    },
-    answerText: {
-        fontSize: '15px',
-        fontWeight: 500
-    },
-    questionTitle: {
-        textAlign: 'center', 
-        marginBottom: '30px', 
-        fontSize: '1.8rem',
-        fontWeight: 'bold',
-        lineHeight: '1.3'
-    },
-    navigationBar: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: '20px'
-    }
-  };
-
   return (
     <Modal
       open={visible}
@@ -216,48 +178,49 @@ const PersonalityQuiz = ({ visible, onClose, onComplete }) => {
       width={800}
       centered
       maskClosable={false}
+      className={styles.darkModal} // Ważne: nakłada na modala ciemne style
     >
-      <div style={{ padding: '20px 10px' }}>
+      <div className={styles.quizWrapper}>
         
-        <div style={styles.navigationBar}>
+        <div className={styles.navigationBar}>
             <div style={{ width: '80px' }}>
                 {currentQuestion > 0 && (
                     <Button 
                         icon={<ArrowLeftOutlined />} 
                         onClick={handleBack}
                         type="text"
+                        className={styles.backBtn}
                     >
                         Wróć
                     </Button>
                 )}
             </div>
             <div style={{ flex: 1, textAlign: 'center' }}>
-                 <Text type="secondary">
+                 <div className={styles.questionCounter}>
                     Pytanie {currentQuestion + 1} z {questions.length}
-                </Text>
+                </div>
             </div>
             <div style={{ width: '80px' }}></div>
         </div>
 
-        <div style={{ marginBottom: '30px', padding: '0 10px' }}>
-            <Progress percent={progressPercent} showInfo={false} strokeColor="#1890ff" />
+        <div style={{ marginBottom: '40px', padding: '0 10px' }}>
+            {/* trailColor zmienia tło niezapełnionego paska, strokeColor zmienia zapełniony na nasz niebieski */}
+            <Progress percent={progressPercent} showInfo={false} strokeColor="#58a6ff" trailColor="#2a2e35" />
         </div>
 
-        <Title level={3} style={styles.questionTitle}>
+        <Title level={3} className={styles.questionTitle}>
             {question.question}
         </Title>
 
         <Row gutter={[16, 16]}>
           {question.answers.map((answer, index) => (
             <Col xs={24} sm={12} key={index}>
-              <Card 
-                hoverable 
+              <div 
+                className={styles.answerCard}
                 onClick={() => handleAnswer(answer.type)}
-                bodyStyle={{ padding: '15px' }}
-                style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                 <Text style={styles.answerText}>{answer.text}</Text>
-              </Card>
+                 <div className={styles.answerText}>{answer.text}</div>
+              </div>
             </Col>
           ))}
         </Row>

@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // 1. Dodaj useState
+import React, { useState } from "react";
 import { Rate } from "antd";
 import useAuth from "../hooks/useAuth";
 import useFetch from "../hooks/useFetch";
@@ -8,18 +8,12 @@ import noawatar from "../assets/noawatar.png";
 
 const Rating = ({ match_id }) => {
   const { auth } = useAuth();
-
-  // 2. Stan służący do wymuszania odświeżenia
   const [refreshKey, setRefreshKey] = useState(0);
 
-  // 3. Funkcja, którą przekażemy do dziecka
   const handleRefresh = () => {
     setRefreshKey((prev) => prev + 1);
   };
 
-  // 4. Dodajemy parametr 'refresh' do URL-i. 
-  // Zmiana 'refreshKey' zmieni URL, więc useFetch pobierze dane ponownie.
-  
   const {
     data: comments,
     loading: loadingComments,
@@ -39,46 +33,54 @@ const Rating = ({ match_id }) => {
   const numericAverage = averageData?.average_rating || 0;
 
   return (
-    <div className={styles.container}>
-      {!comments || comments.length === 0 ? (
-        <div className={styles.title}>No comments yet</div>
-      ) : (
-        <div className={styles.container}>
-          <div className={styles.info}>
-            <div className={styles.title}>Match comments:</div>
-            <div className={styles.average}>Average: {numericAverage} / 5</div>
-          </div>
-          <div>
-            {comments.map((item, index) => (
-              <div key={index} className={styles.comment}>
-                <img
-                  style={{ width: "80px", height: "80px" }}
-                  src={noawatar}
-                  alt="avatar"
-                />
-                <div className={styles.commentContent}>
-                  <div style={{ fontWeight: "bold" }}>{item.user_name}</div>
-                  <div>rated the match:</div>
-                  <Rate value={item.rating} disabled />
-                  {item.comment && <p>{item.comment}</p>}
-                </div>
+    <div className={styles.wrapper}>
+      {/* KARTA Z KOMENTARZAMI */}
+      <div className={styles.card}>
+        {!comments || comments.length === 0 ? (
+          <div className={styles.noComments}>No comments yet</div>
+        ) : (
+          <>
+            <div className={styles.header}>
+              <div className={styles.title}>Match comments</div>
+              <div className={styles.average}>
+                Average: <span>{numericAverage} / 5</span>
               </div>
-            ))}
-          </div>
-        </div>
-      )}
+            </div>
+            
+            <div className={styles.commentList}>
+              {comments.map((item, index) => (
+                <div key={index} className={styles.comment}>
+                  <img
+                    className={styles.avatar}
+                    src={noawatar}
+                    alt="avatar"
+                  />
+                  <div className={styles.commentContent}>
+                    <div className={styles.userName}>{item.user_name}</div>
+                    <div className={styles.ratedText}>rated the match:</div>
+                    <Rate value={item.rating} disabled className={styles.stars} />
+                    {item.comment && (
+                      <div className={styles.commentText}>{item.comment}</div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
 
-      {auth?.accessToken ? (
-        // 5. Przekazujemy funkcję odświeżającą do dziecka
-        <CommentRating 
-            match_id={match_id} 
-            onRatingSuccess={handleRefresh} 
-        />
-      ) : (
-        <div className={styles.title} style={{ marginTop: "20px" }}>
-          Sign in to add a comment
-        </div>
-      )}
+      {/* KARTA DO DODAWANIA KOMENTARZA */}
+      <div className={styles.actionCard}>
+        {auth?.accessToken ? (
+          <CommentRating
+            match_id={match_id}
+            onRatingSuccess={handleRefresh}
+          />
+        ) : (
+          <div className={styles.noAuth}>Sign in to add a comment</div>
+        )}
+      </div>
     </div>
   );
 };

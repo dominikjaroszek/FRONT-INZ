@@ -8,8 +8,7 @@ import styles from "./LeagueHome.module.css";
 import LeagueDetails from "../../components/LeagueDetails";
 
 const ArchiveSeason = () => {
-  const { leagueName } = useParams();
-  const { season } = useParams();
+  const { leagueName, season } = useParams();
   const navigate = useNavigate();
 
   const {
@@ -22,7 +21,7 @@ const ArchiveSeason = () => {
   if (seasonError) return <p>Error: {seasonError.message}</p>;
 
   const handleChange = (newSeason) => {
-    console.log(newSeason);
+    // newSeason to teraz np. 2024 lub 2025
     navigate(`/league/${leagueName}/${newSeason}`);
   };
 
@@ -45,19 +44,19 @@ const ArchiveSeason = () => {
                 </tr>
               </thead>
               <tbody>
-                {seasonDetails?.map((season) => (
-                  <tr key={season.season_id}>
-                    <td>{season.start_year}</td>
-                    <td>{season.end_year}</td>
-                    <td>{season.winner || "N/A"}</td>
+                {seasonDetails?.map((seasonItem, index) => (
+                  <tr key={seasonItem.id || index}>
+                    {/* Pobieramy 'year' z bazy (np. 2024) */}
+                    <td>{seasonItem.year}</td>
+                    
+                    {/* Wyliczamy rok końcowy "w locie" (np. 2025) */}
+                    <td>{seasonItem.year + 1}</td>
+                    
+                    <td>{seasonItem.winner || "N/A"}</td>
                     <td>
                       <button
                         className={styles.button}
-                        onClick={() =>
-                          handleChange(
-                            `${season.start_year}-${season.end_year}`
-                          )
-                        }
+                        onClick={() => handleChange(seasonItem.year)}
                       >
                         View Season
                       </button>

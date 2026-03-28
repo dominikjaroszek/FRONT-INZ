@@ -7,27 +7,24 @@ import useFetch from "../../hooks/useFetch";
 import { axiosPrivate } from "../../hooks/useAxiosPrivate";
 import MatchList from "../../components/MatchList";
 
-// Ikona ognia lub gwiazdki (opcjonalnie, można użyć biblioteki ikon)
+// Ikona ognia
 const FireIcon = () => <span role="img" aria-label="fire">🔥</span>;
 
 const HomeTop = () => {
   const [sortBy, setSortBy] = useState("hype_score");
   const [viewMode, setViewMode] = useState("league");
   
-  // Stan dla rekomendacji
   const [recMatches, setRecMatches] = useState([]);
   const [recLoading, setRecLoading] = useState(true);
   
   const navigate = useNavigate();
 
-  // 1. Pobieranie głównej listy (tak jak miałeś)
   const {
     data: matchesByLeague,
     loading: matchesLoading,
     error: matchesError,
   } = useFetch(`/upcoming-matches/scores`);
 
-  // 2. Pobieranie rekomendacji (NOWE)
   useEffect(() => {
     let isMounted = true;
     const fetchRecommendations = async () => {
@@ -48,19 +45,17 @@ const HomeTop = () => {
     return () => {
       isMounted = false;
     };
-  }, [axiosPrivate]);
+  }, []);
 
   const sortMatches = (matches) => {
     if (!matches) return [];
     return [...matches].sort((a, b) => (b[sortBy] || 0) - (a[sortBy] || 0));
   };
 
-  // Helper do nawigacji do szczegółów meczu
   const handleMatchClick = (matchId) => {
     navigate(`/match/${matchId}`);
   };
 
-  // Formatowanie daty
   const formatDate = (dateString) => {
     const options = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     return new Date(dateString).toLocaleDateString('pl-PL', options);
@@ -76,7 +71,7 @@ const HomeTop = () => {
         <SideBar />
         <div className={styles.mainContent}>
             
-          {/* --- NOWY PANEL REKOMENDACJI --- */}
+          {/* --- PANEL REKOMENDACJI --- */}
           {!recLoading && recMatches.length > 0 && (
             <div className={styles.recommendationSection}>
                 <div className={styles.recTitle}>
@@ -89,7 +84,6 @@ const HomeTop = () => {
                             className={styles.recCard}
                             onClick={() => handleMatchClick(match.id)}
                         >
-                            {/* Pasek wyniku dopasowania */}
                             <div className={styles.matchScoreBadge}>
                                 {match.match_score}% Match
                             </div>
@@ -115,18 +109,17 @@ const HomeTop = () => {
                                 {formatDate(match.date)}
                             </div>
                             
-                            {/* Paski statystyk (małe) */}
                             <div className={styles.recStats}>
                                 <div className={styles.statBar}>
                                     <span>Hype</span>
                                     <div className={styles.barBg}>
-                                        <div className={styles.barFill} style={{width: `${match.analytics.hype_score}%`, background: '#e74c3c'}}></div>
+                                        <div className={styles.barFill} style={{width: `${match.analytics.hype_score}%`, background: '#da3633'}}></div>
                                     </div>
                                 </div>
                                 <div className={styles.statBar}>
                                     <span>Aggression</span>
                                     <div className={styles.barBg}>
-                                        <div className={styles.barFill} style={{width: `${match.analytics.aggression_score}%`, background: '#f1c40f'}}></div>
+                                        <div className={styles.barFill} style={{width: `${match.analytics.aggression_score}%`, background: '#d29922'}}></div>
                                     </div>
                                 </div>
                             </div>
@@ -135,31 +128,17 @@ const HomeTop = () => {
                 </div>
             </div>
           )}
-          {/* --- KONIEC PANELU REKOMENDACJI --- */}
 
+          {/* --- PANEL KONTROLNY (Nawigacja i Sortowanie) --- */}
           <div className={styles.header}>
             <div className={styles.nav}>
-              <div
-                className={`${styles.navItem} ${
-                  viewMode === "league" ? styles.active : ""
-                }`}
-              >
-                <button
-                  onClick={() => setViewMode("league")}
-                  data-testid="view-league"
-                >
+              <div className={`${styles.navItem} ${viewMode === "league" ? styles.active : ""}`}>
+                <button onClick={() => setViewMode("league")} data-testid="view-league">
                   Division into leagues
                 </button>
               </div>
-              <div
-                className={`${styles.navItem} ${
-                  viewMode === "all" ? styles.active : ""
-                }`}
-              >
-                <button
-                  onClick={() => setViewMode("all")}
-                  data-testid="view-all"
-                >
+              <div className={`${styles.navItem} ${viewMode === "all" ? styles.active : ""}`}>
+                <button onClick={() => setViewMode("all")} data-testid="view-all">
                   All matches
                 </button>
               </div>
@@ -170,7 +149,6 @@ const HomeTop = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                style={{ marginLeft: "10px", backgroundColor: "#58a6ff" }}
                 data-testid="sort-by"
               >
                 <option value="hype_score">Generally (Hype)</option>
@@ -181,6 +159,7 @@ const HomeTop = () => {
             </div>
           </div>
 
+          {/* --- LISTA MECZÓW --- */}
           {viewMode === "league" ? (
             !matchesByLeague || matchesByLeague.length === 0 ? (
               <p className={styles.noMatches} data-testid="no-matches">No upcoming matches</p>
@@ -199,15 +178,17 @@ const HomeTop = () => {
               ))
             )
           ) : (
-            <MatchList
-              matches={sortMatches(
-                matchesByLeague
-                  ? matchesByLeague.flatMap((league) => league.matches || [])
-                  : []
-              )}
-              finished={2}
-              sortBy={sortBy}
-            />
+            <div className={styles.allMatchesContainer}>
+              <MatchList
+                matches={sortMatches(
+                  matchesByLeague
+                    ? matchesByLeague.flatMap((league) => league.matches || [])
+                    : []
+                )}
+                finished={2}
+                sortBy={sortBy}
+              />
+            </div>
           )}
         </div>
       </div>

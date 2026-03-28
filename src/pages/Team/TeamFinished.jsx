@@ -1,12 +1,11 @@
-import React from "react";
-import SideBar from "../../components/SideBar";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import TopBar from "../../components/TopBar";
+import SideBar from "../../components/SideBar";
 import TeamBar from "./TeamBar";
 import Team from "./Team";
-import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import MatchList from "../../components/MatchList";
-import { useState } from "react";
 import styles from "./Team.module.css";
 
 const TeamFinished = () => {
@@ -33,10 +32,15 @@ const TeamFinished = () => {
           <Team teamName={teamName} onDataSend={handleDataFromChild} />
           <TeamBar teamName={teamName} leagueName={childData} />
 
-          <div className={styles.leagueHeader}>
-            <div className={styles.button}>Finished matches</div>
+          {/* DODANO WRAPPER .section TUTAJ: */}
+          <div className={styles.section}>
+            <div className={styles.leagueHeader}>
+              <div className={styles.button}>Finished matches</div>
+            </div>
+            <MatchList matches={matchesData} finished={1} />
           </div>
-          <MatchList matches={matchesData} finished={1} />
+          {/* KONIEC WRAPPERA */}
+          
         </div>
       </div>
     </div>

@@ -8,6 +8,12 @@ import MatchList from "../../components/MatchList";
 
 const HomeUpcoming = () => {
   const {
+    data: currentSeason,
+    loading: seasonLoading,
+    error: seasonError,
+  } = useFetch(`/seasons/current-year/`);
+
+  const {
     data: matchesByLeague,
     loading: matchesLoading,
     error: matchesError,
@@ -15,8 +21,10 @@ const HomeUpcoming = () => {
 
   const navigate = useNavigate();
 
-  if (matchesLoading) return <p>Loading...</p>;
-  if (matchesError) return <p>Error: {matchesError.message}</p>;
+  if (matchesLoading || seasonLoading) return <p>Loading...</p>;
+  if (matchesError || seasonError) {
+    return <p>Error: {matchesError?.message || seasonError?.message}</p>;
+  }
 
   const leagues = {};
   matchesByLeague.forEach((league) => {
@@ -37,7 +45,7 @@ const HomeUpcoming = () => {
               <div
                 className={styles.leagueHeader}
                 onClick={() =>
-                  navigate(`/league/${leagueName}/2024-2025/upcoming`)
+                  navigate(`/league/${leagueName}/${currentSeason}/upcoming`)
                 }
               >
                 <div className={styles.button}>Upcoming matches</div>
@@ -47,7 +55,7 @@ const HomeUpcoming = () => {
                     className={styles.button}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navigate(`/league/${leagueName}/2024-2025/standing`);
+                      navigate(`/league/${leagueName}/${currentSeason}/standing`);
                     }}
                   >
                     Table

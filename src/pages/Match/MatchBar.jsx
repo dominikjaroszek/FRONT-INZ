@@ -11,10 +11,8 @@ import MatchGeneral from "./MatchGeneral";
 
 const MatchBar = () => {
   const { matchid } = useParams();
-  console.log("Pobierane ID meczu:", matchid);
   const { data: match, loading, error } = useFetch(`/matches/${matchid}/`);
 
-  console.log("Pobrane dane meczu:", match);
   const [activeView, setActiveView] = useState(
     () => localStorage.getItem("activeView") || match?.status
   );
@@ -33,7 +31,9 @@ const MatchBar = () => {
       return (
         <>
           <MatchFinished match={match} />
+          
           <nav className={styles.nav}>
+            {/* Każdy przycisk to ODDZIELNY .navItem */}
             <div className={styles.navItem}>
               <button
                 className={activeView === "General" ? styles.active : ""}
@@ -41,12 +41,18 @@ const MatchBar = () => {
               >
                 General
               </button>
+            </div>
+            
+            <div className={styles.navItem}>
               <button
                 className={activeView === "Statists" ? styles.active : ""}
                 onClick={() => setActiveView("Statists")}
               >
                 Statists
               </button>
+            </div>
+            
+            <div className={styles.navItem}>
               <button
                 className={activeView === "Rating" ? styles.active : ""}
                 onClick={() => setActiveView("Rating")}
@@ -54,6 +60,7 @@ const MatchBar = () => {
                 Rating
               </button>
             </div>
+            
             <div className={styles.navItem}>
               <button
                 className={activeView === "Standing" ? styles.active : ""}
@@ -63,6 +70,7 @@ const MatchBar = () => {
               </button>
             </div>
           </nav>
+          
           {(() => {
             switch (activeView) {
               case "General":
@@ -71,12 +79,10 @@ const MatchBar = () => {
                 return <MatchStatists match={match} />;
               case "Standing":
                 return (
-                  <div className={styles.main}>
-                    <StandingBar
-                      leagueName={match.league_name}
-                      season={match.season}
-                    />
-                  </div>
+                  <StandingBar
+                    leagueName={match.league_name}
+                    season={match.season}
+                  />
                 );
               case "Rating":
                 return <Rating match_id={match.match_id} />;
@@ -90,6 +96,7 @@ const MatchBar = () => {
       return (
         <>
           <MatchScheduled match={match} />
+          
           <nav className={styles.nav}>
             <div className={styles.navItem}>
               <button
@@ -99,6 +106,7 @@ const MatchBar = () => {
                 General
               </button>
             </div>
+            
             <div className={styles.navItem}>
               <button
                 className={activeView === "Standing" ? styles.active : ""}
@@ -108,21 +116,18 @@ const MatchBar = () => {
               </button>
             </div>
           </nav>
+          
           {(() => {
             switch (activeView) {
               case "General":
                 return <MatchGeneral match={match} />;
-
               case "Standing":
                 return (
-                  <div className={styles.main}>
-                    <StandingBar
-                      leagueName={match.league_name}
-                      season={match.season}
-                    />
-                  </div>
+                  <StandingBar
+                    leagueName={match.league_name}
+                    season={match.season}
+                  />
                 );
-
               default:
                 return null;
             }

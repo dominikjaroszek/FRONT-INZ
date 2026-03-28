@@ -2,31 +2,33 @@ import { useNavigate } from "react-router-dom";
 import styles from "./TopBar.module.css";
 import SearchBar from "./SearchBar";
 import logo from "../assets/logo.png";
-import React from "react";
-import { Anchor, Drawer, Button, Menu } from "antd";
-import { useState } from "react";
-import { DownOutlined, SmileOutlined } from "@ant-design/icons";
-import { Dropdown, Space } from "antd";
+import React, { useState } from "react";
+import { Drawer, Button, Dropdown, Modal } from "antd";
 import useLogout from "../pages/Auth/useLogout";
-import { Modal } from "antd";
-
 import useAuth from "../hooks/useAuth";
+import useFetch from "../hooks/useFetch"; 
 
 function TopBar() {
   const navigate = useNavigate();
   const logout = useLogout();
-  const [drawerVisible, setDrawerVisible] = useState(false);
   const { auth } = useAuth();
+  
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
+
+  // 1. DOKŁADNIE TEN SAM ENDPOINT CO W HomeUpcoming.jsx
+  const { data: currentSeason } = useFetch("/seasons/current-year/"); 
+
   const showDrawer = () => setDrawerVisible(true);
   const closeDrawer = () => setDrawerVisible(false);
-  const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
 
   const handleSearch = (query) => {
     if (query.type === "team") {
       navigate(`/team/${query.value}`);
     }
     if (query.type === "league") {
-      navigate(`/league/${query.value}/2024-2025`);
+      // 2. Używamy pobranego sezonu (lub "2024-2025" dopóki zapytanie się ładuje)
+      navigate(`/league/${query.value}/${currentSeason || "2024-2025"}`);
     }
   };
 
@@ -89,7 +91,7 @@ function TopBar() {
     <div className={styles.containerColor}>
       <Modal
         title="Confirm Logout"
-        visible={isLogoutModalVisible}
+        open={isLogoutModalVisible} 
         onOk={() => {
           confirmLogout();
           setIsLogoutModalVisible(false);
@@ -143,11 +145,7 @@ function TopBar() {
           </div>
 
           {auth?.accessToken ? (
-            <Dropdown
-              menu={{
-                items,
-              }}
-            >
+            <Dropdown menu={{ items }}>
               <a onClick={(e) => e.preventDefault()} data-testid="profile">
                 <div className={styles.profile}>Profile</div>
               </a>

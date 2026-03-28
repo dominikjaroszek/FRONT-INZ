@@ -1,4 +1,3 @@
-// src/pages/Auth/Register.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axiosInstance";
@@ -7,10 +6,9 @@ import { ArrowLeftOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import styles from "./Register.module.css";
 import PersonalityQuiz from "./PersonalityQuiz"; 
 
-// IMPORT KONFIGURACJI
 import { 
-    PERSONALITY_PRESETS, 
-    FOOTBALL_PROFILE_MAP 
+  PERSONALITY_PRESETS, 
+  FOOTBALL_PROFILE_MAP 
 } from "../../utils/personalityConfig";
 
 const { Option } = Select;
@@ -19,19 +17,15 @@ const Register = () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
 
-  // --- Stany formularza ---
   const [nameRegister, setNameRegister] = useState("");
   const [lastNameRegister, setLastNameRegister] = useState("");
   const [emailRegister, setEmailRegister] = useState("");
   const [passwordRegister, setPasswordRegister] = useState("");
   const [repeatPasswordRegister, setRepeatPasswordRegister] = useState("");
   
-  // --- Stany Osobowości ---
-  const [personalityType, setPersonalityType] = useState(null); // np. "Konfrontator"
-  const [footballProfile, setFootballProfile] = useState(null); // np. "Agresor"
+  const [personalityType, setPersonalityType] = useState(null);
+  const [footballProfile, setFootballProfile] = useState(null); 
   
-  // Przechowujemy statystyki (Hype, Tactical, Aggression, Defense)
-  // Domyślnie 50, nadpisane przez Ankietę lub Wybór z listy
   const [finalStats, setFinalStats] = useState({
     base_hype: 50,
     base_tactical: 50,
@@ -41,7 +35,6 @@ const Register = () => {
 
   const [quizVisible, setQuizVisible] = useState(false);
 
-  // --- WALIDACJE ---
   const validateName = (name) => /^[A-Za-z]+$/.test(name);
 
   const validatePassword = (password) => {
@@ -51,9 +44,7 @@ const Register = () => {
     return null;
   };
 
-  // --- SCENARIUSZ 1: Użytkownik kończy QUIZ ---
   const handleQuizComplete = (result) => {
-    // result to obiekt: { type, footballProfile, stats }
     setPersonalityType(result.type);
     setFootballProfile(result.footballProfile);
     setFinalStats(result.stats);
@@ -62,14 +53,10 @@ const Register = () => {
     messageApi.success(`Ankieta zakończona! Wynik: ${result.type} (${result.footballProfile}).`);
   };
 
-  // --- SCENARIUSZ 2: Użytkownik wybiera z LISTY (bez ankiety) ---
   const handleManualSelection = (value) => {
     setPersonalityType(value);
     
-    // 1. Pobierz gotowe dane ("mające sens") z konfiguracji
     const presetStats = PERSONALITY_PRESETS[value];
-    
-    // 2. Pobierz nazwę piłkarską
     const fProfile = FOOTBALL_PROFILE_MAP[value];
 
     if (presetStats) {
@@ -97,7 +84,6 @@ const Register = () => {
         return messageApi.error("Proszę wybrać typ osobowości lub rozwiązać ankietę.");
     }
 
-    // --- PRZYGOTOWANIE PAYLOADU ---
     const payload = {
         email: emailRegister,
         first_name: nameRegister,
@@ -105,12 +91,8 @@ const Register = () => {
         password: passwordRegister,
         confirm_password: repeatPasswordRegister,
         
-        // Przekazujemy NAZWY
-        personality_type: personalityType,     // np. "Konfrontator"
-        football_profile: footballProfile,     // np. "Agresor"
-        
-        // Przekazujemy LICZBY (rozpakowujemy obiekt finalStats)
-        // czyli pola: base_hype, base_tactical, base_aggression, base_defense
+        personality_type: personalityType,
+        football_profile: footballProfile,
         ...finalStats 
     };
 
@@ -142,10 +124,12 @@ const Register = () => {
         onComplete={handleQuizComplete} 
       />
 
-      <div className={styles.backIcon} onClick={() => window.history.back()}>
-        <ArrowLeftOutlined />
-      </div>
       <div className={styles.registerBox}>
+        {/* Przycisk powrotu teraz wewnątrz karty (jak w Login) */}
+        <div className={styles.backIcon} onClick={() => navigate(-1)}>
+          <ArrowLeftOutlined />
+        </div>
+        
         <h2 className={styles.title}>Sign Up</h2>
         <p className={styles.subtitle}>Create your account</p>
         
@@ -177,14 +161,14 @@ const Register = () => {
           />
 
           {/* --- SEKCJA OSOBOWOŚCI --- */}
-          <div style={{ marginTop: 15, marginBottom: 20 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
-                <span style={{ color: '#fff', fontSize: '14px' }}>Typ osobowości:</span>
+          <div className={styles.personalitySection}>
+            <div className={styles.personalityHeader}>
+                <span className={styles.personalityLabel}>Typ osobowości:</span>
                 <Button 
                     type="link" 
                     icon={<QuestionCircleOutlined />} 
                     onClick={() => setQuizVisible(true)}
-                    style={{ padding: 0, color: '#1890ff' }}
+                    style={{ padding: 0, color: '#58a6ff' }}
                 >
                     Nie wiesz? Rozwiąż ankietę
                 </Button>
@@ -194,19 +178,17 @@ const Register = () => {
                 placeholder="Wybierz swój typ"
                 style={{ width: '100%', height: '45px' }}
                 value={personalityType}
-                onChange={handleManualSelection} // TU ZMIANA: używamy naszej funkcji
+                onChange={handleManualSelection}
                 className="custom-select"
             >
-                {/* Generujemy opcje dynamicznie z konfiguracji */}
                 {Object.keys(PERSONALITY_PRESETS).map(type => (
                     <Option key={type} value={type}>{type}</Option>
                 ))}
             </Select>
 
-            {/* Informacja o profilu piłkarskim (jeśli wybrany) */}
             {footballProfile && (
-                <div style={{ color: '#aaa', fontSize: '13px', marginTop: '8px', textAlign: 'center' }}>
-                    Twój profil piłkarski: <strong style={{color: '#1890ff'}}>{footballProfile}</strong>
+                <div className={styles.footballProfileText}>
+                    Twój profil piłkarski: <strong className={styles.footballProfileHighlight}>{footballProfile}</strong>
                 </div>
             )}
           </div>

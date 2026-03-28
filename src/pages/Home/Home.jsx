@@ -7,34 +7,50 @@ import useFetch from "../../hooks/useFetch";
 import MatchList from "../../components/MatchList";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const [expandedLeagues, setExpandedLeagues] = useState({});
+
+  // 1. Pobieranie sezonu
+  const {
+    data: currentSeason,
+    loading: seasonLoading,
+    error: seasonError,
+  } = useFetch(`/seasons/current-year/`);
+
+  // 2. Pobieranie zwykłych nadchodzących
   const {
     data: matchesByLeague,
     loading: matchesLoading,
     error: matchesError,
   } = useFetch(`/upcoming-matches/round`);
 
+  // 3. Pobieranie zwykłych zakończonych
   const {
     data: matchesFinished,
     loading: matchesFinishedLoading,
     error: matchesFinishedError,
   } = useFetch(`/finished-matches/round`);
 
-  const navigate = useNavigate();
+  // 4. Pobieranie "SPECIAL FOR YOU" (Nowy endpoint)
+  const {
+    data: recommendedMatches,
+    loading: recommendedLoading,
+  } = useFetch(`/matches/recommended-by-style/`);
 
-  const [expandedLeagues, setExpandedLeagues] = useState({});
+  if (matchesLoading || matchesFinishedLoading || seasonLoading) {
+    return <p>Loading...</p>;
+  }
 
-  if (matchesLoading || matchesFinishedLoading) return <p>Loading...</p>;
-
-  if (matchesError || matchesFinishedError) {
+  if (matchesError || matchesFinishedError || seasonError) {
     return (
       <p>
-        Error: {matchesError?.message || matchesFinishedError?.message}
+        Error: {matchesError?.message || matchesFinishedError?.message || seasonError?.message}
       </p>
     );
   }
 
   const leagues = {};
-  // Usunięto matchesLive z tablicy i logiki poniżej
+
   [...matchesByLeague, ...matchesFinished].forEach((league) => {
     if (!leagues[league.league_name]) {
       leagues[league.league_name] = { upcoming: [], finished: [] };
@@ -55,20 +71,59 @@ const Home = () => {
     }));
   };
 
+  // Formatowanie daty dla małych kart
+  const formatSpecialDate = (dateString) => {
+    const options = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return new Date(dateString).toLocaleDateString('en-GB', options);
+  };
+
   return (
     <div className={styles.container}>
       <TopBar />
       <div className={styles.content}>
         <SideBar />
         <div className={styles.mainContent}>
+            
+          {/* --- PANEL SPECIAL FOR YOU --- */}
+          {!recommendedLoading && recommendedMatches?.length > 0 && (
+            <div className={styles.specialPanel}>
+              <div className={styles.specialTitle}>✨ Special For You</div>
+              <div className={styles.specialGrid}>
+                {recommendedMatches.map((match) => (
+                  <div 
+                    key={match.id} 
+                    className={styles.specialCard}
+                    onClick={() => navigate(`/match/${match.id}`)}
+                  >
+                    <div className={styles.specialTeams}>
+                      <div className={styles.specialTeam}>
+                        <img src={match.home_team.logo} alt="Home" />
+                        <span>{match.home_team.name}</span>
+                      </div>
+                      <div className={styles.specialVs}>VS</div>
+                      <div className={styles.specialTeam}>
+                        <img src={match.away_team.logo} alt="Away" />
+                        <span>{match.away_team.name}</span>
+                      </div>
+                    </div>
+                    <div className={styles.specialDate}>
+                      {formatSpecialDate(match.date)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* ----------------------------- */}
+
           {Object.keys(leagues).map((leagueName) => (
             <div key={leagueName} className={styles.league}>
-              {/* Sekcja Upcoming */}
+              
               <div className={styles.singleLeague}>
                 <div
                   className={styles.leagueHeader}
                   onClick={() =>
-                    navigate(`/league/${leagueName}/2024-2025/upcoming`)
+                    navigate(`/league/${leagueName}/${currentSeason}/upcoming`)
                   }
                 >
                   <div className={styles.button}>Upcoming Matches</div>
@@ -76,9 +131,10 @@ const Home = () => {
                     <div className={styles.button}>{leagueName}</div>
                     <div
                       className={styles.button}
-                      onClick={() =>
-                        navigate(`/league/${leagueName}/2024-2025/standing`)
-                      }
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/league/${leagueName}/${currentSeason}/`);
+                      }}
                     >
                       Table
                     </div>
@@ -107,16 +163,15 @@ const Home = () => {
                     )}
                   </>
                 ) : (
-                  <p>No upcoming matches</p>
+                  <p className={styles.noMatches}>No upcoming matches</p>
                 )}
               </div>
 
-              {/* Sekcja Finished */}
               <div className={styles.singleLeague}>
                 <div
                   className={styles.leagueHeader}
                   onClick={() =>
-                    navigate(`/league/${leagueName}/2024-2025/result`)
+                    navigate(`/league/${leagueName}/${currentSeason}/result`)
                   }
                 >
                   <div className={styles.button}>Finished Matches</div>
@@ -144,7 +199,7 @@ const Home = () => {
                     )}
                   </>
                 ) : (
-                  <p>No finished matches</p>
+                  <p className={styles.noMatches}>No finished matches</p>
                 )}
               </div>
             </div>
