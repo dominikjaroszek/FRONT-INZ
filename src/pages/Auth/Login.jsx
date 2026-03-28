@@ -90,7 +90,6 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <div className={styles.loginBox}>
-        {/* Przycisk powrotu wewnątrz karty logowania */}
         <div className={styles.backIcon} onClick={() => navigate("/")}>
           <ArrowLeftOutlined />
         </div>

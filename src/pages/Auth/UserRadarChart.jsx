@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import { Card, Typography, Spin } from 'antd';
-import axios from '../../axiosInstance'; // Twój axios
+import axios from '../../axiosInstance'; 
 
 const { Title, Text } = Typography;
 
@@ -43,7 +43,6 @@ const UserRadarChart = () => {
             <PolarAngleAxis dataKey="subject" />
             <PolarRadiusAxis angle={30} domain={[0, 100]} />
             
-            {/* Wykres BAZOWY (Szary/Fioletowy - tło) */}
             <Radar
               name="Początek"
               dataKey="base"
@@ -52,7 +51,6 @@ const UserRadarChart = () => {
               fillOpacity={0.3}
             />
             
-            {/* Wykres AKTUALNY (Zielony - główny) */}
             <Radar
               name="Teraz"
               dataKey="current"

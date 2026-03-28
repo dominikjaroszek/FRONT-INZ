@@ -5,7 +5,6 @@ import styles from "./MatchList.module.css";
 const MatchList = ({ matches = [], finished, sortBy }) => {
   const navigate = useNavigate();
 
-  // Nowoczesne formatowanie daty
   const formatTime = (date) => {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
@@ -18,12 +17,10 @@ const MatchList = ({ matches = [], finished, sortBy }) => {
     return <div className={styles.noMatches}>No matches found</div>;
   }
 
-  // 1. Filtrujemy mecze pod kątem wskaźnika
   const matchesWithIndicator = matches.filter(
     (match) => sortBy && match[sortBy] != null
   );
 
-  // 2. Szukamy meczu z najwyższym wynikiem (High Hype)
   const maxIndicatorMatch =
     matchesWithIndicator.length > 0
       ? matchesWithIndicator.reduce((max, match) =>
@@ -36,12 +33,10 @@ const MatchList = ({ matches = [], finished, sortBy }) => {
       {matches.map((match) => {
         const matchDateObj = new Date(match.match_date);
         
-        // Surowa wartość wskaźnika
         const rawValue = match[sortBy];
         const hasValue = rawValue != null;
         const displayValue = hasValue ? Number(rawValue).toFixed(1) : "-";
 
-        // Sprawdzamy czy to ten wyróżniony mecz
         const isMaxIndicator =
           maxIndicatorMatch && match.match_id === maxIndicatorMatch.match_id;
 
@@ -54,7 +49,6 @@ const MatchList = ({ matches = [], finished, sortBy }) => {
             }`}
             data-testid="match"
           >
-            {/* LEWA STRONA: Drużyny i Gole */}
             <div className={styles.teamsContainer}>
               {/* Gospodarz */}
               <div className={styles.teamRow}>
@@ -64,13 +58,11 @@ const MatchList = ({ matches = [], finished, sortBy }) => {
                   alt="home logo"
                 />
                 <span className={styles.teamName}>{match.home_team}</span>
-                {/* Wynik goli (tylko jeśli mecz zakończony/trwa) */}
                 {finished === 1 && (
                     <span className={styles.goalScore}>{match.home_score}</span>
                 )}
               </div>
 
-              {/* Gość */}
               <div className={styles.teamRow}>
                 <img
                   className={styles.teamLogo}
@@ -84,17 +76,14 @@ const MatchList = ({ matches = [], finished, sortBy }) => {
               </div>
             </div>
 
-            {/* PRAWA STRONA: Wskaźnik i Data */}
             <div className={styles.matchDetails}>
               
-              {/* Wskaźnik (Hype Score itp.) */}
               {sortBy && (
                 <div className={styles.indicatorBadge}>
                   {displayValue}
                 </div>
               )}
 
-              {/* Data i Godzina */}
               <div className={styles.dateColumn}>
                 <span className={styles.matchTime}>{formatTime(matchDateObj)}</span>
                 <span className={styles.matchDate}>{formatDateShort(matchDateObj)}</span>

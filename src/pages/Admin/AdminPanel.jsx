@@ -6,7 +6,7 @@ import {
   CalculatorOutlined,
   LogoutOutlined,
   BarChartOutlined,
-  HistoryOutlined // <--- 1. NOWA IKONA
+  HistoryOutlined 
 } from "@ant-design/icons";
 import { axiosPrivate } from "../../hooks/useAxiosPrivate";
 import useLogout from "../Auth/useLogout.jsx"; 
@@ -28,7 +28,6 @@ const AdminPanel = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const logout = useLogout();
 
-  // Helper to call the API
   const runCommand = async (commandName, payload = {}) => {
     setLoading(true);
     setConsoleOutput("");
@@ -51,8 +50,6 @@ const AdminPanel = () => {
     }
   };
 
-  // --- Handlers ---
-
   const handleAnalytics = () => {
     runCommand("calculate_analytics");
   };
@@ -61,7 +58,6 @@ const AdminPanel = () => {
     runCommand("calculate_benchmarks");
   };
 
-  // --- 2. NOWY HANDLER DLA HISTORII ---
   const handleHistoryAnalytics = () => {
     runCommand("calculate_history_analytics");
   };
@@ -79,12 +75,9 @@ const AdminPanel = () => {
     runCommand("sync_full_season", syncOptions);
   };
 
-  // --- Render Components ---
-
   const AnalystTab = () => (
     <div style={{ padding: "20px" }}>
       
-      {/* SEKCJA: BENCHMARKS */}
       <div style={{ marginBottom: "30px", borderBottom: "1px solid #eee", paddingBottom: "20px" }}>
         <Title level={4}>League Benchmarks (Caps)</Title>
         <p>
@@ -103,7 +96,6 @@ const AdminPanel = () => {
         </Button>
       </div>
 
-      {/* SEKCJA: UPCOMING ANALYTICS */}
       <div style={{ paddingBottom: "20px" }}>
         <Title level={4}>Upcoming Match Analytics</Title>
         <p>
@@ -120,7 +112,6 @@ const AdminPanel = () => {
         </Button>
       </div>
 
-      {/* --- 3. NOWA SEKCJA: HISTORICAL BACKFILL --- */}
       <div style={{ marginTop: "15px", borderTop: "1px solid #eee", paddingTop: "20px" }}>
         <Title level={4}>Historical Backfill</Title>
         <p>

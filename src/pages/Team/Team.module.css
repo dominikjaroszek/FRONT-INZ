@@ -15,18 +15,16 @@
   justify-content: center;
 }
 
-/* W tym komponencie używasz leagueDetails jako głównego wrappera zawartości obok SideBar-u */
 .leagueDetails {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Wyśrodkowuje zawartość */
+  align-items: center;
   width: 100%;
-  flex: 1; /* Pozwala zająć całe miejsce obok SideBar */
+  flex: 1; 
   padding: 30px 40px;
   box-sizing: border-box;
 }
 
-/* --- KARTA DRUŻYNY --- */
 .team {
   display: flex;
   flex-direction: row;
@@ -36,8 +34,8 @@
   max-width: 1000px;
   background-color: #16191d;
   border: 1px solid #2a2e35;
-  border-radius: 10px; /* Nieco mniejsze zaokrąglenie */
-  padding: 16px 20px; /* Zmniejszony padding = bardziej kompaktowa karta */
+  border-radius: 10px; 
+  padding: 16px 20px; 
   margin-bottom: 20px;
   gap: 20px;
   box-sizing: border-box;
@@ -48,20 +46,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 4px; /* Nieco mniejszy odstęp między liniami tekstu */
+  gap: 4px; 
   font-size: 13px;
   text-align: left;
   color: #e0e6ed;
 }
 
 .logo {
-  width: 80px; /* Zwiększ lekko logo, lub ustaw na 60px, zależnie od preferencji */
+  width: 80px; 
   height: 80px;
   object-fit: contain;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
 }
 
-/* --- ZAKŁADKI NAWIGACJI (TABS) - zakładam że korzystasz z .Bar / .nav --- */
 .Bar {
   display: flex;
   flex-direction: column;
@@ -107,17 +104,15 @@
   border-bottom: 2px solid #58a6ff;
 }
 
-/* --- SEKCJE Z MECZAMI (Nowa klasa!) --- */
 .section {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 1000px; 
-  margin-top: 25px; /* <--- ZMIANA: Dodany odstęp od góry (od zakładek) */
+  margin-top: 25px; 
   margin-bottom: 10px;
 }
 
-/* --- NAGŁÓWEK SEKCJI --- */
 .leagueHeader {
   display: flex;
   width: 100%;
@@ -129,11 +124,10 @@
   padding: 14px 24px;
   border-radius: 12px;
   border-left: 4px solid #58a6ff;
-  margin-bottom: 12px; /* Zmniejszyłem margines przed meczami */
+  margin-bottom: 12px; 
   box-sizing: border-box;
 }
 
-/* Główny tytuł sekcji */
 .leagueHeader > .button:first-child {
   background-color: transparent;
   color: #ffffff;
@@ -152,7 +146,6 @@
   box-shadow: none;
 }
 
-/* --- POKAŻ WIĘCEJ --- */
 .ShowMore {
   background-color: #16191d;
   color: #58a6ff;
@@ -167,7 +160,7 @@
   letter-spacing: 1px;
   transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
   margin-top: 12px;
-  margin-bottom: 30px; /* Odstęp między sekcjami */
+  margin-bottom: 30px; 
   box-sizing: border-box;
 }
 
@@ -178,7 +171,6 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* --- BRAK WYNIKÓW --- */
 .noMatches {
   display: flex;
   justify-content: center;

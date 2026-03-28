@@ -1,16 +1,14 @@
-/* SideBar.module.css */
 .sidebar {
   width: 260px;
   min-height: 100vh;
-  background-color: #0e0e0e; /* Ciemne tło */
-  border-right: 1px solid #2a2e35; /* Linia z prawej */
+  background-color: #0e0e0e; 
+  border-right: 1px solid #2a2e35; 
   padding: 20px 15px;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
 }
 
-/* Nagłówek "LEAGUES" */
 .title {
   font-size: 12px;
   font-weight: 700;
@@ -27,7 +25,6 @@
   gap: 5px;
 }
 
-/* Pojedynczy wiersz ligi */
 .leagueItem {
   display: flex;
   flex-direction: row;
@@ -40,26 +37,24 @@
   transition: all 0.2s ease;
   font-size: 14px;
   font-weight: 500;
-  border-bottom: none; /* USUWAMY STARE BIAŁE LINIE */
+  border-bottom: none; 
 }
 
-/* --- LOGO (To naprawi wielki obrazek) --- */
 .logo {
-  width: 24px;       /* Sztywna szerokość */
-  height: 24px;      /* Sztywna wysokość */
-  object-fit: contain; /* Skalowanie bez zniekształceń */
-  filter: grayscale(100%) opacity(0.7); /* Szare logo domyślnie */
+  width: 24px;     
+  height: 24px;     
+  object-fit: contain; 
+  filter: grayscale(100%) opacity(0.7); 
   transition: all 0.2s ease;
 }
 
-/* --- HOVER --- */
 .leagueItem:hover {
-  background-color: #1e2126; /* Ciemnoszare tło po najechaniu */
+  background-color: #1e2126; 
   color: #fff;
 }
 
 .leagueItem:hover .logo {
-  filter: grayscale(0%) opacity(1); /* Kolorowe logo po najechaniu */
+  filter: grayscale(0%) opacity(1); 
   transform: scale(1.1);
 }
 

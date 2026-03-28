@@ -33,7 +33,6 @@ const MatchBar = () => {
           <MatchFinished match={match} />
           
           <nav className={styles.nav}>
-            {/* Każdy przycisk to ODDZIELNY .navItem */}
             <div className={styles.navItem}>
               <button
                 className={activeView === "General" ? styles.active : ""}

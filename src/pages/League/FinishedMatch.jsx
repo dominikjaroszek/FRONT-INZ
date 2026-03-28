@@ -1,12 +1,10 @@
 
 import React, { useState } from "react";
-import { Button } from "antd";
 import { useParams } from "react-router-dom";
 import TopBar from "../../components/TopBar";
 import SideBar from "../../components/SideBar";
 import useFetch from "../../hooks/useFetch";
 import LeagueBar from "../../components/LeagueBar";
-import { useNavigate } from "react-router-dom";
 import styles from "./LeagueHome.module.css";
 import LeagueDetails from "../../components/LeagueDetails";
 import MatchList from "../../components/MatchList";

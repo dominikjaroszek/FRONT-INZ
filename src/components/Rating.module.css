@@ -1,16 +1,14 @@
-/* --- GŁÓWNY KONTENER (Z odstępem od zakładek) --- */
 .wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 1000px;
-  margin-top: 25px; /* Odsuwa sekcję od górnej nawigacji */
+  margin-top: 25px; 
   margin-bottom: 40px;
-  gap: 20px; /* Odstęp między listą komentarzy a formularzem */
+  gap: 20px; 
   box-sizing: border-box;
 }
 
-/* --- KARTY (WIDŻETY) --- */
 .card, .actionCard {
   background-color: #16191d;
   border: 1px solid #2a2e35;
@@ -20,7 +18,6 @@
   box-sizing: border-box;
 }
 
-/* --- NAGŁÓWEK --- */
 .header {
   display: flex;
   justify-content: space-between;
@@ -39,17 +36,16 @@
 .average {
   font-size: 16px;
   font-weight: 600;
-  color: #8b949e; /* Wyciszony szary */
+  color: #8b949e; 
 }
 
 .average span {
-  color: #58a6ff; /* Niebieski akcent na samą ocenę */
+  color: #58a6ff; 
   font-size: 18px;
   font-weight: 800;
   margin-left: 5px;
 }
 
-/* --- LISTA KOMENTARZY --- */
 .commentList {
   display: flex;
   flex-direction: column;
@@ -61,18 +57,17 @@
   flex-direction: row;
   align-items: flex-start;
   gap: 16px;
-  border-bottom: 1px solid rgba(42, 46, 53, 0.5); /* Subtelna linia między komentarzami */
+  border-bottom: 1px solid rgba(42, 46, 53, 0.5); 
   padding-bottom: 20px;
 }
 
-/* Usuwa linię pod ostatnim komentarzem */
 .comment:last-child {
   border-bottom: none;
   padding-bottom: 0;
 }
 
 .avatar {
-  width: 50px; /* Nieco zgrabniejszy, okrągły awatar */
+  width: 50px; 
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
@@ -104,7 +99,6 @@
   margin-bottom: 6px;
 }
 
-/* Treść samego komentarza w szklanym, zaokrąglonym dymku */
 .commentText {
   background-color: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(42, 46, 53, 0.4);
@@ -118,7 +112,6 @@
   margin-top: 4px;
 }
 
-/* --- BRAK DANYCH / NIEZALOGOWANY --- */
 .noComments, .noAuth {
   color: #8b949e;
   font-style: italic;

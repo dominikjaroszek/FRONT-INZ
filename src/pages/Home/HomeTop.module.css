@@ -1,4 +1,3 @@
-/* --- GŁÓWNY UKŁAD STRONY --- */
 .container {
   display: flex;
   flex-direction: column;
@@ -23,7 +22,6 @@
   min-width: 0; 
 }
 
-/* --- SEKCJA REKOMENDACJI --- */
 .recommendationSection {
   width: 100%; 
   max-width: 1000px;
@@ -183,7 +181,6 @@
   transition: width 1s ease-in-out;
 }
 
-/* --- PANEL KONTROLNY (Nawigacja i Filtry) --- */
 .header {
   display: flex;
   flex-direction: row;
@@ -229,7 +226,6 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* --- DROPDOWN SORTOWANIA --- */
 .sortBy {
   display: flex;
   flex-direction: row;
@@ -260,7 +256,6 @@
   border-color: #58a6ff;
 }
 
-/* --- LISTA MECZÓW (KONTENERY) --- */
 .singleLeague, .allMatchesContainer {
   display: flex;
   flex-direction: column;
@@ -270,7 +265,6 @@
   box-sizing: border-box;
 }
 
-/* Nagłówek z nazwą ligi */
 .singleLeagueHeader {
   display: flex;
   flex-direction: row;
@@ -295,7 +289,6 @@
   cursor: default;
 }
 
-/* Pusty stan i statusy */
 .noMatches {
   display: flex;
   justify-content: center;

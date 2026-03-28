@@ -14,16 +14,16 @@
 .mainContent {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Wyśrodkowuje kontener główny */
+  align-items: center; 
   width: 100%;
-  flex: 1; /* Zajmuje resztę miejsca obok SideBara */
-  padding: 30px 40px; /* Więcej oddechu po bokach */
+  flex: 1; 
+  padding: 30px 40px; 
   box-sizing: border-box;
 }
 
 .league {
   width: 100%;
-  max-width: 1000px; /* Kontrola rzeczywistej szerokości listy */
+  max-width: 1000px; 
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
@@ -33,22 +33,21 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 40px;
-  width: 100%; /* Zajmie 100% z 1000px klasy .league */
+  width: 100%; 
   gap: 12px;
 }
 
-/* --- NAGŁÓWEK LIGI --- */
 .leagueHeader {
   display: flex;
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #16191d; /* Tło jak w kartach meczów */
-  border: 1px solid #2a2e35; /* Subtelna ramka */
-  padding: 14px 24px; /* Padding pasujący do kart */
-  border-radius: 12px; /* Zaokrąglenia jak karty */
-  border-left: 4px solid #58a6ff; /* Akcent z lewej */
+  background-color: #16191d; 
+  border: 1px solid #2a2e35; 
+  padding: 14px 24px; 
+  border-radius: 12px; 
+  border-left: 4px solid #58a6ff; 
   transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
   box-sizing: border-box;
@@ -64,21 +63,19 @@
   gap: 12px;
 }
 
-/* --- NOWOCZESNE PRZYCISKI / TAGI W NAGŁÓWKU --- */
 .button {
-  background-color: #262b33; /* Znacznie jaśniejsze tło, wyraźnie odcinające się od nagłówka */
-  color: #e0e6ed; /* Prawie biały, bardzo czytelny tekst */
+  background-color: #262b33; 
+  color: #e0e6ed; 
   cursor: pointer;
   padding: 6px 16px;
   border-radius: 20px;
   font-size: 1.2rem;
-  font-weight: 600; /* Pogrubiona czcionka dla lepszej widoczności */
+  font-weight: 600; 
   letter-spacing: 0.3px;
   transition: all 0.2s ease;
-  border: 1px solid #3a414a; /* Wyraźniejsza, jaśniejsza ramka */
+  border: 1px solid #3a414a; 
 }
 
-/* Wyjątek: Główny tytuł sekcji (Upcoming/Finished) */
 .leagueHeader > .button:first-child {
   background-color: transparent;
   color: #fff;
@@ -91,19 +88,17 @@
 
 
 
-/* Efekt najechania na tagi (np. Table, Premier League) */
 .button:hover {
   color: #ffffff;
-  background-color: #343b45; /* Jeszcze jaśniejsze tło przy najechaniu */
-  border-color: #58a6ff; /* Niebieski akcent nawiązujący do kart meczów */
+  background-color: #343b45; 
+  border-color: #58a6ff;
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
-/* --- PRZYCISK SEE MORE --- */
 .showMore {
-  background-color: #16191d; /* Tło zgodne z kartą meczu */
-  color: #58a6ff; /* Wyróżniony tekst */
+  background-color: #16191d; 
+  color: #58a6ff; 
   cursor: pointer;
   width: 100%;
   padding: 16px 0;
@@ -123,7 +118,6 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Pusty stan, jeśli nie ma meczów */
 .noMatches {
   display: flex;
   justify-content: center;
@@ -137,10 +131,6 @@
   border-radius: 12px;
 }
 
-/* ========================================= */
-/* --- MINI PANEL: SPECIAL FOR YOU --- */
-/* ========================================= */
-
 .specialPanel {
   width: 100%;
   max-width: 1000px;
@@ -152,11 +142,11 @@
 .specialTitle {
   font-size: 1.2rem;
   font-weight: 800;
-  color: #ffd700; /* Złoty akcent */
+  color: #ffd700; 
   margin-bottom: 16px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  text-align: left; /* Tytuł od lewej */
+  text-align: left; 
 }
 
 .specialGrid {
@@ -167,8 +157,8 @@
 }
 
 .specialCard {
-  flex: 1; /* Dwie karty zajmą po 50% szerokości */
-  background: linear-gradient(145deg, #1e2126, #141619); /* Subtelny gradient Premium */
+  flex: 1; 
+  background: linear-gradient(145deg, #1e2126, #141619); 
   border: 1px solid #2a2e35;
   border-radius: 16px;
   padding: 20px;
@@ -207,7 +197,7 @@
   height: 55px;
   object-fit: contain;
   margin-bottom: 12px;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); /* Lekki cień pod herbami */
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
 }
 
 .specialTeam span {
@@ -235,7 +225,6 @@
   border-radius: 20px;
 }
 
-/* Responsywność dla małych ekranów */
 @media (max-width: 768px) {
   .specialGrid {
     flex-direction: column;

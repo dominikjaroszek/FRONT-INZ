@@ -20,7 +20,6 @@ const SideBar = () => {
             className={styles.leagueItem}
             onClick={() => navigate(`/league/${league.name}/2025`)}
           >
-            {/* WAŻNE: Tu nie ma już style={{width...}}, używamy className={styles.logo} */}
             <img
               className={styles.logo}
               src={league?.logo}

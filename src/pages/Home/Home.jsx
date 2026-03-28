@@ -10,28 +10,24 @@ const Home = () => {
   const navigate = useNavigate();
   const [expandedLeagues, setExpandedLeagues] = useState({});
 
-  // 1. Pobieranie sezonu
   const {
     data: currentSeason,
     loading: seasonLoading,
     error: seasonError,
   } = useFetch(`/seasons/current-year/`);
 
-  // 2. Pobieranie zwykłych nadchodzących
   const {
     data: matchesByLeague,
     loading: matchesLoading,
     error: matchesError,
   } = useFetch(`/upcoming-matches/round`);
 
-  // 3. Pobieranie zwykłych zakończonych
   const {
     data: matchesFinished,
     loading: matchesFinishedLoading,
     error: matchesFinishedError,
   } = useFetch(`/finished-matches/round`);
 
-  // 4. Pobieranie "SPECIAL FOR YOU" (Nowy endpoint)
   const {
     data: recommendedMatches,
     loading: recommendedLoading,
@@ -71,7 +67,6 @@ const Home = () => {
     }));
   };
 
-  // Formatowanie daty dla małych kart
   const formatSpecialDate = (dateString) => {
     const options = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     return new Date(dateString).toLocaleDateString('en-GB', options);
@@ -84,7 +79,6 @@ const Home = () => {
         <SideBar />
         <div className={styles.mainContent}>
             
-          {/* --- PANEL SPECIAL FOR YOU --- */}
           {!recommendedLoading && recommendedMatches?.length > 0 && (
             <div className={styles.specialPanel}>
               <div className={styles.specialTitle}>✨ Special For You</div>
@@ -114,7 +108,6 @@ const Home = () => {
               </div>
             </div>
           )}
-          {/* ----------------------------- */}
 
           {Object.keys(leagues).map((leagueName) => (
             <div key={leagueName} className={styles.league}>

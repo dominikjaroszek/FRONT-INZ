@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Button } from "antd";
-import useFetch from "../../hooks/useFetch";
 import GeneralStanding from "./GeneralStanding";
 import HomeStanding from "./HomeStanding";
 import AwayStanding from "./AwayStanding";

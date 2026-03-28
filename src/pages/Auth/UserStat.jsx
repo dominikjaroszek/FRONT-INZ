@@ -4,11 +4,9 @@ import {
   ResponsiveContainer, Legend, Tooltip 
 } from 'recharts';
 import { Spin, Alert } from 'antd';
-
 import { axiosPrivate } from '../../hooks/useAxiosPrivate';
 import useAuth from '../../hooks/useAuth';
 import SideBarAccount from './SideBarAccount';
-
 import styles from './UserStat.module.css';
 
 const UserStat = () => {
@@ -53,17 +51,13 @@ const UserStat = () => {
         <div className={styles.card}>
           <h1 className={styles.title}>Twój Profil Kibica</h1>
 
-          {/* --- WYKRES RADAROWY --- */}
           <div className={styles.chartContainer}>
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data.chart_data}>
-                {/* Przyciemniona siatka wykresu */}
                 <PolarGrid stroke="#3a414a" /> 
-                {/* Zmiana koloru tekstu wokół wykresu na jasnoszary */}
                 <PolarAngleAxis dataKey="subject" tick={{ fill: '#8b949e', fontSize: 13, fontWeight: 600 }} />
                 <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
                 
-                {/* Styl Bazowy (Fioletowy) */}
                 <Radar
                   name="Początek (Bazowy)"
                   dataKey="base"
@@ -72,7 +66,6 @@ const UserStat = () => {
                   fillOpacity={0.3}
                 />
                 
-                {/* Styl Obecny (Zielony) */}
                 <Radar
                   name="Teraz (Aktualny)"
                   dataKey="current"
@@ -81,10 +74,8 @@ const UserStat = () => {
                   fillOpacity={0.6}
                 />
                 
-                {/* Legenda dopasowana do ciemnego tła */}
                 <Legend verticalAlign="bottom" height={36} wrapperStyle={{ color: '#e0e6ed' }} />
                 
-                {/* Tooltip w ciemnym motywie */}
                 <Tooltip 
                     contentStyle={{ 
                       backgroundColor: '#16191d', 
@@ -99,7 +90,6 @@ const UserStat = () => {
             </ResponsiveContainer>
           </div>
 
-          {/* --- SZCZEGÓŁY --- */}
           <div className={styles.details}>
             <div className={styles.detailItem}>
               <span className={styles.label}>Twój Styl Bazowy:</span>

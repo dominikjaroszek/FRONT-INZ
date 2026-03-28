@@ -13,17 +13,14 @@ const LeagueDetails = ({ leagueName, season }) => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    // Usunięto zbędne divy .container i .content
-    // Od razu zwracamy główną kartę
     <div className={styles.leagueDetails}>
       <img
         src={leagueDetails?.logo}
-        className={styles.logo} // Używamy naszej klasy CSS zamiast style={{ width: "100px" }}
+        className={styles.logo} 
         alt={`${leagueDetails?.league_name} logo`}
       />
 
       <div className={styles.data}>
-        {/* Warto dodać pogrubienie dla samej nazwy ligi, by wyglądało to jeszcze lepiej */}
         <div style={{ fontSize: '1.2rem', fontWeight: '700', color: '#fff' }}>
           {leagueName}
         </div>

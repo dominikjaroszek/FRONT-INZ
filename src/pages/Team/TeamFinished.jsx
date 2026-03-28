@@ -32,14 +32,12 @@ const TeamFinished = () => {
           <Team teamName={teamName} onDataSend={handleDataFromChild} />
           <TeamBar teamName={teamName} leagueName={childData} />
 
-          {/* DODANO WRAPPER .section TUTAJ: */}
           <div className={styles.section}>
             <div className={styles.leagueHeader}>
               <div className={styles.button}>Finished matches</div>
             </div>
             <MatchList matches={matchesData} finished={1} />
           </div>
-          {/* KONIEC WRAPPERA */}
           
         </div>
       </div>

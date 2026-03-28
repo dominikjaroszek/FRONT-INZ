@@ -1,5 +1,3 @@
-/* src/pages/admin/AdminPanel.module.css */
-
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -18,7 +16,7 @@
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
   font-size: 13px;
   line-height: 1.5;
-  color: #00ff00; /* Zielony tekst jak w terminalu */
+  color: #00ff00; 
 }
 
 .checkboxGroup {

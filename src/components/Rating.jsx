@@ -34,7 +34,6 @@ const Rating = ({ match_id }) => {
 
   return (
     <div className={styles.wrapper}>
-      {/* KARTA Z KOMENTARZAMI */}
       <div className={styles.card}>
         {!comments || comments.length === 0 ? (
           <div className={styles.noComments}>No comments yet</div>
@@ -70,7 +69,6 @@ const Rating = ({ match_id }) => {
         )}
       </div>
 
-      {/* KARTA DO DODAWANIA KOMENTARZA */}
       <div className={styles.actionCard}>
         {auth?.accessToken ? (
           <CommentRating

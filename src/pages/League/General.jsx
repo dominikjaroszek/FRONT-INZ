@@ -27,7 +27,6 @@ const General = () => {
     error: matchesError,
   } = useFetch(`/upcoming-matches/${leagueName}/${season}/2/`);
 
-  // Usunięto useFetch dla /live
 
   if (matchesLoading || matchesFinishedLoading) return <p>Loading...</p>;
   
@@ -44,7 +43,6 @@ const General = () => {
           <LeagueDetails leagueName={leagueName} season={season} />
           <LeagueBar leagueName={leagueName} />
           
-          {/* Sekcja Finished Matches */}
           <div className={styles.leagueHeader}>
             <div className={styles.button}>Finished matches</div>
           </div>
@@ -58,7 +56,6 @@ const General = () => {
             </div>
           ) : null}
 
-          {/* Sekcja Upcoming Matches */}
           <div className={styles.leagueHeader}>
             <div className={styles.button}>Upcoming matches</div>
           </div>
@@ -79,7 +76,6 @@ const General = () => {
             </div>
           ) : null}
 
-          {/* Usunięto sekcję Live matches */}
         </div>
       </div>
     </div>

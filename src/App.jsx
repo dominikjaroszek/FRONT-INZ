@@ -23,7 +23,7 @@ import Register from "./pages/Auth/Register.jsx";
 import Profile from "./pages/Auth/Profile.jsx";
 import RequireAuth from "./comp/RequireAuth.jsx";
 import Password from "./pages/Auth/Password.jsx";
-import AdminPanel from "./pages/admin/AdminPanel.jsx";
+import AdminPanel from "./pages/Admin/AdminPanel.jsx";
 import UserStat from "./pages/Auth/UserStat.jsx";
 
 function App() {

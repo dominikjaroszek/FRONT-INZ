@@ -1,11 +1,10 @@
-/* --- GŁÓWNY UKŁAD --- */
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #e0e0e0; /* Domyślny jasny tekst */
+  color: #e0e0e0;
 }
 
 .content {
@@ -17,22 +16,20 @@
 .main {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Wyśrodkowanie wszystkich elementów */
+  align-items: center;
   width: 100%;
   flex: 1;
   padding: 30px 40px;
   box-sizing: border-box;
 }
 
-/* --- KARTA INFORMACJI O LIDZE (Logo + Tekst) --- */
-/* TEJ KLASY BRAKOWAŁO: */
 .leagueDetails {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start; /* Spycha logo i tekst do lewej */
+  justify-content: flex-start;
   width: 100%;
-  max-width: 1000px; /* Zrównuje szerokość z tabelą i nagłówkami */
+  max-width: 1000px;
   background-color: #16191d;
   border: 1px solid #2a2e35;
   border-radius: 12px;
@@ -55,18 +52,17 @@
   justify-content: center;
   gap: 6px;
   font-size: 14px;
-  align-items: flex-start; /* Tekst do lewej */
-  text-align: left; /* Wyrównanie tekstu do lewej */
-  color: #e0e6ed; /* Nowoczesny, jasny kolor tekstu */
+  align-items: flex-start;
+  text-align: left;
+  color: #e0e6ed;
 }
 
-/* --- NAGŁÓWEK (np. Ostatnie mecze) --- */
 .leagueHeader {
   display: flex;
   width: 100%;
   max-width: 1000px;
   flex-direction: row;
-  justify-content: flex-start; /* Wszystkie elementy wyrównane do lewej krawędzi */
+  justify-content: flex-start;
   align-items: center;
   background-color: #16191d;
   border: 1px solid #2a2e35;
@@ -77,31 +73,29 @@
   box-sizing: border-box;
 }
 
-/* Nowoczesne szklane przyciski / tagi */
 .button {
   background-color: #262b33;
   color: #e0e6ed;
   cursor: pointer;
   padding: 6px 16px;
-  border-radius: 20px; /* Kształt pigułki */
+  border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 600;
   border: 1px solid #3a414a;
   transition: all 0.2s ease;
-  margin-left: auto; /* Spychanie ewentualnych innych tagów do prawej */
+  margin-left: auto;
 }
 
-/* WYJĄTEK DLA PIERWSZEGO ELEMENTU (GŁÓWNY TYTUŁ) */
 .leagueHeader > .button:first-child {
-  background-color: transparent; /* Brak szarego tła */
-  color: #ffffff; /* Biały, wyraźny tekst */
+  background-color: transparent;
+  color: #ffffff;
   font-size: 1.5em;
   font-weight: 700;
   padding: 0;
-  border: none; /* Brak ramki pigułki */
-  margin-left: 0; /* Tytuł zostaje z lewej strony */
+  border: none;
+  margin-left: 0;
   letter-spacing: normal;
-  cursor: default; /* Zmiana kursora dla tytułu */
+  cursor: default;
 }
 
 .leagueHeader > .button:first-child:hover {
@@ -119,7 +113,6 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
-/* --- PRZYCISK POKAŻ WIĘCEJ --- */
 .ShowMore {
   background-color: #16191d;
   color: #58a6ff;
@@ -134,8 +127,8 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-  margin-top: 12px; /* Odstęp od góry (od meczów) */
-  margin-bottom: 40px; /* <--- ZMIANA: Dodany duży odstęp od dołu (od kolejnej sekcji) */
+  margin-top: 12px;
+  margin-bottom: 40px;
 }
 
 .ShowMore:hover {
@@ -145,7 +138,6 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Brak meczów */
 .noMatches {
   display: flex;
   justify-content: center;
@@ -159,15 +151,14 @@
   border: 1px dashed #2a2e35;
   border-radius: 12px;
   margin-top: 12px;
-  margin-bottom: 40px; /* <--- ZMIANA: Dodany odstęp od dołu na wszelki wypadek */
+  margin-bottom: 40px;
 }
 
-/* --- TABELA LIGOWA --- */
 .tableContainer {
   width: 100%;
   max-width: 1000px;
   overflow-x: auto;
-  background-color: #16191d; /* Tło karty tabeli */
+  background-color: #16191d;
   border: 1px solid #2a2e35;
   border-radius: 12px;
   margin-bottom: 40px;
@@ -182,14 +173,14 @@
 
 .table th {
   background-color: #1e2126; 
-  color: #c9d1d9; /* Jaśniejszy, bardziej czytelny szary */
+  color: #c9d1d9;
   padding: 16px 12px;
-  font-size: 1pem; /* Zamiast rem używamy twardych pikseli */
-  line-height: 1.5; /* Zapobiega spłaszczaniu tekstu */
+  font-size: 1pem;
+  line-height: 1.5;
   text-transform: uppercase;
   letter-spacing: 1px;
   border-bottom: 1px solid #2a2e35;
-  text-align: center; /* Upewniamy się, że tekst jest na środku */
+  text-align: center;
 }
 
 .table td {
@@ -201,7 +192,6 @@
   text-align: center;
 }
 
-/* Usuwamy dolną ramkę z ostatniego wiersza */
 .table tr:last-child td {
   border-bottom: none;
 }
@@ -211,10 +201,9 @@
 }
 
 .table tr:hover {
-  background-color: rgba(255, 255, 255, 0.03); /* Bardzo dyskretne podświetlenie wiersza */
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
-/* Nazwa drużyny w tabeli */
 .teamName {
   color: #e0e6ed;
   font-weight: 600;
@@ -225,10 +214,9 @@
 }
 
 .teamName:hover {
-  color: #58a6ff; /* Podświetlenie na niebiesko przy najechaniu zamiast brzydkiego podkreślenia */
+  color: #58a6ff;
 }
 
-/* --- IKONY FORMY (W/D/L) --- */
 .formIcons {
   display: flex;
   justify-content: center;
@@ -238,20 +226,19 @@
 .formIcon {
   width: 22px;
   height: 22px;
-  border-radius: 50%; /* Kółka */
+  border-radius: 50%;
   display: inline-block;
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2); /* Lekka głębia */
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
 }
 
-/* Nowoczesne, stonowane kolory formy pasujące do ciemnego motywu */
 .win {
-  background-color: #238636; /* Stonowany zielony */
+  background-color: #238636;
 }
 
 .draw {
-  background-color: #d29922; /* Stonowany złoty/żółty */
+  background-color: #d29922;
 }
 
 .lose {
-  background-color: #da3633; /* Stonowany czerwony */
+  background-color: #da3633;
 }

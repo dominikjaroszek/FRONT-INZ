@@ -1,24 +1,21 @@
-/* Kontener paska nawigacji */
 .nav {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 30px; /* Odstęp między zakładkami */
-  border-bottom: 1px solid #2a2e35; /* Subtelna linia oddzielająca od reszty strony */
+  gap: 30px; 
+  border-bottom: 1px solid #2a2e35; 
   padding: 0 10px;
   margin-bottom: 25px;
   width: 100%;
-  overflow-x: auto; /* Zabezpieczenie na mobile - przewijanie palcem */
-  white-space: nowrap; /* Zapobiega łamaniu linii */
-  scrollbar-width: none; /* Ukrywa pasek przewijania (Firefox) */
+  overflow-x: auto; 
+  white-space: nowrap; 
+  scrollbar-width: none; 
 }
 
-/* Ukrywanie paska przewijania (Chrome/Safari) */
 .nav::-webkit-scrollbar {
   display: none;
 }
 
-/* Pojedynczy element nawigacji */
 .navItem {
   position: relative;
   display: flex;
@@ -26,37 +23,29 @@
   height: 100%;
 }
 
-/* Styl przycisku (reset domyślnych stylów) */
 .navItem button {
   background: transparent;
   border: none;
-  color: #8b949e; /* Szary kolor dla nieaktywnych (GitHub Dark style) */
+  color: #8b949e;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  padding: 12px 4px; /* Padding pionowy definiuje wysokość paska */
+  padding: 12px 4px; 
   transition: color 0.2s ease, box-shadow 0.2s ease;
   font-family: 'Inter', system-ui, sans-serif;
   position: relative;
 }
 
-/* Hover - po najechaniu tekst jaśnieje */
 .navItem button:hover {
-  color: #c9d1d9; /* Jaśniejszy szary */
+  color: #c9d1d9; 
 }
 
-/* --- STAN AKTYWNY --- */
-
 .navItem.active button {
-  color: #58a6ff; /* Twój główny niebieski kolor */
+  color: #58a6ff; 
   font-weight: 600;
-  
-  /* Zamiast border-bottom, używamy box-shadow inset. 
-     Dzięki temu tekst nie skacze (border zmienia wysokość, shadow nie). */
   box-shadow: 0 2px 0 0 #58a6ff; 
 }
 
-/* Opcjonalnie: Delikatna poświata dla aktywnego elementu */
 .navItem.active button::after {
   content: '';
   position: absolute;

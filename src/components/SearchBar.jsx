@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styles from "./SearchBar.module.css";
 import { AutoComplete } from "antd";
 import axios from "axios";
-import useFetch from "../hooks/useFetch";
-import axiosInstance from "../axiosInstance";
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState("");

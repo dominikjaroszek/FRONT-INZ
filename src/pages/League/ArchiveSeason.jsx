@@ -21,7 +21,6 @@ const ArchiveSeason = () => {
   if (seasonError) return <p>Error: {seasonError.message}</p>;
 
   const handleChange = (newSeason) => {
-    // newSeason to teraz np. 2024 lub 2025
     navigate(`/league/${leagueName}/${newSeason}`);
   };
 

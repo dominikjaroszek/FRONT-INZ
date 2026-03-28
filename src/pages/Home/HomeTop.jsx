@@ -129,7 +129,6 @@ const HomeTop = () => {
             </div>
           )}
 
-          {/* --- PANEL KONTROLNY (Nawigacja i Sortowanie) --- */}
           <div className={styles.header}>
             <div className={styles.nav}>
               <div className={`${styles.navItem} ${viewMode === "league" ? styles.active : ""}`}>
@@ -159,7 +158,6 @@ const HomeTop = () => {
             </div>
           </div>
 
-          {/* --- LISTA MECZÓW --- */}
           {viewMode === "league" ? (
             !matchesByLeague || matchesByLeague.length === 0 ? (
               <p className={styles.noMatches} data-testid="no-matches">No upcoming matches</p>

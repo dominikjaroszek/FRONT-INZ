@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Typography, Row, Col, Progress, Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { calculateQuizStats, FOOTBALL_PROFILE_MAP } from "../../utils/personalityConfig";
-import styles from "./PersonalityQuiz.module.css"; // Dodajemy import stylów
+import styles from "./PersonalityQuiz.module.css"; 
 
 const { Title, Text } = Typography;
 
@@ -178,7 +178,7 @@ const PersonalityQuiz = ({ visible, onClose, onComplete }) => {
       width={800}
       centered
       maskClosable={false}
-      className={styles.darkModal} // Ważne: nakłada na modala ciemne style
+      className={styles.darkModal} 
     >
       <div className={styles.quizWrapper}>
         
@@ -204,7 +204,6 @@ const PersonalityQuiz = ({ visible, onClose, onComplete }) => {
         </div>
 
         <div style={{ marginBottom: '40px', padding: '0 10px' }}>
-            {/* trailColor zmienia tło niezapełnionego paska, strokeColor zmienia zapełniony na nasz niebieski */}
             <Progress percent={progressPercent} showInfo={false} strokeColor="#58a6ff" trailColor="#2a2e35" />
         </div>
 

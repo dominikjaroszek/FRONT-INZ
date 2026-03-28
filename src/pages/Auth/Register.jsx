@@ -160,7 +160,6 @@ const Register = () => {
             autoComplete="new-password"
           />
 
-          {/* --- SEKCJA OSOBOWOŚCI --- */}
           <div className={styles.personalitySection}>
             <div className={styles.personalityHeader}>
                 <span className={styles.personalityLabel}>Typ osobowości:</span>

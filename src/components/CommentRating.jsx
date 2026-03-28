@@ -10,18 +10,14 @@ const CommentRating = ({ match_id, onRatingSuccess }) => {
   const [comment, setComment] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 1. POBIERANIE OCENY (GET)
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        // Używamy params, aby axios sam zbudował poprawny URL:
-        // /api/ratings/my-rating/?match_id=1379118
         const response = await axiosPrivate.get("/ratings/my-rating/", {
           params: { match_id: match_id },
         });
         setComment(response.data);
       } catch (err) {
-        // Ignorujemy 404 - oznacza po prostu, że użytkownik jeszcze nie ocenił
         if (err.response && err.response.status === 404) {
           setComment(null);
         } else {
@@ -35,26 +31,19 @@ const CommentRating = ({ match_id, onRatingSuccess }) => {
     if (match_id) fetchComments();
   }, [match_id]);
 
-  // 2. DODAWANIE (POST) LUB EDYCJA (PATCH)
   const handleRatingSubmit = async (rating) => {
     setLoading(true);
     try {
       let response;
 
       if (comment?.id) {
-        // --- EDYCJA (PATCH) ---
-        // Endpoint: /ratings/my-rating/?match_id=...
-        // W axios.patch params idą w trzecim argumencie (config)
         response = await axiosPrivate.patch(
           "/ratings/my-rating/",
           { rating: rating }, // body
-          { params: { match_id: match_id } } // query params
+          { params: { match_id: match_id } } 
         );
         message.success("Your rating has been updated!");
       } else {
-        // --- TWORZENIE (POST) ---
-        // Endpoint: /ratings/
-        // W body wysyłamy 'match' (api_id) oraz 'rating'
         response = await axiosPrivate.post("/ratings/", {
           match: match_id, 
           rating: rating,
@@ -64,7 +53,6 @@ const CommentRating = ({ match_id, onRatingSuccess }) => {
 
       setComment(response.data);
 
-      // Powiadom rodzica (Rating.jsx), że dane się zmieniły -> odśwież widok
       if (onRatingSuccess) onRatingSuccess();
 
     } catch (err) {
@@ -79,7 +67,6 @@ const CommentRating = ({ match_id, onRatingSuccess }) => {
     }
   };
 
-  // 3. USUWANIE (DELETE)
   const handleRatingDelete = () => {
     Modal.confirm({
       title: "Are you sure you want to delete your rating?",
@@ -89,8 +76,6 @@ const CommentRating = ({ match_id, onRatingSuccess }) => {
       onOk: async () => {
         setLoading(true);
         try {
-          // Endpoint: /ratings/my-rating/?match_id=...
-          // W axios.delete params idą w drugim argumencie (config)
           await axiosPrivate.delete("/ratings/my-rating/", {
             params: { match_id: match_id },
           });
@@ -98,7 +83,6 @@ const CommentRating = ({ match_id, onRatingSuccess }) => {
           setComment(null);
           message.success("The rating has been deleted.");
 
-          // Powiadom rodzica -> odśwież widok
           if (onRatingSuccess) onRatingSuccess();
 
         } catch (err) {

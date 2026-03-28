@@ -42,11 +42,9 @@ const Password = () => {
     }
 
     try {
-      // 1. ADDED "/" at the end of the URL
-      // 2. Mapped React camelCase to Django snake_case keys
       await axiosPrivate.patch("auth/change-password/", {
-        old_password: oldPassword, // Backend expects old_password
-        new_password: newPassword, // Backend expects new_password
+        old_password: oldPassword, 
+        new_password: newPassword, 
       });
       
       messageApi.success("Password changed successfully!");
@@ -54,7 +52,6 @@ const Password = () => {
       setNewPassword("");
       setConfirmPassword("");
     } catch (err) {
-      // Improved error handling to show backend validation errors
       console.error(err);
       if (err.response?.data?.old_password) {
          messageApi.error(err.response.data.old_password[0]);

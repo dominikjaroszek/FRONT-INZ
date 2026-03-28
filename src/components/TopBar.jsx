@@ -16,7 +16,6 @@ function TopBar() {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
 
-  // 1. DOKŁADNIE TEN SAM ENDPOINT CO W HomeUpcoming.jsx
   const { data: currentSeason } = useFetch("/seasons/current-year/"); 
 
   const showDrawer = () => setDrawerVisible(true);
@@ -27,7 +26,6 @@ function TopBar() {
       navigate(`/team/${query.value}`);
     }
     if (query.type === "league") {
-      // 2. Używamy pobranego sezonu (lub "2024-2025" dopóki zapytanie się ładuje)
       navigate(`/league/${query.value}/${currentSeason || "2024-2025"}`);
     }
   };

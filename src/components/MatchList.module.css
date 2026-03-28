@@ -1,17 +1,15 @@
-/* Kontener listy - zapewnia odstępy między kartami */
 .container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 12px; /* Odstęp między kafelkami */
+  gap: 12px; 
 }
 
-/* Pojedyncza karta meczu */
 .matchCard {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #16191d; /* Ciemne tło */
+  background-color: #16191d; 
   border: 1px solid #2a2e35;
   border-radius: 12px;
   padding: 16px 24px;
@@ -21,19 +19,16 @@
   overflow: hidden;
 }
 
-/* Efekt hover */
 .matchCard:hover {
   background-color: #1e2126;
-  border-color: #58a6ff; /* Niebieskie podświetlenie krawędzi */
-  transform: translateX(4px); /* Lekki ruch w prawo */
+  border-color: #58a6ff; 
+  transform: translateX(4px); 
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* --- STYL DLA NAJLEPSZEGO MECZU (HIGHLIGHT) --- */
 .highlighted {
-  /* Subtelny gradient zamiast jaskrawego tła */
   background: linear-gradient(90deg, rgba(255, 165, 0, 0.08) 0%, rgba(22, 25, 29, 0) 100%);
-  border-left: 4px solid #ffa500; /* Pomarańczowy pasek z lewej */
+  border-left: 4px solid #ffa500; 
   border-color: rgba(255, 165, 0, 0.3);
 }
 
@@ -42,12 +37,11 @@
   background-color: rgba(255, 165, 0, 0.05);
 }
 
-/* --- LEWA STRONA: DRUŻYNY --- */
 .teamsContainer {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  flex: 1; /* Zajmuje dostępną przestrzeń */
+  flex: 1; 
 }
 
 .teamRow {
@@ -73,22 +67,19 @@
   max-width: 200px;
 }
 
-/* Wynik goli (jeśli mecz trwa/zakończony) */
 .goalScore {
   color: #58a6ff;
   font-weight: 700;
-  margin-left: auto; /* Dopycha wynik do prawej strony kontenera drużyn */
+  margin-left: auto; 
   padding-right: 20px;
 }
 
-/* --- PRAWA STRONA: WSKAŹNIKI I DATA --- */
 .matchDetails {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-/* Badge ze wskaźnikiem (np. Hype Score) */
 .indicatorBadge {
   background-color: #2a2e35;
   color: #ccc;
@@ -101,7 +92,6 @@
   border: 1px solid #333;
 }
 
-/* Jeśli to jest High Hype, zmieniamy kolor badge'a */
 .highlighted .indicatorBadge {
   background-color: #ffa500;
   color: #000;
@@ -109,7 +99,6 @@
   box-shadow: 0 0 10px rgba(255, 165, 0, 0.4);
 }
 
-/* Data i Godzina */
 .dateColumn {
   display: flex;
   flex-direction: column;
@@ -134,7 +123,6 @@
   letter-spacing: 0.5px;
 }
 
-/* Pusty stan */
 .noMatches {
   text-align: center;
   padding: 30px;

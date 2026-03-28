@@ -1,31 +1,28 @@
-/* --- GŁÓWNY KONTENER --- */
 .container {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Wyrównuje obie karty idealnie do góry */
+  align-items: flex-start; 
   min-height: 100vh;
-  width: 100vw; /* Wymusza pełną szerokość, pozbywamy się "odciętego" tła */
+  width: 100vw; 
   margin: 0;
-  background-color: #0e0e0e; /* Jednolite, gładkie tło */
+  background-color: #0e0e0e; 
   color: #e0e6ed;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  padding: 80px 20px; /* Równy odstęp od góry ekranu dla całego panelu */
-  gap: 30px; /* Odstęp między lewym menu a prawą kartą */
+  padding: 80px 20px; 
+  gap: 30px; 
   box-sizing: border-box;
   overflow-x: hidden;
 }
 
-/* --- GŁÓWNA ZAWARTOŚĆ --- */
 .mainContent {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 500px;
-  margin: 0; /* Upewniamy się, że nie ma ukrytych marginesów */
+  margin: 0; 
   padding: 0;
 }
 
-/* --- KARTA (Account Information / Password) --- */
 .card {
   width: 100%;
   background-color: #16191d;
@@ -45,7 +42,6 @@
   letter-spacing: 0.5px;
 }
 
-/* --- SZCZEGÓŁY KONTA --- */
 .details {
   display: flex;
   flex-direction: column;

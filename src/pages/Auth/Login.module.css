@@ -1,38 +1,35 @@
-/* --- GŁÓWNY KONTENER --- */
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  width: 100vw; /* Rozciąga na całą szerokość ekranu */
+  width: 100vw; 
   margin: 0;
   padding: 0;
-  background-color: #0e0e0e; /* Ciemne tło na całej stronie */
+  background-color: #0e0e0e; 
   color: #e0e6ed;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
 }
 
-/* --- KARTA LOGOWANIA --- */
 .loginBox {
-  position: relative; /* Pozwala na ułożenie przycisku backIcon względem tej karty */
+  position: relative; 
   width: 100%;
   max-width: 420px;
   background-color: #16191d;
   border: 1px solid #2a2e35;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  padding: 50px 40px 40px 40px; /* Nieco większy padding z góry na przycisk powrotu */
+  padding: 50px 40px 40px 40px; 
   text-align: center;
   box-sizing: border-box;
 }
 
-/* --- IKONA POWROTU (Teraz zintegrowana z kartą) --- */
 .backIcon {
   position: absolute;
   top: 20px;
   left: 20px;
-  font-size: 16px; /* Nieco mniejsza, subtelniejsza */
+  font-size: 16px;
   cursor: pointer;
   color: #8b949e;
   transition: all 0.2s ease;
@@ -54,7 +51,6 @@
   box-shadow: 0 4px 10px rgba(88, 166, 255, 0.15);
 }
 
-/* --- TEKSTY --- */
 .title {
   font-size: 28px;
   font-weight: 800;
@@ -70,7 +66,6 @@
   font-weight: 500;
 }
 
-/* --- POLA FORMULARZA --- */
 form {
   display: flex;
   flex-direction: column;
@@ -99,7 +94,6 @@ form {
   box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
 }
 
-/* --- PRZYCISK LOGOWANIA --- */
 .button {
   width: 100%;
   padding: 14px;
@@ -125,7 +119,6 @@ form {
   transform: translateY(0);
 }
 
-/* --- LINK REJESTRACJI --- */
 .registerLink {
   margin-top: 25px;
   font-size: 14px;

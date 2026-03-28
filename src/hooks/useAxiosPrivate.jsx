@@ -71,7 +71,6 @@ axiosPrivate.interceptors.response.use(
             refresh: refreshToken 
           })
           .then(({ data }) => {
-            // POPRAWKA: Django zwraca klucz 'access', a nie 'access_token'
             const newAccessToken = data.access;
             const authData = {
               ...tmpAuth,

@@ -1,4 +1,3 @@
-/* --- GŁÓWNY KONTENER --- */
 .container {
   display: flex;
   justify-content: center;
@@ -6,14 +5,13 @@
   min-height: 100vh;
   width: 100vw;
   margin: 0;
-  padding: 20px 0; /* Zabezpieczenie paddingu przy mniejszych ekranach */
+  padding: 20px 0; 
   background-color: #0e0e0e; 
   color: #e0e6ed;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
 }
 
-/* --- KARTA REJESTRACJI --- */
 .registerBox {
   position: relative;
   width: 100%;
@@ -27,7 +25,6 @@
   box-sizing: border-box;
 }
 
-/* --- IKONA POWROTU --- */
 .backIcon {
   position: absolute;
   top: 20px;
@@ -54,7 +51,6 @@
   box-shadow: 0 4px 10px rgba(88, 166, 255, 0.15);
 }
 
-/* --- TEKSTY --- */
 .title {
   font-size: 28px;
   font-weight: 800;
@@ -70,7 +66,6 @@
   font-weight: 500;
 }
 
-/* --- POLA FORMULARZA --- */
 form {
   display: flex;
   flex-direction: column;
@@ -99,7 +94,6 @@ form {
   box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
 }
 
-/* --- SEKCJA OSOBOWOŚCI --- */
 .personalitySection {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -131,7 +125,6 @@ form {
   font-weight: 700;
 }
 
-/* --- PRZYCISK REJESTRACJI --- */
 .button {
   width: 100%;
   padding: 14px;
@@ -157,9 +150,6 @@ form {
   transform: translateY(0);
 }
 
-/* --- OVERRIDES DLA ANT DESIGN SELECT (Dropdown) --- */
-
-/* Główny przycisk/pole wyboru */
 .personalitySection :global(.ant-select-selector) {
   background-color: #0e0e0e !important;
   border: 1px solid #3a414a !important;
@@ -171,14 +161,12 @@ form {
   transition: all 0.2s ease !important;
 }
 
-/* Wygląd podczas kliknięcia (Focus) */
 .personalitySection :global(.ant-select-focused .ant-select-selector),
 .personalitySection :global(.ant-select-open .ant-select-selector) {
   border-color: #58a6ff !important;
   box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15) !important;
 }
 
-/* Kolor placeholdera i wybranego tekstu */
 .personalitySection :global(.ant-select-selection-placeholder) {
   color: #6e7681 !important;
   line-height: 43px !important;
@@ -189,12 +177,10 @@ form {
   line-height: 43px !important;
 }
 
-/* Ikona strzałki */
 .personalitySection :global(.ant-select-arrow) {
   color: #8b949e !important;
 }
 
-/* --- ROZWIJANA LISTA OPCJI ANT DESIGN --- */
 :global(.ant-select-dropdown) {
   background-color: #16191d !important;
   border: 1px solid #2a2e35 !important;
@@ -209,13 +195,11 @@ form {
   transition: all 0.2s ease !important;
 }
 
-/* Efekt po najechaniu na opcję */
 :global(.ant-select-item-option:hover),
 :global(.ant-select-item-option-active) {
   background-color: #262b33 !important;
 }
 
-/* Efekt dla wybranej opcji */
 :global(.ant-select-item-option-selected) {
   background-color: rgba(88, 166, 255, 0.1) !important;
   color: #58a6ff !important;

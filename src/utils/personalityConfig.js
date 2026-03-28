@@ -1,6 +1,3 @@
-// src/utils/personalityConfig.js
-
-// 1. MAPOWANIE NAZW: Psychologia -> Piłka Nożna
 export const FOOTBALL_PROFILE_MAP = {
   "Konfrontator": "Agresor",
   "Stabilizator": "Defensor",
@@ -8,8 +5,6 @@ export const FOOTBALL_PROFILE_MAP = {
   "Poszukiwacz Doznań": "Kibic Adrenaliny"
 };
 
-// 2. PREDEFINIOWANE WARTOŚCI (Dla osób wybierających z listy)
-// To są wartości dla kogoś, kto NIE robi ankiety, tylko wybiera z listy.
 export const PERSONALITY_PRESETS = {
   "Konfrontator": {
     base_hype: 60,
@@ -37,20 +32,14 @@ export const PERSONALITY_PRESETS = {
   }
 };
 
-// 3. LOGIKA OBLICZANIA WYNIKU ANKIETY
-// counts: obiekt np. { "Konfrontator": 4, "Analityk": 6 ... }
-// totalQuestions: liczba pytań
 export const calculateQuizStats = (counts, totalQuestions) => {
-  // Funkcja pomocnicza: Oblicza procent i skaluje go (min 10, max 100)
   const calc = (votes) => {
-    if (!votes) return 10; // Minimalna wartość statystyki
+    if (!votes) return 10; 
     const percentage = (votes / totalQuestions) * 100;
     
-    // Zaokrąglij i upewnij się, że nie przekracza 100
     return Math.min(Math.round(percentage), 100); 
   };
 
-  // Tutaj mapujemy głosy na konkretne statystyki
   return {
     base_aggression: calc(counts["Konfrontator"]),
     base_defense: calc(counts["Stabilizator"]),
