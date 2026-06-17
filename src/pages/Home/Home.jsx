@@ -1,14 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../../components/TopBar";
 import SideBar from "../../components/SideBar";
 import styles from "./Home.module.css";
 import useFetch from "../../hooks/useFetch";
 import MatchList from "../../components/MatchList";
+import { axiosPrivate } from '../../hooks/useAxiosPrivate';
 
 const Home = () => {
   const navigate = useNavigate();
   const [expandedLeagues, setExpandedLeagues] = useState({});
+  const [recommendedMatches, setRecommendedMatches] = useState(null);
+  const [recommendedLoading, setRecommendedLoading] = useState(true);
+
+useEffect(() => {
+    const fetchRecommendedMatches = async () => {
+      try {
+        const response = await axiosPrivate.get('/matches/recommended-by-style/');
+        setRecommendedMatches(response.data);
+        setRecommendedLoading(false);
+      } catch (error) {
+        console.error("Błąd pobierania rekomendowanych meczów:", error);
+        setRecommendedLoading(false);
+      }
+    };
+
+    fetchRecommendedMatches();
+  }, []);
 
   const {
     data: currentSeason,
@@ -27,11 +45,6 @@ const Home = () => {
     loading: matchesFinishedLoading,
     error: matchesFinishedError,
   } = useFetch(`/finished-matches/round`);
-
-  const {
-    data: recommendedMatches,
-    loading: recommendedLoading,
-  } = useFetch(`/matches/recommended-by-style/`);
 
   if (matchesLoading || matchesFinishedLoading || seasonLoading) {
     return <p>Loading...</p>;
